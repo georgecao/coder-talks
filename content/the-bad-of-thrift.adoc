@@ -2,7 +2,7 @@
 :toc:
 
 Thrift作为一个经常拿来和Google的Protocol Buffers比较的二进制协议阵营中的重量级选手，我认为其最大的特点就是有个完整的RPC协议栈，而Protocol Buffers开源出来的版本基本上可以认为仅仅是个跨平台的数据序列化/反序列化的工具。
-image:../assets/arch.png[arch]
+image:../assets/Apache_Thrift_Architecture.png[arch]
 图片来自Wikipedia
 
 也是基于最大的理由，我们在RPC环境下选择了Thrift。但是在使用Thrift的过程中也逐渐发现她的一些问题。
@@ -11,12 +11,12 @@ image:../assets/arch.png[arch]
 这点使用Java语言来讲，要特别注意。Thrift本身使用的Java的ArrayList，HashSet，HashMap这些数据结构分别实现list，set和map。从Java的语义来讲，ArrayList里面是允许有null值的，HashMap的键（key）和值（value）都是允许有null值的，而HashSet内部是用了一个HashMap来实现的，同样也是允许有null值的。
 [code=java]
 ----
-	// HashMap
+    // HashMap
     Map<String, String> map = new HashMap<>();
     map.put(null, null);
     assert(1 == map.size());
 
-	// HashSet
+    // HashSet
     Set<String> set = new HashSet<>();
     set.add(null);
     assert(1 == set.size());
