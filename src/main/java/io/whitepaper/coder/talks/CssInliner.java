@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 /**
  * What's this about?
  *
- * @author George Cao(caozhangzhi at qiyi.com)
  * @since 2017-06-04 20
  */
 public class CssInliner {
