@@ -4,9 +4,11 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import java.nio.file.Files;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 /**
  * What's this about?
@@ -15,12 +17,15 @@ import java.nio.file.Paths;
  */
 public class CssInliner {
     public static void main(String... args) {
-        try (WebClient client = new WebClient(BrowserVersion.CHROME)) {
-            Path path = Paths.get("E:\\open\\coder-talks\\target\\generated-docs\\the-bad-of-thrift.html");
+        Path dir = Paths.get("E:\\open\\coder-talks\\target\\generated-docs");
+        try (WebClient client = new WebClient(BrowserVersion.CHROME);
+             BufferedWriter writer = new BufferedWriter(new FileWriter(dir.resolve("expand.html").toFile(), false))) {
+            Path path = dir.resolve("the-bad-of-thrift.html");
             HtmlPage page = client.getPage(path.toUri().toURL());
+            client.waitForBackgroundJavaScript(TimeUnit.SECONDS.toMillis(20));
             //System.out.println(page.asXml());
-            Path p = path.getParent().resolve("expand.html");
-            Files.newBufferedWriter(p).write(page.asXml());
+
+            writer.write(page.asXml());
         } catch (Exception e) {
             e.printStackTrace();
         }

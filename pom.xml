@@ -43,7 +43,10 @@
                 <configuration>
                     <backend>html</backend>
                     <imagesDir>./</imagesDir>
-                    <sourceHighlighter>highlightjs</sourceHighlighter>
+                    <sourceHighlighter>coderay</sourceHighlighter>
+                    <attributes>
+                        <stylesdir>css</stylesdir>
+                    </attributes>
                 </configuration>
             </plugin>
         </plugins>
