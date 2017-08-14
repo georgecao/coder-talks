@@ -12,7 +12,7 @@ EventLoop -> EventExecutor Lazy Bind
 http://www.infoq.com/cn/articles/netty-version-upgrade-history-thread-part
 
 == 工作原理
-每个EventExecutor都会绑定唯一的一个线程，并且可以有0或者1个工作队列（EventLoop）。提交任务的时候将任务放去工作队列，而绑定的线程则不停地轮询（Loop）工作队列，如何有任务则执行，没有就等待，直到Executor并关闭才退出循环。EventExecutor和JDK中的线程池Executor非常类似的思想。
+每个EventExecutor都会绑定唯一的一个线程，并且可以有0或者1个工作队列（EventLoop）。提交任务的时候将任务放去工作队列，而绑定的线程则不停地轮询（Loop）工作队列，如何有任务则执行，没有就等待，直到Executor关闭才退出循环。EventExecutor和JDK中的线程池Executor非常类似的思想。
 
 == 延迟绑定
 EventExecutor 第一次执行任务的时候，使用ThreadPerTaskExecutor创建一个新线程，并且绑定到这个EventExecutor。ThreadPerTaskExecutor非常特殊，没有工作队列，每个任务都是新创建一个线程去执行，顾名思义。而当前任务呢将作为这个线程的第一个任务去执行。一般来讲绑定任务都是个无限循环，不停地从当前的Executor的任务队列中拉取任务执行，直到停止或者关闭的时候才结束。
@@ -28,9 +28,9 @@ EventExecutor可以看做一个普通的线程，去执行业务任务。EventLo
 
 NIO模式下，Netty中Channel和JVM的Channel是通过附件attachment关联起来的。
 
-ByteBuf要在同一个县城里面创建和回收，从而避免内存泄露。因为ByteBuf Pool用的是ThreadLocal实现的。
+ByteBuf要在同一个线程里面创建和回收，从而避免内存泄露。因为ByteBuf Pool用的是ThreadLocal实现的。
 
-
+image::images/netty-4-thread-model.png[Thread任务执行模型]
 I/O密集型和CPU密集型
 这种线程模型针对这两类业务类型的优缺点
 

@@ -1,0 +1,7 @@
+= 一些连接池的实现方案
+George Cao <matrix3456@gmail.com>
+2017-08-06
+:toc: right
+
+[abstract]
+连接池技术应用的非常广泛。

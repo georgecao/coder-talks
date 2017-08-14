@@ -14,9 +14,19 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.asciidoctor</groupId>
             <artifactId>asciidoctorj</artifactId>
             <version>1.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-pdf</artifactId>
+            <version>1.5.0-alpha.14</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
         <dependency>
