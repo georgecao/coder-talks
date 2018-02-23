@@ -1,7 +1,6 @@
 = Thrift的坑
 George Cao <matrix3456@gmail.com>
 2017-06-03
-:toc: right
 
 [abstract]
 Thrift虽好，但是吹毛求疵的讲，可以更好。

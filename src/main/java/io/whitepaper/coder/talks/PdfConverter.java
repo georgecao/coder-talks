@@ -1,12 +1,7 @@
 package io.whitepaper.coder.talks;
 
-import jdk.incubator.http.HttpClient;
-import jdk.incubator.http.HttpRequest;
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.Attributes;
 import org.asciidoctor.AttributesBuilder;
-
-import java.net.URL;
 
 /**
  * Created by george on 21/06/2017.
