@@ -1,14 +1,18 @@
 package io.whitepaper.coder.talks;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.fit.cssbox.css.CSSNorm;
+import org.fit.cssbox.css.DOMAnalyzer;
+import org.fit.cssbox.css.NormalOutput;
+import org.fit.cssbox.io.DOMSource;
+import org.fit.cssbox.io.DefaultDOMSource;
+import org.fit.cssbox.io.DefaultDocumentSource;
+import org.fit.cssbox.io.DocumentSource;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 /**
  * What's this about?
@@ -16,17 +20,20 @@ import java.util.concurrent.TimeUnit;
  * @since 2017-06-04 20
  */
 public class CssInliner {
-    public static void main(String... args) {
+    public static void main(String... args) throws IOException, SAXException {
         Path dir = Paths.get("D:\\open\\coder-talks\\target\\generated-docs");
-        try (WebClient client = new WebClient(BrowserVersion.CHROME);
-             BufferedWriter writer = new BufferedWriter(new FileWriter(dir.resolve("expand.html").toFile(), false))) {
-            Path path = dir.resolve("the-bad-of-thrift.html");
-            HtmlPage page = client.getPage(path.toUri().toURL());
-            client.waitForBackgroundJavaScript(TimeUnit.SECONDS.toMillis(20));
-            //System.out.println(page.asXml());
-            writer.write(page.asXml());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        String url = "https://www.baidu.com/";
+        DocumentSource ds = new DefaultDocumentSource(url);
+        DOMSource source = new DefaultDOMSource(ds);
+        Document doc = source.parse();
+        DOMAnalyzer da = new DOMAnalyzer(doc, ds.getURL());
+        da.attributesToStyles(); //convert the HTML presentation attributes to inline styles
+        da.addStyleSheet(null, CSSNorm.stdStyleSheet(), DOMAnalyzer.Origin.AGENT); //use the standard style sheet
+        da.addStyleSheet(null, CSSNorm.userStyleSheet(), DOMAnalyzer.Origin.AGENT); //use the additional style sheet
+        da.getStyleSheets(); //load the author style sheets
+        da.stylesToDomInherited();
+        NormalOutput output = new NormalOutput(doc);
+        output.dumpTo(System.out);
     }
 }
