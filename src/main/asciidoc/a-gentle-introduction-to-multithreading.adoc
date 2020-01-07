@@ -1,8 +1,17 @@
-= 多线程简介
+= 多线程简介: 一步一步走进并发的世界 
+George Cao <matrix3456@gmail.com>
 :toc:
+:sectnums:
+:toc-title: 目录
 
 Approaching the world of concurrency, one step at a time.
 一步一步走进并发的世界。
+
+.本系列中的其他文章
+*  link:a-gentle-introduction-to-multithreading.adoc[多线程简介] - 一步一步走进并发的世界  
+*  link:introduction-to-thread-synchronization.adoc[Introduction to thread synchronization]
+*  link:lock-free-multithreading-with-atomic-operations.adoc[Lock-free multithreading with atomic operations]
+*  link:understanding-memory-reordering.adoc[Understanding memory reordering]
 
 Modern computers have the ability to perform multiple operations at the same time. Supported by hardware advancements and smarter operating systems, this feature makes your programs run faster, both in terms of speed of execution and responsiveness.
 
@@ -39,7 +48,7 @@ image::images/processes-threads.png[Processes vs Threads]
 
 Each process has its own chunk of memory assigned by the operating system. By default that memory cannot be shared with other processes: your browser has no access to the memory assigned to your media player and vice versa. The same thing happens if you run two instances of the same process, that is if you launch your browser twice. The operating system treats each instance as a new process with its own separate portion of memory assigned. So, by default, two or more processes have no way to share data, unless they perform advanced tricks — the so-called inter-process communication (IPC).
 
-每个进程都有操作系统为其分配的内存块。默认情况下，进程的内存块不能够和其他进程共享：你的浏览器是不能访问分配给多媒体播放器的内存块的，反之亦然。如果你运行一个程序的两个实例，规则也是一样的。比如你打开2个浏览器。操作系统把每个实例看作是一个新的拥有独立内存块的进程。所以，默认情况下，2个或者更多的进程之间没法共享数据，除非执行高级的技巧。这就是所谓的进程间通信（IPC）。
+每个进程都有操作系统为其分配的内存块。默认情况下，进程的内存块不能够和其他进程共享：你的浏览器是不能访问分配给多媒体播放器的内存块的，反之亦然。如果你运行一个程序的两个实例，规则也是一样的。比如你打开2个浏览器。操作系统把每个实例看作是一个新的拥有独立内存块的进程。所以，默认情况下，2个或者更多的进程之间没法共享数据，除非执行高级的技巧。这就是所谓的进程间通信（ https://en.wikipedia.org/wiki/Inter-process_communication[IPC] ）。
 
 Unlike processes, threads share the same chunk of memory assigned to their parent process by the operating system: data in the media player main interface can be easily accessed by the audio engine and vice versa. Therefore is easier for two threads to talk to eachother. On top of that, threads are usually lighter than a process: they take less resources and are faster to create, that's why they are also called lightweight processes.
 
@@ -89,7 +98,7 @@ image::images/concurrency-parallelism.png[Concurrency vs Parallelism]
 2. 并行是并发的子集。
 
 == What makes concurrency and parallelism possible
-== 并发和并行的背后的原理
+== 并发和并行的背后原理
 
 The central processing unit (CPU) in your computer does the hard work of running programs. It is made of several parts, the main one being the so-called core: that's where computations are actually performed. A core is capable of running only one operation at a time.
 
@@ -126,7 +135,6 @@ Let's rethink your app in a multithreaded way. Thread A is responsible for the d
 
 我们来用多线程重新考虑这个应用。 线程A负责磁盘读取，同时线程B负责主界面。如果线程A卡在等待很慢的设备，线程B仍然再运行主界面，这就能保证你的应用程序有响应。这是因为有2个线程的话，操作系统可以在2个线程之间切换CPU资源，这样就不用卡在那个慢的上。
 
- 
 == More threads, more problems
 == 线程越多，问题越多
 
@@ -174,10 +182,12 @@ The bad news is that the vast majority of operations out there are non-atomic. E
 Preemptive multitasking gives the operating system full control over thread management: it can start, stop and pause threads according to advanced scheduling algorithms. You as a programmer cannot control the time or order of execution. In fact, there is no guarantee that a simple code like this:
 抢占式多任务技术给了操作系统对线程管理的完全控制：根据高级调度算法，它可以启动，停止和暂停线程。作为程序员是控制不了程序执行的时间或者顺序的。事实上，没有任何保证如下这段简单的程序：
 
-```C
+[source, c]
+----
 writer_thread.start()
 reader_thread.start()
-```
+----
+
 would start the two threads in that specific order. Run this program several times and you will notice how it behaves differently on each run: sometimes the writer thread starts first, sometimes the reader does instead. You will surely hit a race condition if your program needs the writer to always run before the reader.
 能够按照书写顺序依次启动2个线程。多运行几次这段程序，你就会发现他每次执行之间的不同表现：有时候写线程先启动，有时候确实杜线程先启动。如果你的程序需要写线程总是先于读线程启动，这就一定会触发竞争条件。
 
@@ -204,30 +214,33 @@ Both data races and race conditions are real-world problems: some people even di
 
 * 不可变数据 - 共享数据被标记为不可变的，谁都不能修改它：线程只允许读数据，消除了根本原因。 就我们所知线程可以安全从同样的内存读数据，只要数据不被修改。这也是函数式编程背后的主要哲学。
 
-I will cover all this fascinating topics in the next episodes of this mini-series about concurrency. Stay tuned!
+I will cover all this fascinating topics in the next episodes of this mini-series abou  t concurrency. Stay tuned!
 
 我会在这个关于并发的迷你系列的后续文章中覆盖所有有趣的主题，保持关注。
 
 == Sources
 == 参考
-8 bit avenue - Difference between Multiprogramming, Multitasking, Multithreading and Multiprocessing
-Wikipedia - Inter-process communication
-Wikipedia - Process (computing)
-Wikipedia - Concurrency (computer science)
-Wikipedia - Parallel computing
-Wikipedia - Multithreading (computer architecture)
-Stackoverflow - Threads & Processes Vs MultiThreading & Multi-Core/MultiProcessor: How they are mapped?
-Stackoverflow - Difference between core and processor?
-Wikipedia - Thread (computing)
-Wikipedia - Computer multitasking
-Ibm.com - Benefits of threads
-Haskell.org - Parallelism vs. Concurrency
-Stackoverflow - Can multithreading be implemented on a single processor system?
-HowToGeek - CPU Basics: Multiple CPUs, Cores, and Hyper-Threading Explained
-Oracle.com - 1.2 What is a Data Race?
-Jaka's corner - Data race and mutex
-Wikipedia - Thread safety
-Preshing on Programming - Atomic vs. Non-Atomic Operations
-Wikipedia - Green threads
-Stackoverflow - Why should I use a thread vs. using a process?
+* 8 bit avenue - https://www.8bitavenue.com/difference-between-multiprogramming-multitasking-multithreading-and-multiprocessing/[Difference between Multiprogramming, Multitasking, Multithreading and Multiprocessing]
+* Wikipedia - https://en.wikipedia.org/wiki/Inter-process_communication[Inter-process communication]
+* Wikipedia - https://en.wikipedia.org/wiki/Process_%28computing%29[Process (computing)]
+* Wikipedia - https://en.wikipedia.org/wiki/Concurrency_%28computer_science%29[Concurrency (computer science)]
+* Wikipedia - https://en.wikipedia.org/wiki/Parallel_computing[Parallel computing]
+* Wikipedia - https://en.wikipedia.org/wiki/Multithreading_%28computer_architecture%29[Multithreading (computer architecture)]
+* Stackoverflow - https://stackoverflow.com/questions/1713554/threads-processes-vs-multithreading-multicore-multiprocessor-how-they-are[Threads & Processes Vs MultiThreading & Multi-Core/MultiProcessor: How they are mapped?]
+* Stackoverflow - https://stackoverflow.com/questions/19225859/difference-between-core-and-processor[Difference between core and processor?]
+* Wikipedia - https://en.wikipedia.org/wiki/Thread_%28computing%29[Thread (computing)]
+* Wikipedia - https://en.wikipedia.org/wiki/Computer_multitasking[Computer multitasking]
+* Ibm.com - https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/generalprogramming/benefits_threads.html[Benefits of threads]
+* Haskell.org - https://wiki.haskell.org/Parallelism_vs._Concurrency[Parallelism vs. Concurrency]
+* Stackoverflow - https://stackoverflow.com/questions/16116952/can-multithreading-be-implemented-on-a-single-processor-system[Can multithreading be implemented on a single processor system?]
+* HowToGeek - https://www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/[CPU Basics: Multiple CPUs, Cores, and Hyper-Threading Explained]
+* Oracle.com - https://docs.oracle.com/cd/E19205-01/820-0619/geojs/index.html[1.2 What is a Data Race?]
+* Jaka's corner - http://jakascorner.com/blog/2016/01/data-races.html[Data race and mutex]
+* Wikipedia - https://en.wikipedia.org/wiki/Thread_safety[Thread safety]
+* Preshing on Programming - https://preshing.com/20130618/atomic-vs-non-atomic-operations/[Atomic vs. Non-Atomic Operations]
+* Wikipedia - https://en.wikipedia.org/wiki/Green_threads[Green threads]
+* Stackoverflow - https://stackoverflow.com/questions/617787/why-should-i-use-a-thread-vs-using-a-process[Why should I use a thread vs. using a process?]
 
+
+
+本文译自https://www.internalpointers.com/post/introduction-thread-synchronization，英文读者可直接阅读原文。
