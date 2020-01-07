@@ -34,8 +34,8 @@ Lock-free programming relies upon atomic instructions, operations performed dire
 
 Think of any action performed by a computer, say for example displaying a picture on your screen. Such operation is made of many smaller ones: read the file into memory, de-compress the image, light up pixels on the screen and so on. If you recursively zoom into one of those sub-tasks, that is if you break it down into smaller and smaller pieces, you will eventually reach a dead end. The smallest, visible to a human operation performed by a processor is called machine instruction, a command executed by the hardware directly.
 
+.Multiple layers of a computer program. Dashed lines are software, solid lines are hardware.
 image::images/software-hardware-layers.png[Software - hardware layers]
-1. Multiple layers of a computer program. Dashed lines are software, solid lines are hardware.
 
 Depending on the CPU architecture, some machine instructions are atomic, that is they are performed in a single, uncuttable and uninterruptible step. Some others are not atomic instead: the processor does more work under the hood in form of even smaller operations, known as micro-operations. Let's focus on the former category: an atomic instruction is a CPU operation that cannot be further broken down. More specifically, atomic instructions can be grouped into two major classes: store and load and read-modify-write (RMW).
 
@@ -62,8 +62,8 @@ Climbing up to the software level, many operating systems provide their own vers
 
 The best way to perform portable atomic operations is to rely upon the ones provided by the programming language of choice. In Java for example you will find the java.util.concurrent.atomic package; C++ provides the std::atomic header; Haskell has the Data.Atomics package and so on. Generally speaking, it is likely to find support for atomic operations if a programming language deals with multithreading. This way is up to the compiler (if it's a compiled language) or the virtual machine (if it's an interpreted language) to find the best instructions for implementing atomic operations, whether from the underlying operating system API or directly from the hardware.
 
+.Hierarchy of atomic instructions and operations. Dashed lines are software, solid lines are hardware.
 image::images/atomics-levels.png[Three levels of atomic instructions]
-2. Hierarchy of atomic instructions and operations. Dashed lines are software, solid lines are hardware.
 
 For example, GCC — a C++ compiler — usually transforms C++ atomic operations and objects straight into machine instructions. It also tries to emulate a specific operation that doesn't map directly to the hardware with other atomic machine instructions if available. The worst-case scenario: on a platform that doesn't provide atomic operations it may rely upon other blocking strategies, which wouldn't be lock-free, of course.
 
@@ -175,8 +175,8 @@ Lock-free algorithms allow the remaining threads to continue doing useful work e
 
 On the other hand in wait-free algorithms, a subset of lock-free ones, any thread can complete its work in a finite number or steps, regardless of the execution speed or the workload level of others. The first snippet in this article based on the fetch-and-add operation is an example of a wait-free algorithm: no loops, no retries, just undisturbed flow. Also, wait-free algorithms are fault-tolerant: no thread can be prevented from completing an operation by failures of other processes, or by arbitrary variations in their speed. These properties make wait-free algorithms suitable for complex real-time systems where the predictable behavior of concurrent code is a must.
 
+.Wait-free algorithms are a subset of lock-free ones.
 image::images/lock-free-wait-free.png[Lock-free, wait-free]
-3. Wait-free algorithms are a subset of lock-free ones.
 
 Wait-freedom is a highly desired property of concurrent code, yet very difficult to obtain. All in all, whether you are building a blocking, a lock-free or a wait-free algorithm the golden rule is to always benchmark your code and measure the results. Sometimes a good old mutex can outperform fancier synchronization primitives, especially when the concurrent task complexity is high.
 
@@ -186,28 +186,28 @@ Atomic operations are a necessary part of lock-free programming, even on single-
 
 == Sources
 
-Preshing on Programming - An Introduction to Lock-Free Programming
-Preshing on Programming - Atomic vs. Non-Atomic Operations
-Preshing on Programming - You Can Do Any Kind of Atomic Read-Modify-Write Operation
-StackOverflow - Do I need a mutex for reading?
-StackOverflow - Will atomic operations block other threads?
-StackOverflow - Spinlock vs Busy wait
-GCC Wiki - Atomics
-GCC Wiki - Memory model synchronization modes
-Threading Building Blocks - Atomic Operations
-Just Software Solutions - Definitions of Non-blocking, Lock-free and Wait-free
-Wikipedia - Compare-and-swap
-Wikipedia - Read-modify-write
-Wikipedia - Test-and-set
-Tyler Neely - Fear and Loathing in Lock-Free Programming
-Jason Gregory - Game Engine Architecture, Third Edition
-AA.VV. - Evaluating the Cost of Atomic Operations on Modern Architectures
-Herb Sutter, CppCon 2014 - Lock-Free Programming (or, Juggling Razor Blades), Part 1
-Herb Sutter, CppCon 2014 - Lock-Free Programming (or, Juggling Razor Blades), Part 2
-Maurice Herlihy - Wait-free synchronization
-Fedor Pikus, CppCon 2014 - Read, Copy, Update, then what? RCU for non-kernel programmers
-1024cores - Lockfree Algorithms
-Microsoft - Lockless Programming Considerations for Xbox 360 and Microsoft Windows
-Brian Goetz, IBM - Going Atomic
+* Preshing on Programming - An Introduction to Lock-Free Programming
+* Preshing on Programming - Atomic vs. Non-Atomic Operations
+* Preshing on Programming - You Can Do Any Kind of Atomic Read-Modify-Write Operation
+* StackOverflow - Do I need a mutex for reading?
+* StackOverflow - Will atomic operations block other threads?
+* StackOverflow - Spinlock vs Busy wait
+* GCC Wiki - Atomics
+* GCC Wiki - Memory model synchronization modes
+* Threading Building Blocks - Atomic Operations
+* Just Software Solutions - Definitions of Non-blocking, Lock-free and Wait-free
+* Wikipedia - Compare-and-swap
+* Wikipedia - Read-modify-write
+* Wikipedia - Test-and-set
+* Tyler Neely - Fear and Loathing in Lock-Free Programming
+* Jason Gregory - Game Engine Architecture, Third Edition
+* AA.VV. - Evaluating the Cost of Atomic Operations on Modern Architectures
+* Herb Sutter, CppCon 2014 - Lock-Free Programming (or, Juggling Razor Blades), Part 1
+* Herb Sutter, CppCon 2014 - Lock-Free Programming (or, Juggling Razor Blades), Part 2
+* Maurice Herlihy - Wait-free synchronization
+* Fedor Pikus, CppCon 2014 - Read, Copy, Update, then what? RCU for non-kernel programmers
+* 1024cores - Lockfree Algorithms
+* Microsoft - Lockless Programming Considerations for Xbox 360 and Microsoft Windows
+* Brian Goetz, IBM - Going Atomic
 
 本文译自https://www.internalpointers.com/post/lock-free-multithreading-atomic-operations，英文读者可直接阅读原文。

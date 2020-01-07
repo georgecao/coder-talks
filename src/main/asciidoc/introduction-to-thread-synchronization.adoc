@@ -10,6 +10,7 @@ A look at one of the most popular ways of concurrency control in a multithreaded
 
 As emerged from my previous introduction to multithreading, writing concurrent code can be tricky. Two big problems might emerge: data races, when a writer thread modifies the memory while a reader thread is reading it and race conditions, when two or more threads do their job in an unpredictable order. Luckily for us there are several ways to prevent these errors: in this article I will take a look at the most common one known as synchronization.
 
+就像我前一篇文章所阐述的，开发并发代码需要技巧的。 会遇到两个大问题：数据竞争，当一个写线程在修改内存数据的同时一个读线程正在从中读取数据和竞争条件，当2个或以上的线程以不可预知的顺序执行任务的时候会发生。幸运的是我们有一些办法来避免这类错误：这篇文章我们就来看一个最常用的办法：同步。
 
  
 == What is synchronization
@@ -17,27 +18,49 @@ As emerged from my previous introduction to multithreading, writing concurrent c
 
 Synchronization is a bag of tricks that make sure two or more threads behave themselves. More specifically, synchronization will help you to achieve at least two important features in your multithreaded program:
 
+同步是让2个或以上线程和平共处的技巧合集。更确切的说，同步能够帮你达成多线程程序中至少2个重要的特性：
+
 . atomicity — if your code contains instructions that operate on data shared across multiple threads, an unregulated concurrent access to that data might trigger a data race. The code segment that contains those instructions is called critical section. You want to make sure that critical sections are executed atomically: as defined in the previous episode, an atomic operation can't be broken into smaller ones, so that while a thread is executing it no other thread can slip through;
+
+. 原子性 - 如果你的代码包含多个线程操作共享数据的指令，不受控制的并发访问共享数据可触发数据竞争。包含此类指令的代码块称为关键区块。你要确保关键区块要原子执行：如前文所定义的，一个原子操作不能在细分为更小的操作了，因此当一个线程在执行原子代码块的时候，就不会受到其他线程的干扰。
 
 . ordering — sometimes you want two or more threads to perform their job in a predictable order, or put a restriction on how many threads can access a specific resource. Normally you don't have control over these things, which might be the root cause of race conditions. With synchronization you can orchestrate your threads to perform according to a plan.
 
+. 有序性 - 有时候你需要2个或以上的线程按照可预测的顺序执行任务，或者限制访问某个资源的线程数。正常情况下你是不能控制这个的，这也可能是竞争条件发生的根本原因。有了同步之后，你就可以根据计划来编排多个线程的执行了。
+
 Synchronization is implemented through special objects called synchronization primitives provided by the operating system or any programming language that supports threading. You then make use of such synchronization primitives in your code to make sure your threads don't trigger data races, race conditions or both.
+
+同步是通过支持多线程的操作系统或者编程语言提供的同步原语来实现的。然后你就可以在代码中使用同步原语来保证多线程不会触发数据竞争、竞争条件或者全部。
 
 Synchronization takes place both in hardware and software, as well as between threads and operating system processes. This article is about synchronization of software threads: the physical counterpart and process synchronization are fascinating topics that will surely get some love in a future post.
 
+同步可以发生在硬件和软件，以及线程之间和操作系统进程之间。 这篇文章是关于软件线程同步：对应的硬件同步部分非常有趣，将会在后续的文章中介绍。
+
 == Common synchronization primitives
+== 通用同步原语
 
 The most important synchronization primitives are mutexes, semaphores and condition variables. There are no official definitions for these terms, so different texts and implementations associate slightly different characteristics with each primitive.
 
+最重要的同步原语是互斥锁，信号量和条件变量。这些关键字还没有官方的定义，所以在不同的书本或者实现中会有轻微的不同特征。
+
 Operating systems provide these tools natively. For example Linux and macOS support POSIX threads, also known as pthreads, a set of functions that allows you to write safe multithreaded applications. Windows has its own synchronization tools in the C Run-Time Libraries (CRT): conceptually similar to POSIX threads functions but with different names.
+
+操作系统原生支持他们。例如Linux和macOS支持POSIX线程，也就是pthreads，使得你可以用这一组函数开发安全的多线程应用。Windows则用C运行时代码库（CRT）提供自己的同步工具：概念上和POSIX多线程功能相似但是不同的命名。
 
 Unless you are writing very low-level code, you usually want to employ the synchronization primitives shipped with the programming language of your choice. Every programming language that deals with multithreading has its own toolbox of synchronization primitives, along with other functions to fiddle around with threads. For example Java provides the java.util.concurrent package, modern C++ has its own thread library, C# ships the System.Threading namespace and so on. All these functions and objects are based upon the underlying operating system primitives, of course.
 
+除非你正在写非常底层的代码，通常你只要使用编程语言提供的同步原语就可以了。每个支持多线程的编程语言都提供了自己的同步原语工具箱，以及一些额外的线程处理功能。例如Java提供了 java.util.concurrent 包，现代C++有自己的线程库，C#提供 System.Threading命名空间等等。当然所有这个功能和对象都是基于底层操作系统同步原语的。
+
 There are many other synchronization tools around. In this article I'll stick to the three mentioned above, as they act as a foundation often used to build more complex entities. Let's take a closer look.
 
+还有其他同步工具，本文至关注上面提到的3个，因为他们是构建复杂系统的基础。让我们进一步分析。
+
 == Mutexes
+== 互斥锁 
 
 A mutex (mutual exclusion) is a synchronization primitive that puts a restriction around a critical section, in order to prevent data races. A mutex guarantees atomicity, by making sure that only one thread accesses the critical section at a time.
+
+互斥锁是一个同步原语，
 
 Technically, a mutex is a global object in your application, shared across multiple threads, that provides two functions usually called lock and unlock. A thread that is about to enter the critical section calls lock to lock the mutex; when it's done, that is when the critical section is over, the same thread calls unlock to unlock it. The important feature of a mutex: only the thread that locks the mutex is allowed to unlock it later on.
 
@@ -46,12 +69,14 @@ If another thread jumps in and tries to lock a locked mutex, the operating syste
 You can use a mutex to protect simple actions like a concurrent read and write of a shared variable, as well as bigger and more complex operations that need to be executed by one thread at a time, such as writing to a log file or modifying a database. Anyway, the mutex lock/unlock operations always match the boundaries of the critical section.
 
 == Recursive mutexes
+== 递归互斥锁
 
 In any regular mutex implementation, a thread that locks a mutex twice causes an error. A recursive mutex allows this, instead: a thread can lock a recursive mutex multiple times without unlocking it first. However no other thread can lock the recursive mutex until all the locks held by the first thread have been released. This synchronization primitive is also known as reentrant mutex, where reentrancy is the ability to call a function multiple times (i.e. to enter it again) before the previous invocations are over.
 
 Recursive mutexes are difficult to work with and are error-prone. You have to keep track of which thread has locked the mutex how many times and make sure the same thread unlocks it completely. Failing to do so would leave locked mutexes around with nasty consequences. Most of the time a regular mutex is enough.
 
 == Reader/Writer Mutexes
+== 读写锁
 
 As we know from the previous episode, multiple threads can concurrently read from a shared resource without harm as long as they don't modify it. So why bother locking a mutex if some of your threads are operating in "read-only" mode? For example consider a concurrent database that is frequently read by many threads, while another thread seldomly writes updates. You certainly need a mutex to protect the read/write access, but most of the time you would end up locking it just for read operations, preventing other reading threads to do their job.
 
@@ -60,7 +85,7 @@ A reader/writer mutex allows concurrent reads from multiple threads and exclusiv
 
  
 == Semaphores
-
+== 信号量
 A semaphore is a synchronization primitive used to orchestrate threads: which one starts first, how many threads can access a resource and so on. Like a street semaphore regulates the traffic, a programming semaphore regulates the multithreading flow: for this reason a semaphore is also known as a signaling mechanism. It can be seen as an evolution of a mutex, because it guarantees both ordering and atomicity. However in a few paragraphs I will show you why using semaphores for atomicity only is not a great idea.
 
 Technically, a semaphore is a global object in your application, shared across multiple threads, that contains a numeric counter managed by two functions: one that increases the counter, another one that decreases it. Historically called P and V, modern implementations use more friendly names for those functions such as acquire and release.
@@ -77,6 +102,7 @@ A single semaphore is used to limit the number of threads accessing a shared res
 By combining multiple semaphores together you can solve thread ordering problems: for example the thread that renders a web page in your browser must start after the thread that downloads the HTML files from the Internet. Thread A would notify thread B when it's done, so that B can wake up and proceed with its job: this is also known as the famous Producer-Consumer problem.
 
 == Binary semaphores
+== 二元信号量
 
 A semaphore whose counter is restricted to the values 0 and 1 is called binary semaphore: only one thread at a time can access the shared resource. Wait: this is basically a mutex protecting a critical section! You can actually replicate the mutex behavior with a binary semaphore. However there are two important points to keep in mind:
 
@@ -84,6 +110,7 @@ A semaphore whose counter is restricted to the values 0 and 1 is called binary s
 . semaphores are signaling mechanisms that orchestrate threads, while mutexes are locking mechanisms that protects shared resources. You should not use semaphores to protect shared resources, nor mutexes for signaling: your intent will be more clear to you and to anyone who will read your code.
 
 == Condition variables
+== 条件变量
 
 Condition variables are another synchronization primitive designed for ordering. They are used for sending a wake up signal across different threads. A condition variable always goes hand in hand with a mutex; using it alone doesn't make sense.
 
@@ -96,32 +123,39 @@ Condition variables are a powerful mechanism to send signals between threads tha
 
  
 == Common problems in synchronization
+== 常见的同步问题
 
 All the synchronization primitives described in this article have something in common: they put threads to sleep. For this reason they are also called blocking mechanisms. A blocking mechanism is a good way to prevent concurrent access to a shared resource if you want to avoid data races or race conditions: a sleeping thread does no harm. But it can trigger unfortunate side effects. Let's take a quick look at them.
 
 === Deadlock
+=== 死锁
 
 A deadlock occurs when a thread is waiting for a shared variable that another thread holds, and this second thread is waiting for a shared variable that the first thread holds. These things usually happen when working with multiple mutexes: the two threads remain waiting forever in an infinite circular loop: thread A waits for thread B which waits for thread A which waits for thread B which...
 
 === Starvation
+=== 饥饿
 
 A thread goes in starvation mode when it doesn't get enough love: it remains stuck indefinitely in its sleep state while waiting for access to a shared resource that is continuously given to other threads. For example a poorly designed semaphore-based algorithm might forget to wake up one of the many threads behind the waiting line, by giving precedence only to a subset of them. The starving thread would wait forever without doing any useful work.
 
 === Spurious wake-ups
+=== 无效唤醒
 
 This is a subtle problem that comes from how condition variables are actually implemented in some operating systems. In a spurious wake-up a thread wakes up even if not signaled through the condition variable. That's why most synchronization primitives also include a way to check if the wakeup signal really comes from the condition variable the thread is waiting on.
 
 === Priority inversion
+=== 优先级反转
 
 Priority inversion occurs when a thread performing a high-priority task is blocked waiting for a lower-priority thread to release a resource, such as a mutex. For example when the thread that outputs audio to the soundcard (high priority) is blocked by the thread that displays the interface (low priority), resulting in a bad glitch through your speakers.
 
 == What's next
+== 下一步
 
 All these synchronization problems have been studied for years and many solutions, both technical and architectural are available. A careful design and a bit of experience help a lot in prevention. Also, given the non-deterministic, (i.e. extremely hard) nature of multithreaded applications, people have developed interesting tools to detect errors and potential pitfalls in concurrent code. Projects like Google's TSan or Helgrind are just a few of them.
 
 However, sometimes you want to take a different route and get rid of any blocking mechanism in your multithreaded application. This would mean to enter the non-blocking realm: a very low-level territory, where threads are never put to sleep by the operating system and concurrency is regulated through atomic primitives and lock-free data structures. It's a challenging field, not always necessary, which can boost the speed of your software or wreak havoc on it. But this is a story for the next episode...
 
 == Sources
+== 参考
 
 Wikipedia - Synchronization (computer science)
 Wikipedia - Reentrant mutex

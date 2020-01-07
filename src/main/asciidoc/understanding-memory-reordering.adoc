@@ -50,7 +50,8 @@ Compilers and virtual machines too take the liberty of reordering instructions w
 == A concrete example of hardware memory reordering
 
 Consider the following example, written in hardware pseudo-code. Each step of the program corresponds to an individual processor instruction:
-
+[source,c]
+----
 x = 0
 v = false
 
@@ -62,6 +63,7 @@ thread_one():
 thread_two():
     store(x, 1)
     store(v, true)
+----
 In the snippet above two threads are running in parallel on two different cores. The first thread waits until v is set to true by the other one. Let's also assume that store() and load() are atomic CPU instructions that write and read memory.
 
 What would you expect to see printed on screen by thread one? If it starts before thread two (and it is not always the case), there is no right answer. You might see 1 if no reordering takes place. However, it is possible for v to be updated before x, and the print statement might then print 0 if the store instructions are reordered in the second thread. Similarly, a memory reordering might take place in the first thread and it is possible for x to be loaded before v is checked.
@@ -111,7 +113,8 @@ Strong vs. weak memory model is a theoretical classification of how memory opera
 The less intrusive way of memory reordering is no reordering at all. This is a form of strong memory model and is called sequential consistency: exactly what you need to solve all lock-free multithreading problems mentioned above. Disabling reordering makes your multithreaded program easy to follow: the source code is executed in the same order you have written it.
 
 Sequential consistency adds another important feature to parallel execution: if forces a total order of all atomic memory operations in all threads. To better understand this statement consider the following example, in hardware pseudocode:
-
+[source,c]
+----
 x = 0
 y = 0
 
@@ -126,6 +129,7 @@ thread_C:
 
 thread_D:
     assert(load(x) == 0 && load(y) == 1)
+----
 Forget memory reordering inside specific threads for a second and just look at the big picture. If threads run, say, in order A - C - B - D, thread C sees x == 1 and y == 0 because it has been executed right in the middle between A and B, so its assertion won't fail. Here's the catch: the total order imposed by sequential consistency forces thread D to see the same events as thread C, so its assert will fail. It's impossible for thread D to see the two stores ordered in a different way than what thread C has perceived. In other words, with sequential consistency all threads will see the same story line.
 
 As I said before this is a very intuitive and natural way of thinking about multithreaded execution. However, sequential consistency disables any potential hardware or software optimization a memory reorder could offer: a recipe for serious performance bottlenecks. Sequential consistency is a necessary evil sometimes, for example in multiple producer-multiple consumer situations where all consumers must observe the actions of all producers occurring in the same order.
