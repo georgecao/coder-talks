@@ -2,19 +2,20 @@
 George Cao <matrix3456@gmail.com>
 :toc:
 :sectnums:
-:toc-title: Ŀ¼
+:toc-title: 目录
 
 ...and why it matters when writing lock-free multithreading code.
 
 In the previous article of this series, Lock-free multithreading with atomic operations, I introduced lock-free multithreading: a low-level strategy for synchronizing threads in concurrent software.
 
-Based upon atomic operations �� machine instructions performed directly by the CPU that can't be broken into smaller steps, lock-free multithreading provides a faster and more fine-tuned synchronization mechanism if compared to traditional primitives like mutexes and semaphores.
+Based upon atomic operations — machine instructions performed directly by the CPU that can't be broken into smaller steps, lock-free multithreading provides a faster and more fine-tuned synchronization mechanism if compared to traditional primitives like mutexes and semaphores.
 
 As always, with great power comes great responsibility. In lock-free programming you get closer to the metal, so it is always a good idea to understand how the machine works and some of its quirks.
 
 In this article I want to show you one of the most important side effects that hardware (and software too) might cause on your lock-free code. This is also a great opportunity to marvel at the complexity of the miniaturized world inside your computer.
 
 == Memory reordering, or the unpleasant surprise
+== 内存重排序或者不愉快的惊喜
 
 The first thing any programming course out there will teach you is how instructions written in the source code are executed sequentially by your computer. A program is just a list of operations laid down in a text file that the processor performs from top to bottom.
 
@@ -25,6 +26,7 @@ Memory reordering is a paradigm developed to make use of instruction cycles that
 Let's first take a closer look at the reasons why something this unpredictable would happen.
 
 == Memory reordering in a nutshell
+== 内存重排序总结
 
 Programs are loaded in the main memory in order to be executed. The CPU task is to run instructions stored there, along with reading and writing data when necessary.
 
@@ -32,7 +34,7 @@ Over time this type of memory has become damn slow if compared to the processor.
 
 The cache is where the processor stores its most frequently used data, in order to avoid lethargic interactions with the main memory. When the processor needs to read from or write to main memory, it first checks whether a copy of that data is available in its own cache. If so, the processor reads from or writes to the cache directly instead of waiting for the slower main memory response.
 
-Modern CPUs are made of multiple cores �� the component that performs actual computations, and each core has its own chunk of cache that is in turn connected to the main memory, as pictured in the following image:
+Modern CPUs are made of multiple cores — the component that performs actual computations, and each core has its own chunk of cache that is in turn connected to the main memory, as pictured in the following image:
 
 image::images/cpu-cache-main-memory.png[CPU, cache and main memory]
 1. A simplified model of multiple cores connected to the main memory through cache. This is known as a shared memory system, because the main memory is accessed by multiple entities.
@@ -40,6 +42,7 @@ image::images/cpu-cache-main-memory.png[CPU, cache and main memory]
 All in all, cache makes computers run faster. Or better, it helps the processor not to waste precious time waiting for the main memory response by keeping it always busy and productive.
 
 === Memory reordering as an optimization trick
+=== 内存重排序作为优化技巧
 
 Clearly such caching mechanism increases the system complexity in a multi-core scenario. Now you will need detailed rules to determine how data flows across different caches, and to make sure each core has the most up-to-date version of it. Known as cache coherence protocols, they could potentially trigger huge performance penalties. So engineers conceived the memory reordering trick (and many others!) to get the best out of each core.
 
@@ -48,6 +51,7 @@ There are several reasons why a memory reordering might take place. For example,
 Compilers and virtual machines too take the liberty of reordering instructions when certain optimizations are enabled. These changes happen at compile time and can be easily spotted by looking at the assembly code or byte code. Software memory reordering exists to take advantage of any feature the underlying hardware may offer, just to make your code run faster.
 
 == A concrete example of hardware memory reordering
+== 硬件内存重排序的具体样例
 
 Consider the following example, written in hardware pseudo-code. Each step of the program corresponds to an individual processor instruction:
 [source,c]
@@ -71,6 +75,7 @@ What would you expect to see printed on screen by thread one? If it starts befor
 
  
 == The impact of memory reordering on multithreading
+== 内存重排序对多线程的影响
 
 Hardware memory reordering is not an issue on single-core machines, where threads are a software construct ruled by the operating system. The CPU just receives a continuous stream of memory instructions. They still can be reordered, yet according to a fundamental rule: memory accesses by a given core will appear to that core to have occurred as written in your program. So memory reordering might take place, but only if it doesn't screw up the final outcome.
 
@@ -81,6 +86,7 @@ The usual locking synchronization mechanisms such as mutexes and semaphores are 
 A multithreaded program that follows a lock-free approach is way closer to the metal instead: it exploits stores and loads atomic instructions to synchronize its threads, as seen in the previous episode. Funnily enough these are the operations that might get reordered, destroying all your careful plans.
 
 == How to solve the memory reordering problem
+== 如何解决内存重排序的问题
 
 You definitely don't want to build your synchronization mechanism upon something that might change randomly. This problem can be fixed in a practical way by triggering a memory barrier, a CPU instruction that forces the processor to execute memory operations in a predictable way. A memory barrier works like a barricade: operations issued prior to the barrier are guaranteed to be performed before operations issued after it.
 
@@ -89,12 +95,14 @@ A memory barrier is a hardware thing: you have to talk directly to the CPU. This
 Software gadgets are only the halfway stage, though. Let's first take a high-level look at all the memory scenarios that might take place in a system, whether hardware or software, in order to build a clear mental map of the issue. The so-called memory model will help in the process.
 
 == The memory model
+== 内存模型
 
 A memory model is an abstract way to describe what a system may and may not do when it comes to accessing and reordering memory. Processors and programming languages implement one, especially if they make use of multithreading: a memory model applies both to hardware and software.
 
 When a system is very cautious about changing the order of memory operations is said to be following a strong memory model. Conversely, in a weak memory model you can expect all sorts of crazy reorderings. For example, processors in the x86 family belong to the former category, while ARM and PowerPC processors belong to the latter. What about software instead?
 
 === The benefits of a software memory model
+=== 软件内存模型的好处
 
 While hardware memory models are set in stone for obvious reasons, the software counterpart lets you choose how memory accesses can be ordered, according to your needs. This is an interesting property that will help a lot while writing lock-free multithreading code.
 
@@ -105,6 +113,7 @@ Basically all programming languages implement a memory model, in the sense that 
 
  
 == Fine-tuning the memory model
+== 细粒度内存模型
 
 Strong vs. weak memory model is a theoretical classification of how memory operations get reordered. When it comes to actual coding, most programming languages that support atomic operations give you three ways to control memory reordering. Let's take a closer look.
 
@@ -151,12 +160,14 @@ This is a form of weak memory model. With relaxed ordering you are telling your 
 Relaxed ordering doesn't guarantee a specific memory ordering, so it's not a tool you can safely use for thread synchronization. On the other hand, allowing any kind of memory tricks increases the performance of your multithreaded application.
 
 == What's next?
+== 下一步？
 
 In this article I wanted to take a bird's eye view on the memory reordering problem, the reasons behind its existence and its impact on lock-free multithreading. In the next episode I'll get my hands dirty by playing with some C++ code that makes use of atomic operations.
 
 Why C++? The language has recently introduced a very detailed memory model, which allows you to fine-tune how memory operations can be ordered around the C++ atomic objects. I believe it's a good way to see how sequential consistency, acquire-release and relaxed ordering play together in some real world scenarios. Wish me good luck :)
 
 == Sources
+== 参考
 
 AA.VV. - A Primer on Memory Consistency and Cache Coherence
 AA. VV. - C++ Reactive Programming Paul E. McKenney - Memory Barriers: a Hardware View for Software Hackers
@@ -185,4 +196,4 @@ Preshing on Programming - Memory Barriers Are Like Source Control Operations
 Linux Journal - Memory Ordering in Modern Microprocessors, Part I
 Doug Lea - Using JDK 9 Memory Order Modes
 
-��������https://www.internalpointers.com/post/understanding-memory-ordering��Ӣ�Ķ��߿�ֱ���Ķ�ԭ�ġ�
+本文译自https://www.internalpointers.com/post/understanding-memory-ordering，英文读者可直接阅读原文。
