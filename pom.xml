@@ -12,8 +12,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
-    <asciidoctorj.version>2.1.0</asciidoctorj.version>
+    <asciidoctorj.version>2.2.0</asciidoctorj.version>
     <asciidoctorj.diagram.version>1.5.7</asciidoctorj.diagram.version>
+    <selenium.version>3.141.59</selenium.version>
   </properties>
 
   <dependencies>
@@ -35,7 +36,7 @@
     <dependency>
       <groupId>org.asciidoctor</groupId>
       <artifactId>asciidoctorj-pdf</artifactId>
-      <version>1.5.0-beta.2</version>
+      <version>1.5.0-beta.8</version>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
@@ -45,36 +46,41 @@
     <dependency>
       <groupId>org.jbake</groupId>
       <artifactId>jbake-core</artifactId>
-      <version>2.5.1</version>
+      <version>2.6.4</version>
     </dependency>
     <dependency>
       <groupId>com.machinepublishers</groupId>
       <artifactId>jbrowserdriver</artifactId>
-      <version>0.17.10</version>
+      <version>1.1.1</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>3.6.0</version>
+      <version>${selenium.version}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-api</artifactId>
-      <version>3.6.0</version>
+      <version>${selenium.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
-      <version>1.11.2</version>
+      <version>1.12.1</version>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.cssparser</groupId>
       <artifactId>cssparser</artifactId>
-      <version>0.9.25</version>
+      <version>0.9.27</version>
     </dependency>
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
