@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.whitepaper</groupId>
+  <groupId>org.reploop</groupId>
   <version>1.0-SNAPSHOT</version>
   <artifactId>coder-talks</artifactId>
   <name>coder-talks</name>
@@ -17,16 +17,21 @@
     <selenium.version>3.141.59</selenium.version>
   </properties>
 
+  <developers>
+    <developer>
+      <url>http://reploop.org/</url>
+    </developer>
+  </developers>
   <dependencies>
     <dependency>
       <groupId>net.sf.cssbox</groupId>
       <artifactId>cssbox</artifactId>
-      <version>4.14</version>
+      <version>4.17</version>
     </dependency>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp</artifactId>
-      <version>3.8.1</version>
+      <version>4.3.0</version>
     </dependency>
     <dependency>
       <groupId>org.asciidoctor</groupId>
@@ -41,7 +46,7 @@
     <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
-      <version>2.27</version>
+      <version>2.36.0</version>
     </dependency>
     <dependency>
       <groupId>org.jbake</groupId>
