@@ -3,7 +3,7 @@ George Cao <matrix3456@gmail.com>
 2018-05-06
 :jbake-type: post
 :jbake-status: published
-:jbake-tags: blog, asciidoc
+:jbake-tags: 香港, 开户, 银行
 :idprefix:
 
 [abstract]
