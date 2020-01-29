@@ -1,6 +1,10 @@
 = “程序员”的成长之路
 George Cao <matrix3456@gmail.com>
 2020-01-29
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: 鸟哥, 程序员, 成长
+:idprefix:
 :toc:
 
 [abstract]
