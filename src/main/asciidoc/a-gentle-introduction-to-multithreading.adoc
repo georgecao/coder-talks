@@ -9,9 +9,9 @@ Approaching the world of concurrency, one step at a time.
 
 .本系列中的其他文章
 *  link:a-gentle-introduction-to-multithreading.adoc[多线程简介] - 一步一步走进并发的世界  
-*  link:introduction-to-thread-synchronization.adoc[Introduction to thread synchronization]
-*  link:lock-free-multithreading-with-atomic-operations.adoc[Lock-free multithreading with atomic operations]
-*  link:understanding-memory-reordering.adoc[Understanding memory reordering]
+*  link:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的的并发控制方法之一
+*  link:lock-free-multithreading-with-atomic-operations.adoc[用原子操作实现无锁多线程] - 底层线程同步
+*  link:understanding-memory-reordering.adoc[理解内存重排序] - 为什写无锁多线程代码时它很重要
 
 Modern computers have the ability to perform multiple operations at the same time. Supported by hardware advancements and smarter operating systems, this feature makes your programs run faster, both in terms of speed of execution and responsiveness.
 

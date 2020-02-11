@@ -8,6 +8,12 @@ Synchronizing threads at a lower level.
 
 用原子操作实现无锁多线程：底层线程同步
 
+.本系列中的其他文章
+*  link:a-gentle-introduction-to-multithreading.adoc[多线程简介] - 一步一步走进并发的世界  
+*  link:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的的并发控制方法之一
+*  link:lock-free-multithreading-with-atomic-operations.adoc[用原子操作实现无锁多线程] - 底层线程同步
+*  link:understanding-memory-reordering.adoc[理解内存重排序] - 为什写无锁多线程代码时它很重要
+
 This article has been carefully proofread by Federica Rinaldi. Thank you!
 
 The Greek word "atom" (?τομο?; atomos) means uncuttable. A task performed by a computer is said to be atomic when it is not divisible anymore: it can't be broken into smaller steps.
@@ -231,50 +237,76 @@ In (1) the algorithm loads the existing value of the shared data, then it tries 
 
 As said before, the CAS loop introduces a recurring pattern in many lock-free algorithms:
 
-create a local copy of the shared data;
-modify the local copy as needed;
-when ready, update the shared data by swapping it with the local copy created before.
+正如前面说的，CAS循环在许多无锁算法中引入了重复模式:
+
+. create a local copy of the shared data;
+. 创建共享数据的本地副本；
+. modify the local copy as needed;
+. 按需修改本地副本；
+. when ready, update the shared data by swapping it with the local copy created before.
+. 合适的时候，通过交换更新后的数据与之前创建的副本数据来更新共享数据。
+
 Point 3) is the key: the swap is performed atomically through an atomic operation. The dirty job is done locally by the writer thread and then published only when ready. This way another thread can observe the shared data only in two states: either the old one, or the new one. No half-complete or corrupted updates, thanks to the atomic swap.
+
+第3）点是关键：交换是通过原子操作来保证原子性的。本地写线程针对副本数据做了大部分的脏活累活，等到合适的时候才发布更新到共享数据。这样的话，其他线程只能看到这个共享数据的2种状态：未修改的数据和修改后的数据。由于原子交换，看不到修改过程中的中间状态，或者出错的更新。
 
 This is also philosophically different from the locking approach: in a lock-free algorithm threads get in touch only during that tiny atomic swap, running undisturbed and unaware of others for the rest of the time. The point of contact between threads is now shrinked down and limited to the duration of the atomic operation.
 
+这也是哲学上不同于加锁方案的：无锁算法中，多线程仅仅在执行交换的时候才需要交互，其他时候都不被打扰的运行，也感知不到其他线程的存在。多线程之间的交互点缩小了并且被限制在执行原子操作的期间。
+
 == A gentle form of locking
-== 加锁的一般形式
+== 一种轻量级加锁形式
 
 The spin until success strategy seen above is employed in many lock-free algorithms and is called spinlock: a simple loop where the thread repeatedly tries to perform something until successful. It's a form of gentle lock where the thread is up and running — no sleep forced by the operating system, although no progress is made until the loop is over. Regular locks employed in mutexes or semaphores are way more expensive, as the suspend/wakeup cycle requires a lot of work under the hood.
+
+上面看到的循环直到成功的的策略再许多无锁算法中用到了，被称之为自旋锁(spinlock)：一个简单的循环，线程不停的尝试执行操作直到成功。这是一种经量级的加锁形式，此时线程实时活跃运行的，不会被操作系统休眠。尽管这个循环成功之前工作不会有进展。相比之下，互斥锁或者信号量中用到的常规锁代价非常高，因为一个挂起/唤醒周期需要大量的底层工作。
 
 == The ABA problem
 == ABA问题
 
 Instructions in lines (1) and (2) are atomic indeed, yet distinct. Another thread might slip through the cracks and change the value of the shared data once has been read in (1). Specifically, it could turn the initial value, say A, into another value, say B, and then bring it back to A right before the compare and swap operation has started in (2). The thread that is running the CAS loop wouldn't notice the change and perform the swap successfully. This is known as the ABA problem: sometimes you can easily ignore it if you algorithm is simple as the one above, sometimes you want to prevent it instead as it would introduce subtle bugs in your programs. Luckily there are several workarounds for this.
 
+行（1）和（2）所示指令虽然有所不同，但不是连续的。另一个线程可能插入中间，再（1）读取完成之后修改共享数据。更确切的说，另一个线程可以将初始数据，假设为A，修改为B，然后在（2）所示的比较并交换操作执行之前再修改回A。执行CAS操作的线程不会发现数据的变化而成功执行交换操作。这就是所谓的ABA问题：有时候你可以简单的直接忽略，如果你的算法就像上面那个一样简单，而有时候你就需要避免此问题，因为这会给你的应用程序引入非常难以发现的问题。信用的是有 https://en.wikipedia.org/wiki/Compare-and-swap#ABA_problem[几种方式] 可以绕过这个问题。
+
 == You can swap anything inside a CAS loop
 == CAS循环可以交换任意的事情
 
 The CAS loop is often used to swap pointers, a type supported by the compare-and-swap operation. This is useful when you want to modify a complex collection of data like a class or an array: just create the local copy, modify it as needed and then when ready swap a pointer to the local data with a pointer to the global data. This way global data will point to the memory allocated for the local copy and other threads will see up-to-date information.
 
+CAS循环经常用来交换指针，这也是比较并交换操作支持的类型之一。当你需要修改复杂的诸如对象或者数组的数据集的时候非常有用：创建本地数据副本，按需修改这个副本，合适的时候交换本地副本数据和全局共享数据的指针。这样的话全局共享数据就指向了本地副本数据在内存中指针，其他线程就会看到更新后的最新数据。
+
 This technique allows you to successfully synchronize non-primitive entities, yet is difficult to make it work correctly. What if, after the swap, a reader thread is still reading the old pointer? How to properly delete the previous copy without generating dangerous dangling pointers? Once again engineers have found many solutions such as using a language that supports garbage collection or esoteric techniques like epoch-based memory reclamation, hazard pointers or reference counting.
 
-
+这个技术允许你同步非原始数据实体(primitive entities)，尽管要做到这个也有一定的难度。比如交换完成之后，一个读线程还在读取老的指针？如何安全的删除之前的数据副本而不引起非常危险的野指针问题？工程师们再一次的找到了很多解决方案，比如使用支持内存自动垃圾回收的语言，或者一些深奥的技术如分代内存回收，冒险指针或者引用计数。
  
 == Lock-freedom vs. wait-freedom
 == 无锁和无等待
 
 Every algorithm or data structure based on atomic operations can be clustered into two groups: lock-free or wait-free. This is an important distinction when you have to evaluate the impact of atomic-based tools on the performance of your program.
 
+每个基于原子操作的算法或者数据结构可以归为2类：无锁的或者无等待的。当你要评估基于原子操作的类库对你应用程序性能的影响时，这是一个非常重要的不同点。
+
 Lock-free algorithms allow the remaining threads to continue doing useful work even if one of them is temporarily busy. In other words, at least one thread always makes progress. The CAS loop is a perfect example of lock-free because if a single iteration of the CAS loop fails, it’s usually because some other thread has modified the shared resource successfully. However, a lock-free algorithm might spend an unpredictable amount of time just spinning, especially when there are many threads competing for the same resource: technically speaking, when the contention is high. Pushing it to the limits, a lock-free algorithm could be far less efficient with CPU resources than a mutex that puts blocked threads to sleep.
 
+无锁算法运行其他线程继续执行有用的工作，尽管有一个线程正在忙等。换句话说，至少有一个线程是可以继续执行的。CAS循环是一个非常好的无锁算法例子，因为如果循环的过程中如果有一此交换尝试失败了，一定是因为另一个线程成功修改了共享数据。尽管如此，无锁算法可能会在无法预知的时间内不停的忙等，尤其是有许多个线程在同时竞争同一个共享数据：更确切的说，当竞争非常激烈的时候。极端情况下，一个无锁算法的CPU资源效率可能远远不及让阻塞线程休眠的互斥锁。
+
 On the other hand in wait-free algorithms, a subset of lock-free ones, any thread can complete its work in a finite number or steps, regardless of the execution speed or the workload level of others. The first snippet in this article based on the fetch-and-add operation is an example of a wait-free algorithm: no loops, no retries, just undisturbed flow. Also, wait-free algorithms are fault-tolerant: no thread can be prevented from completing an operation by failures of other processes, or by arbitrary variations in their speed. These properties make wait-free algorithms suitable for complex real-time systems where the predictable behavior of concurrent code is a must.
+
+相比之下，在无等待算法中（无锁算法的子集），任何线程都能够在有限的步骤内完成工作，无论执行速度是怎样的，或者其他线程的工作负载水平是怎样的。本文中基于 *fetch-and-add*操作的第一个代码片段就是一个无等待算法实例：没有循环，没有重试，就是干净的业务流。还有，无等待算法是容错的：任何其他线程的失败，或者执行速度的波动都不会使当前线程完成不了工作。这些特性是的无等待算法非常适合复杂的实时系统，这里并发代码的行为可预知是必要的。
 
 .Wait-free algorithms are a subset of lock-free ones.
 image::images/lock-free-wait-free.png[Lock-free, wait-free]
 
 Wait-freedom is a highly desired property of concurrent code, yet very difficult to obtain. All in all, whether you are building a blocking, a lock-free or a wait-free algorithm the golden rule is to always benchmark your code and measure the results. Sometimes a good old mutex can outperform fancier synchronization primitives, especially when the concurrent task complexity is high.
 
+无等待是并发代码非常需要的，但是很难获得的特性。总而言之，无论你正在构建一个阻塞的，无锁的还是无等待的算法，黄金法则是你一定要做基准测试并且衡量测试结果。有时候旧时的互斥锁比时髦的同步原语性能要好，尤其是并发任务的复杂度非常高的时候。
+
 == Closing notes
 == 写到最后
 
 Atomic operations are a necessary part of lock-free programming, even on single-processor machines. Without atomicity, a thread could be interrupted halfway through the transaction, possibly leading to an inconsistent state. In this article I have just scratched the surface: a new world of problems opens up as soon as you add multicores/multiprocessors to the equation. Topics like sequential consistency and memory barriers are critical pieces of the puzzle and can't be overlooked if you want to get the best out of your lock-free algorithms. I will cover them all in the next episode.
+
+原子操作是无锁编码的必要组成，甚至是在单处理器的机器上也是。没有原子性，一个线程可能在事务中途被中断，可能会导致不一致的数据状态。本文中，我仅仅是浅尝辄止：一旦你把多核/多线程考虑进去，就打开了新世界。顺序一致性和内存屏障是非常关键的部分，如果要充分利用无锁算法，就不应该被忽视。我将在下一文章中讨论这些主题。
 
 == Sources
 == 参考
