@@ -138,4 +138,4 @@ reader_thread.start()
 
 
 
-本文译自https://www.internalpointers.com/post/introduction-thread-synchronization，英文读者可直接阅读原文。
+本文译自https://www.internalpointers.com/post/gentle-introduction-multithreading，英文读者可直接阅读原文。
