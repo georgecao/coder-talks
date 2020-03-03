@@ -1,6 +1,6 @@
 = 用原子操作实现无锁多线程：底层线程同步
 George Cao <matrix3456@gmail.com>
-2020-02-29
+2020-02-27
 :jbake-type: post
 :jbake-status: published
 :jbake-tags: 原子指令,多线程
