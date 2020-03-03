@@ -38,7 +38,7 @@ George Cao <matrix3456@gmail.com>
 现代CPU有多个核心组成的，核心（core）是真正执行计算的组件。每个核心拥有自己的独立缓存，如下图所示：
 
 .多个核心通过缓存和主内存交互的简化模型。这也叫做共享内存系统，因为主内存被多个实体访问。
-image::images/cpu-cache-main-memory.png[CPU, cache and main memory]
+image::/images/cpu-cache-main-memory.png[CPU, cache and main memory]
 
 总而言之，缓存能让计算机运行更快。更准确的说，缓存通过让处理器总是繁忙和高效来帮助处理器不要因为等待主内存响应而浪费宝贵的时间。
 
