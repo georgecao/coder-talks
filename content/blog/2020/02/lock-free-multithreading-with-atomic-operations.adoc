@@ -4,7 +4,7 @@ George Cao <matrix3456@gmail.com>
 :jbake-type: post
 :jbake-status: published
 :jbake-tags: 原子指令,多线程
-:idprefix
+:idprefix:
 
 .本系列中的其他文章
 *  xref:a-gentle-introduction-to-multithreading.adoc[多线程简介] - 一步一步走进并发的世界  
