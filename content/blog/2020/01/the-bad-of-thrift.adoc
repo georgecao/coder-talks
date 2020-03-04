@@ -12,7 +12,7 @@ Thrift虽好，但是吹毛求疵的讲，可以更好。
 Thrift作为一个经常拿来和Google的Protocol Buffers比较的二进制协议阵营中的重量级选手，我认为其最大的特点就是有个完整的RPC协议栈，而Protocol Buffers开源出来的版本基本上可以认为仅仅是个跨平台的数据序列化/反序列化的工具。
 
 .Thrift结构图, 来自Wikipedia
-image::/images/Apache_Thrift_Architecture.png[Thrift结构图]
+image::images/Apache_Thrift_Architecture.png[Thrift结构图]
 
 也是基于最大的理由，我们在RPC环境下选择了Thrift。但是在使用Thrift的过程中也逐渐发现她的一些不尽如我意的地方。
 
