@@ -108,8 +108,9 @@
               <goal>process-asciidoc</goal>
             </goals>
             <configuration>
+              <doctype>article</doctype>
               <backend>html5</backend>
-              <sourceHighlighter>coderay</sourceHighlighter>
+              <sourceHighlighter>prettify</sourceHighlighter>
             </configuration>
           </execution>
         </executions>

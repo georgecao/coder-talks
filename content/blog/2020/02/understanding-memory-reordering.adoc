@@ -1,4 +1,4 @@
-= 理解内存重排序以及为什写无锁多线程代码时很重要。
+= 理解内存重排序以及为什写无锁多线程代码时很重要
 George Cao <matrix3456@gmail.com>
 2020-02-29
 :jbake-type: post
@@ -52,7 +52,7 @@ image::images/cpu-cache-main-memory.png[CPU, cache and main memory]
 == 硬件内存重排序的具体样例
 考虑下面用硬件伪代码写的样例。程序的每一个步骤都对应一个处理器指令：
 
-[source,c]
+[source, c]
 ----
 x = 0
 v = false

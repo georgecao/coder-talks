@@ -1,6 +1,7 @@
 = Thrift的坑
 George Cao <matrix3456@gmail.com>
 2017-06-03
+:source-highlighter: highlight.js
 
 [abstract]
 Thrift虽好，但是吹毛求疵的讲，可以更好。
@@ -16,17 +17,16 @@ image::/images/Apache_Thrift_Architecture.png[Thrift结构图]
 集合是指Thrift原生支持的list，set和map这三个容器类的数据结构。使用Java语言的话，集合里面不能有null值这点要特别注意。Thrift使用的Java的ArrayList，HashSet和HashMap这3个数据结构分别实现list，set和map。从Java的语义来讲，ArrayList里面是允许有null值的，HashMap的键（key）和值（value）都是允许有null值的，而HashSet内部是用了一个HashMap来实现的，同样也是允许有null值的。
 [source,java]
 ----
-    // HashMap
-    Map<String, String> map = new HashMap<>();
-    map.put(null, null);
-    assert(1 == map.size());
+// HashMap
+Map<String, String> map = new HashMap<>();
+map.put(null, null);
+assert(1 == map.size());
 
-    // HashSet
-    Set<String> set = new HashSet<>();
-    set.add(null);
-    assert(1 == set.size());
+// HashSet
+Set<String> set = new HashSet<>();
+set.add(null);
+assert(1 == set.size());
 ----
-
 上面这段代码在Java语言范畴内是完全合法的，但是在Thrift里面，只要这些集合类里面混进了null值，而Thrift本身（libthrift）不做这方面的数据校验，就会导致客户端因为读不到预期的数据而报超时异常。所以写入的时候务必要对数据做非空的校验，从而避免这类异常的出现。
 
 == 集合中不建议直接用枚举类型
