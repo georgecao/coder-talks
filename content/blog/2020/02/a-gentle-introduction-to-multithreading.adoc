@@ -8,7 +8,7 @@ George Cao <matrix3456@gmail.com>
 
 
 .本系列中的其他文章
-*  xref:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的的并发控制方法之一
+*  xref:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的并发控制方法之一
 *  xref:lock-free-multithreading-with-atomic-operations.adoc[用原子操作实现无锁多线程] - 底层线程同步
 *  xref:understanding-memory-reordering.adoc[理解内存重排序] - 为什写无锁多线程代码时它很重要
 

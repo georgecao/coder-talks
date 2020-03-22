@@ -8,7 +8,7 @@ George Cao <matrix3456@gmail.com>
 
 .本系列中的其他文章
 *  xref:a-gentle-introduction-to-multithreading.adoc[多线程简介] - 一步一步走进并发的世界  
-*  xref:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的的并发控制方法之一
+*  xref:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的并发控制方法之一
 *  xref:understanding-memory-reordering.adoc[理解内存重排序] - 为什写无锁多线程代码时它很重要
 
 本文经 https://it.linkedin.com/in/federicarinaldi[Federica Rinaldi]仔细审阅过，谢谢。
@@ -105,7 +105,7 @@ writer_thread()
 === 现实世界中的原子操作
 现在，上面这个例子显示了原子操作的一个重要特性：他们仅针对原子类型，如boolean型，字符串，整数等。但是真的程序是需要使用同步技术来实现更复杂的数据结构，比如数组，向量，对象，数据向量，对象里包含数据等等。如何用基于原子类型的简单操作来保证负责数据的原子性？
 
-无锁编程迫使你跳出常规的同步原语来思考问题。你不用直接用原子操作保护共享资源，而是用互斥锁或者信号量。同样的，你会基于原子操作构建 *无锁算法* 或者 *无锁数据结构* 来确定多个线程如何访问你的数据。
+无锁编程迫使你跳出常规的同步原语来思考问题。你不直接用原子操作保护共享资源，而是用互斥锁或者信号量。同样的，你会基于原子操作构建 *无锁算法* 或者 *无锁数据结构* 来确定多个线程如何访问你的数据。
 
 例如，上面看到的 _fetch-and-add_ 操作可以用来实现一个基本的信号量，而这个信号量就可以用来协调多个线程。毫无意外，所有传统的阻塞同步工具都是基于原子操作的实现的。
 

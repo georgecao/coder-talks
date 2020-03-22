@@ -8,7 +8,7 @@ George Cao <matrix3456@gmail.com>
 
 .本系列中的其他文章
 *  xref:a-gentle-introduction-to-multithreading.adoc[多线程简介] - 一步一步走进并发的世界  
-*  xref:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的的并发控制方法之一
+*  xref:introduction-to-thread-synchronization.adoc[线程同步简介] - 多线程应用中最常见的并发控制方法之一
 *  xref:lock-free-multithreading-with-atomic-operations.adoc[用原子操作实现无锁多线程] - 底层线程同步
 
 此系列前一篇文章中，xref:lock-free-multithreading-with-atomic-operations.adoc[用原子操作实现无锁多线程]，我介绍了无锁多线程：并发软件中线程同步的底层机制。
