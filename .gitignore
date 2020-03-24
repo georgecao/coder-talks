@@ -39,3 +39,6 @@ dependency-reduced-pom.xml
 # VP Suite
 *.vux
 *.vpp~*
+
+#JBake
+/output
