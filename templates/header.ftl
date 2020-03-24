@@ -4,10 +4,10 @@
     <meta charset="utf-8"/>
     <title><#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>REPLoop</#if></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="blog">
+    <meta name="description" content="REPLoop，在脚本编程语言中经常能看到REPL，也就是Read-Evaluate-Print-Loop，意思是读取源代码，评估执行，打印结果的循环。这个过程能够快速的学习实践然后得到结果。非常像一个学习成长的过程：输入信息，消化吸收，输出知识并用于实践，然后持之以恒的坚持。4个环节缺一不可，而且最难做到的大概是持之以恒了。">
     <meta name="author" content="georgecao">
-    <meta name="keywords" content="blog">
-    <meta name="generator" content="JBake">
+    <meta name="keywords" content="<#if (content.tags)??>${content.tags?join(',')}</#if>">
+    <meta name="generator" content="JBake ${version}">
 
     <!-- Le styles -->
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/bootstrap.min.css" rel="stylesheet">

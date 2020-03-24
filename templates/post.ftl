@@ -8,7 +8,7 @@
 	</div>
 	<#else></#if>
 
-	<p><em>${content.date?string("dd MMMM yyyy")}</em></p>
+	<p><em>${content.date?string("yyyy年MM月dd日")}</em></p>
 
 	<p>${content.body}</p>
 
