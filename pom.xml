@@ -31,7 +31,7 @@
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp</artifactId>
-      <version>4.3.0</version>
+      <version>4.4.1</version>
     </dependency>
     <dependency>
       <groupId>org.asciidoctor</groupId>
@@ -41,12 +41,12 @@
     <dependency>
       <groupId>org.asciidoctor</groupId>
       <artifactId>asciidoctorj-pdf</artifactId>
-      <version>1.5.0-beta.8</version>
+      <version>1.5.3</version>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
-      <version>2.36.0</version>
+      <version>2.38.0</version>
     </dependency>
     <dependency>
       <groupId>org.jbake</groupId>
@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
-      <version>1.12.1</version>
+      <version>1.13.1</version>
     </dependency>
     <dependency>
       <groupId>net.sourceforge.cssparser</groupId>
@@ -86,7 +86,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.13</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
