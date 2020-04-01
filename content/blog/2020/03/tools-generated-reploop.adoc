@@ -1,14 +1,48 @@
 = REPLoop使用到的工具链
 George Cao <matrix3456@gmail.com>
-2020-02-20
+2020-03-22
 :jbake-type: post
 :jbake-status: draft
-:jbake-tags: REPLoop,JBake,Theme,进程,线程
+:jbake-tags: REPLoop,JBake,主题,Asciidoctor,Pandoc
 :idprefix:
 
-== JBake
+从Github Pages开始，静态资源建站开始流行起来了。如果你仅仅是想写点东西，那这就完全够用了。所以现在弄个小站，根本不需要服务器(如Linux)，数据库(如MySQL)，应用程序(比如Tomcat，Apache，Nginx等)，编程语言(如JSP，PHP，SpringMVC等)等等统统都可以不需要学，也不需要会。
 
-== 问题
+LAMP vs SSM
+
+云时代对小不点的企业或者个人来说啥都可以找到云解决方案，比如给网站加个评论那就用 https://disqus.com/[DISQUS]，想有个统计那就用 https://analytics.google.com/analytics/web/[Google Analytics]，想上个CDN加速那就用 https://www.cloudflare.com/[Cloudflare]，域名也可以不用操心，就用Github Pages的，有自己域名的也可以用。HTTPS证书也有免费的 https://letsencrypt.org/[Let's Encrypt]。只要搭好架子，剩下的就是使用熟悉的格式如 https://www.markdownguide.org/[Markdown]或者 https://asciidoctor.org/[Asciidoctor]等开始写就可以了。
+
+== Github Pages
+
+== 静态网站生成
+
+== Asciidoctor
 
 == Theme
 https://themes.asciidoctor.org/preview/
+
+== 图片资源
+
+TBD
+
+== 草稿箱
+https://www.vogella.com/tutorials/AsciiDoc/article.html#install-the-asciidoctor-toolchain
+
+
+== JBake
+
+=== 本地测试
+执行以下命令，并启动本地Jetty服务器，方便在浏览器中预览。
+[source,bash]
+----
+jbake -b -s
+----
+
+但是发布的时候不要 `-s` 选项， 否则生成的feed.xml文件中的链接地址就会变成 `http://localhost:8820/`。
+
+
+== pandoc
+
+== code hi
+https://github.com/asciidoctor/asciidoctor.org/blob/master/docs/_includes/src-highlightjs.adoc
+https://github.com/asciidoctor/asciidoctor/blob/master/lib/asciidoctor/syntax_highlighter/highlightjs.rb

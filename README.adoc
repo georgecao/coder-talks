@@ -8,7 +8,16 @@ TBD
 https://www.vogella.com/tutorials/AsciiDoc/article.html#install-the-asciidoctor-toolchain
 
 
-== Jbake
+== JBake
+
+=== 本地测试
+执行以下命令，并启动本地Jetty服务器，方便在浏览器中预览。
+[source,bash]
+----
+jbake -b -s
+----
+
+但是发布的时候不要 `-s` 选项， 否则生成的feed.xml文件中的链接地址就会变成 `http://localhost:8820/`。
 
 
 == pandoc
@@ -16,4 +25,6 @@ https://www.vogella.com/tutorials/AsciiDoc/article.html#install-the-asciidoctor-
 == code hi
 https://github.com/asciidoctor/asciidoctor.org/blob/master/docs/_includes/src-highlightjs.adoc
 https://github.com/asciidoctor/asciidoctor/blob/master/lib/asciidoctor/syntax_highlighter/highlightjs.rb
+
+==
 
