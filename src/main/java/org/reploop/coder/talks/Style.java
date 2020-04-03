@@ -6,9 +6,17 @@ import org.asciidoctor.OptionsBuilder;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Style {
     public static void main(String... args) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> val = new HashMap<>();
+        val.put("x", "y");
+        map.put("key", val);
+        System.out.println(map);
+
         Asciidoctor asciidoc = Asciidoctor.Factory.create();
         StringWriter sw = new StringWriter();
         try (BufferedWriter bw = new BufferedWriter(sw)) {

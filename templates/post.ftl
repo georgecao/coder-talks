@@ -9,7 +9,7 @@
 	<#else>
 	</#if>
 
-	<p><em>${content.date?string("yyyy年MM月dd日")}</em>
+<p><a href="/about.html"><strong>${content.author!config.site_author}</strong></a>于${content.date?string("yyyy年MM月dd日")}
 		<#if (content.tags)??>
 			<#list content.tags as tag>
 				<span class="badge badge-dark">${tag}</span>
@@ -19,5 +19,5 @@
 	<p>${content.body}</p>
 
 	<hr />
-	
+	<#include "disqus.ftl">
 <#include "footer.ftl">

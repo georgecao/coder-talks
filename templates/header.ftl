@@ -26,6 +26,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>img/favicon.png">
+    <#if (content.uri)??>
+      <link rel="canonical" href="${config.site_host}/${content.uri}" />
+    </#if>
     <script data-ad-client="ca-pub-2350040335860411" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
   <body onload="prettyPrint()">
