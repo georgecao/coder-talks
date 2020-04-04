@@ -1,10 +1,12 @@
 = nginx配置文件中的location匹配规则
 乔治 <matrix3456@gmail.com>
-2018-06-09
+2020-04-04
 :jbake-type: post
-:jbake-status: draft
+:jbake-status: published
 :jbake-tags: nginx,配置文件,优先级,优化
 :idprefix:
+
+在反向代理的场景下，nginx用的人很多。在使用nginx的过程中，除了常规的反向代理配置，还经常临时性的要封个请求，加个限速，跳转一下等是常有的事情。这些都和location的配置规则相关。
 
 == location语法
 
@@ -31,7 +33,7 @@ location支持5种语法，分别为：
 
 == 匹配结果
 
-根据 *执行顺序* 节的解释，我们可以确定匹配结果的优先级是：完整字符串匹配>^~前缀匹配>正则匹配>字符串前缀匹配。
+根据 *执行顺序* 节的解释，我们可以确定匹配结果的优先级是：*完整字符串匹配* > *^~前缀匹配* > *正则匹配* > *字符串前缀匹配*。
 
 == location优化建议
 
@@ -52,8 +54,6 @@ location ~ /uri/\d{1,}/ {}
 
 这个配置文件，如果遇到 */uri/12345/* 这个请求的时候，最后的匹配结果是uri，而不是后者。
 
-== 怎么样实现一个这样的匹配？
+== 参考
 
-== 参考资源
-
-http://wiki.nginx.org/HttpCoreModule#location
+* nginx.org - http://wiki.nginx.org/HttpCoreModule#location
