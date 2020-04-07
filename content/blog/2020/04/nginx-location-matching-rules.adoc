@@ -3,7 +3,7 @@
 2020-04-04
 :jbake-type: post
 :jbake-status: published
-:jbake-tags: nginx,配置文件,优先级,优化
+:jbake-tags: nginx,配置文件,优先级,优化,location
 :idprefix:
 
 在反向代理的场景下，nginx用的人很多。在使用nginx的过程中，除了常规的反向代理配置，还经常临时性的要封个请求，加个限速，跳转一下等是常有的事情。这些都和location的配置规则相关。
