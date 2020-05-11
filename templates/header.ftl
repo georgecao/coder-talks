@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
   <head>
     <meta charset="utf-8"/>
     <title><#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>REPLoop</#if></title>
@@ -8,6 +8,7 @@
     <meta name="author" content="${content.author!config.site_author}">
     <meta name="keywords" content="<#if (content.tags)??>${content.tags?join(',')}<#else >${config.site_keywords?join(',')}</#if>">
     <meta name="generator" content="JBake ${version}">
+    <meta property=og:locale content=zh_CN>
 
     <!-- Le styles -->
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/bootstrap.min.css" rel="stylesheet">

@@ -10,7 +10,7 @@ George Cao <matrix3456@gmail.com>
 
 LAMP vs SSM
 
-云时代对小不点的企业或者个人来说啥都可以找到云解决方案，比如给网站加个评论那就用 https://disqus.com/[DISQUS]，想有个统计那就用 https://analytics.google.com/analytics/web/[Google Analytics]，想上个CDN加速那就用 https://www.cloudflare.com/[Cloudflare]，域名也可以不用操心，就用Github Pages的，有自己域名的也可以用。HTTPS证书也有免费的 https://letsencrypt.org/[Let's Encrypt]。只要搭好架子，剩下的就是使用熟悉的格式如 https://www.markdownguide.org/[Markdown]或者 https://asciidoctor.org/[Asciidoctor]等开始写就可以了。
+云时代对小不点的企业或者个人来说啥都可以找到云解决方案，比如给网站加个评论那就用 https://disqus.com/[DISQUS]，想有个统计那就用 https://analytics.google.com/analytics/web/[Google Analytics]，想上个CDN加速那就用 https://www.cloudflare.com/[Cloudflare]，域名也可以不用操心，就用Github Pages的，有自己域名的也可以用。HTTPS证书也有免费的 https://letsencrypt.org/[Let's Encrypt]。只要搭好架子，剩下的就是使用熟悉的格式如 https://www.markdownguide.org/[Markdown]或者 https://asciidoctor.org/[Asciidoctor]等开始写就可以了。写完了也直接提交代码库 https://github.com/gitlab[Github]，存储都在云端了。搭建好之后简单到大约只有有个浏览器，连了网络就可以写了。
 
 == Github Pages
 
