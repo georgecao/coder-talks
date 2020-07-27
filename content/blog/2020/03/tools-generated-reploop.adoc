@@ -21,6 +21,9 @@ LAMP vs SSM
 英文句子中的每个单词前后都有空格，但是中文句子却不是。然后一些加粗必须和前面的字有一个空格Asciidoc才能解析。 比如 `This is *bold* .`很正常，
 但是 `这是*加粗*文字` 这个不能正确解析，需要加入空格才可以，像这样：`这是 *加粗* 文字`。不过这样的话出来的文字就有空格了。
 
+https://github.com/asciidoctor/asciidoctor/issues/1420
+https://emacs-china.org/t/markup-language/9308
+
 == Theme
 
 https://themes.asciidoctor.org/preview/
