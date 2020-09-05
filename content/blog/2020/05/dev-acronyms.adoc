@@ -2,12 +2,12 @@
 乔治 <matrix3456@gmail.com>
 2020-04-04
 :jbake-type: post
-:jbake-status: published
+:jbake-status: draft
 :jbake-tags: nginx,配置文件,优先级,优化,location
 :idprefix:
 
-
 == 列表
+
 * IMHO: In My Humble Opinion.
 * TBD:
 * WTF:
@@ -16,11 +16,8 @@
 * LGTM:
 * PTAL:
 * SGTM:
-*
-*
-
+* *
 
 == TBD
-
 
 https://farer.org/2017/03/01/code-review-acronyms/
