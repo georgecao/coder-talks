@@ -6,10 +6,13 @@
 :jbake-tags: 多线程,线程池
 :idprefix:
 
-多核环境下，为了更好的资源利用率，在Java世界里，多线程基本上算是一个常规武器了。
+多核环境下，为了更好的资源利用率，在Java世界里，多线程基本上算是一个常规武器了。接着就是本文的核心问题，如果你要创建一个线程池，该怎么确定线程池的大小呢？
 
 == 线程池的大小
+
 关于线程池的大小，有两本非常有名的书中都有相关的论述。这两本书还都是Java生态里面重量级人物写的。
+
+=== Java Concurrency In Practice
 
 [quote,Brian Göetz,Java Concurrency In Practice: p.107]
 For compute intensive tasks, an _N~cpu~_-processor system usually achieves optimum utilization with a thread pool of _N~cpu~_+1 threads.
@@ -29,6 +32,8 @@ The optimal pool size for keeping the processors at the desired utilization is:
 
 _N~threads~_ = _N~cpu~_ * _U~cpu~_ * (stem:[1 + w/c])
 
+=== Programming Concurrency on the JVM
+
 [quote,Venkat Subramaniam,Programming Concurrency on the JVM: p.16]
 If tasks spend 50 percent of the time being blocked, then the number of threads should be twice the number of available cores.
 If they spend less time being blocked—that is, they’re computation intensive—then we should have fewer threads but no less than the number of cores.
@@ -39,5 +44,8 @@ So, we can compute the total number of threads we’d need as follo ws:
 Number of threads = Number of Available Cores / (1 - Blocking Coefficient)
 
 where the blocking coefficient is between 0 and 1.
+
+== 分析与结论
+两本书，给出了2个不一样的公式，该如何取舍呢？
 
 假设 _U~cpu~_ 是100%的情况下，这两个公式是一样的。只要定义blocking coefficient = stem:[w/(w+c)]，也就是阻塞时间与整个CPU时间的占比，那么他们就是一个意思：定性的描述就是阻塞任务越多，就需要更多线程来保证CPU有活干。而具体的公式则是定量的表达上述思路了。线程池的大小是想做到最少的线程上下文切换(或代价)来做到最大的(或特定目标)CPU使用率。

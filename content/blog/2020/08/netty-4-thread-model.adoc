@@ -6,7 +6,6 @@
 :jbake-tags: netty,多线程,线程模型
 :idprefix:
 
-
 [abstract]
 Netty 4的线程模型简单可依赖
 
@@ -14,6 +13,18 @@ https://medium.com/square-corner-blog/upgrading-a-reverse-proxy-from-netty-3-to-
 
 EventLoop -> EventExecutor Lazy Bind
 http://www.infoq.com/cn/articles/netty-version-upgrade-history-thread-part
+
+== Java线程池
+
+简单朴素的正向思路，线程池就是提前实例化多个线程，有任务的时候呢，先挑一个线程出来，然后把任务给它执行。有过数据库连接池使用经验的话，应该很熟悉这种模式。
+
+[source,java]
+----
+int size = 100;
+Thread[size] = new Thread[size]; //线程池
+----
+
+不过Doug Lea大神在Java 1.5提供的线程池实现则不是这么简单粗暴。 理解Java的线程池实现对理解Netty的线程模式非常有帮助。
 
 == 工作原理
 
