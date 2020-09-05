@@ -11,7 +11,7 @@
     <description>Coder Talks</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
+        <asciidoctor.maven.plugin.version>2.0.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>2.4.0</asciidoctorj.version>
         <asciidoctorj.diagram.version>1.5.7</asciidoctorj.diagram.version>
         <selenium.version>3.141.59</selenium.version>
