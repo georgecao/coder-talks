@@ -1,20 +1,12 @@
-= 小学数学在工作中应用
+= 如何设置线程池的大小？
 乔治 <matrix3456@gmail.com>
 2020-05-04
 :jbake-type: post
-:jbake-status: draft
-:jbake-tags: nginx,配置文件,优先级,优化,location
+:jbake-status: published
+:jbake-tags: 多线程,线程池
 :idprefix:
 
-作为一个Java程序员，干Web相关的开发，除去具体的业务，实质上干的就是通讯的工作，通过网络在不同机器之间来回搬字节（byte）。这么一比较，Java Web程序员的工作某些部分其实和大街小巷里面穿梭的快递员有几分相似。
-
-回到正路，日常工作中经常会碰到一些数字，需要给出合理的数值。这些数字可能是垃圾回收（GC）的频率，内存（Heap）的大小，线程池（Thread Pool）的大小，对象池（Object Pool）的大小，网络超时（Timeout）时间，压缩阀值等等。都是些应用层的东西，再往下深入到操作系统，协议层面的东西不知道小学数学还适用不适用了。
-
-== GC的频率
-
-GC的频率与内存的大小息息相关，如果一个JVM的应用不正常，首要查看的可能就是GC状态。GC，尤其是FGC频繁一定是JVM目前不在正常状态，但是反过来不见的是成立的，这还要取决于你对频繁的理解。
-
-
+多核环境下，为了更好的资源利用率，在Java世界里，多线程基本上算是一个常规武器了。
 
 == 线程池的大小
 关于线程池的大小，有两本非常有名的书中都有相关的论述。这两本书还都是Java生态里面重量级人物写的。
@@ -49,22 +41,3 @@ Number of threads = Number of Available Cores / (1 - Blocking Coefficient)
 where the blocking coefficient is between 0 and 1.
 
 假设 _U~cpu~_ 是100%的情况下，这两个公式是一样的。只要定义blocking coefficient = stem:[w/(w+c)]，也就是阻塞时间与整个CPU时间的占比，那么他们就是一个意思：定性的描述就是阻塞任务越多，就需要更多线程来保证CPU有活干。而具体的公式则是定量的表达上述思路了。线程池的大小是想做到最少的线程上下文切换(或代价)来做到最大的(或特定目标)CPU使用率。
-
-== 对象池的大小
-
-== 网络读超时（Read Timeout）时间
-
-从开始读数据到读到第一个字节的最长时间，超过这个时间，客户端就会报一个Read timeout异常。 Specifically, if the server fails to send a byte <timeout> seconds after the last byte, a read timeout error will be raised.
-http://stackoverflow.com/questions/3069382/what-is-the-difference-between-connection-and-read-timeout-for-sockets
-
-== 网络连接超时（Connection Timeout）
-
-三级握手完成时间
-
-== 请求超时（Request Timeout）
-
-Connection Timeout + Read Timeout + Data Transforing Time
-
-== 压缩阀值
-
-== 稳定性

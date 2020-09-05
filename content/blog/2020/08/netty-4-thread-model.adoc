@@ -1,7 +1,11 @@
 = Netty 4 线程模型
-George Cao <matrix3456@gmail.com>
-2017-06-03
-:toc: 
+乔治 <matrix3456@gmail.com>
+2020-05-04
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: netty,多线程,线程模型
+:idprefix:
+
 
 [abstract]
 Netty 4的线程模型简单可依赖

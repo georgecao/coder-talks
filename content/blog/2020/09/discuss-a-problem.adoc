@@ -1,8 +1,8 @@
 = 如何讨论一个问题？
-George Cao <matrix3456@gmail.com>
+乔治 <matrix3456@gmail.com>
 2020-09-05
 :jbake-type: post
-:jbake-status: draft
+:jbake-status: published
 :jbake-tags: 认知,视角,变化
 :jbake-lastModifiedDate: 2020-09-05
 :idprefix:
@@ -42,7 +42,7 @@ George Cao <matrix3456@gmail.com>
 
 这种场景最常见的就是某一个领域的下属和横向业务上的领导讨论问题时发生，最后屁股坐的正的说就这么办，之前的讨论就结束了。
 
-到了执行环节，下属将信将疑的免强做了动作，最后结果一会报上去，领导不满意，还说你不专业。结果变成一个双输的局面。
+到了执行环节，下属将信将疑的免强做了动作，最后结果一汇报上去，领导不满意，还说你不专业。结果变成一个双输的局面。
 
 == 分析
 

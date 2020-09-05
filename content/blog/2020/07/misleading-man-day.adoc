@@ -1,12 +1,13 @@
 = 人日传说
-George Cao <matrix3456@gmail.com>
-2020-03-28
+乔治 <matrix3456@gmail.com>
+2020-05-04
 :jbake-type: post
-:jbake-status: published
-:jbake-tags: HTTP,HTTPS,CA,RSA,信任链,非对称加密,证书,密钥对,证书链,数字签名
-:jbake-lastModifiedDate: 2020-03-28
+:jbake-status: draft
+:jbake-tags: nginx,配置文件,优先级,优化,location
 :idprefix:
 
 == 何为人日?
+
 == 为什么人日？
+
 == 人日
