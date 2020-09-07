@@ -9,7 +9,9 @@
     <meta name="keywords" content="<#if (content.tags)??>${content.tags?join(',')}<#else >${config.site_keywords?join(',')}</#if>">
     <meta name="generator" content="JBake ${version}">
     <meta property=og:locale content=zh_CN>
-
+    <#if tag??>
+        <meta name="robots" content="noindex">
+    </#if>
     <!-- Le styles -->
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/bootstrap.min.css" rel="stylesheet">
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.css" rel="stylesheet">
