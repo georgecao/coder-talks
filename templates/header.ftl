@@ -4,7 +4,6 @@
     <meta charset="utf-8"/>
     <title><#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>REPLoop</#if></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
     <meta name="author" content="${content.author!config.site_author}">
     <meta name="keywords" content="<#if (content.tags)??>${content.tags?join(',')}<#else >${config.site_keywords?join(',')}</#if>">
     <meta name="generator" content="JBake ${version}">
