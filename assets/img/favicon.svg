@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Untitled</title>
+    <defs>
+        <linearGradient x1="29.6259333%" y1="13.086704%" x2="71.5387448%" y2="95.3099506%" id="linearGradient-1">
+            <stop stop-color="#FBA3A3" offset="0%"></stop>
+            <stop stop-color="#E98181" offset="55.8621066%"></stop>
+            <stop stop-color="#FBA3A3" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="29.6259333%" y1="12.1216912%" x2="71.5387448%" y2="96.4944746%" id="linearGradient-2">
+            <stop stop-color="#FBA3A3" offset="0%"></stop>
+            <stop stop-color="#E98181" offset="55.8621066%"></stop>
+            <stop stop-color="#FBA3A3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo-design">
+            <polygon id="higher-bottom-left" fill="url(#linearGradient-1)" points="16.2077922 18.2311871 -4.49856602e-16 9.11258278 0.0814719308 12.7092103 16.1263203 21.8278146"></polygon>
+            <polygon id="higher-upper-left" fill="#F95F5D" points="0 9.1186043 16 1.45873012e-15 15.9195726 3.59662749 0.0804274188 12.7152318"></polygon>
+            <polygon id="higher-upper-right" fill="#FBA3A3" points="31.7922078 9.1186043 15.7922078 3.24819536e-14 15.8726352 3.59662749 31.7117804 12.7152318"></polygon>
+            <polygon id="higher-bottom-right" fill="url(#linearGradient-2)" points="31.7922078 19.2907897 15.7922078 10.1721854 15.8726352 13.7688129 31.7117804 22.8874172"></polygon>
+            <polygon id="lower-upper-right" fill="#F95F5D" points="15.7922078 18.2311871 32 9.11258278 31.9185281 12.7092103 15.8736797 21.8278146"></polygon>
+            <polygon id="lower-bottom-left" fill="#FBA3A3" points="16.2077922 28.4033725 4.49856602e-16 19.2847682 0.0814719308 22.8813957 16.1263203 32"></polygon>
+            <polygon id="lower-upper-left" fill="#F95F5D" points="0 19.2907897 16 10.1721854 15.9195726 13.7688129 0.0804274188 22.8874172"></polygon>
+            <polygon id="lower-bottom-right" fill="#F95F5D" points="15.7922078 28.4033725 32 19.2847682 31.9185281 22.8813957 15.8736797 32"></polygon>
+        </g>
+    </g>
+</svg>
