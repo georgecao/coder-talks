@@ -17,38 +17,7 @@ GC的频率与内存的大小息息相关，如果一个JVM的应用不正常，
 
 
 == 线程池的大小
-关于线程池的大小，有两本非常有名的书中都有相关的论述。这两本书还都是Java生态里面重量级人物写的。
-
-[quote,Brian Göetz,Java Concurrency In Practice: p.107]
-For compute intensive tasks, an _N~cpu~_-processor system usually achieves optimum utilization with a thread pool of _N~cpu~_+1 threads.
-(Even compute intensive threads occasionally take a page fault or pause for some other reason, so an "extra" runnable thread prevents CPU cycles from going unused when this happens.) For tasks that also include I/O or other blocking operations, you want a larger pool, since not all of the threads will be schedulable at all times.
-In order to size the pool properly, you must estimate the ratio of waiting time to compute time for your tasks; this estimate need not be precise and can be obtained through profiling or instrumentation.
-Alternatively, the size of the thread pool can be tuned by running the application using several different pool sizes under a benchmark load and observing the level of CPU utilization.
-
-Given these definitions:
-
-_N~cpu~_ = number of CPUs
-
-_U~cpu~ = target CPU utilization, stem:[0 <=] _U~cpu~_ stem:[<= 1]
-
-stem:[w/c] = ratio of wait time to compute time
-
-The optimal pool size for keeping the processors at the desired utilization is:
-
-_N~threads~_ = _N~cpu~_ * _U~cpu~_ * (stem:[1 + w/c])
-
-[quote,Venkat Subramaniam,Programming Concurrency on the JVM: p.16]
-If tasks spend 50 percent of the time being blocked, then the number of threads should be twice the number of available cores.
-If they spend less time being blocked—that is, they’re computation intensive—then we should have fewer threads but no less than the number of cores.
-If they spend more time being blocked—that is, they’re IO intensive—then we should have more threads, specifically, several multiples of the number of cores.
-
-So, we can compute the total number of threads we’d need as follo ws:
-
-Number of threads = Number of Available Cores / (1 - Blocking Coefficient)
-
-where the blocking coefficient is between 0 and 1.
-
-假设 _U~cpu~_ 是100%的情况下，这两个公式是一样的。只要定义blocking coefficient = stem:[w/(w+c)]，也就是阻塞时间与整个CPU时间的占比，那么他们就是一个意思：定性的描述就是阻塞任务越多，就需要更多线程来保证CPU有活干。而具体的公式则是定量的表达上述思路了。线程池的大小是想做到最少的线程上下文切换(或代价)来做到最大的(或特定目标)CPU使用率。
+xref:how-to-size-thread-pool.adoc[线程池]
 
 == 对象池的大小
 

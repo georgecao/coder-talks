@@ -5,6 +5,7 @@
 :jbake-status: published
 :jbake-tags: nginx,配置文件,优先级,优化,location
 :idprefix:
+:icons: font
 
 在反向代理的场景下，nginx用的人很多。在使用nginx的过程中，除了常规的反向代理配置，还经常临时性的要封个请求，加个限速，跳转一下等是常有的事情。这些都和location的配置规则相关。
 
@@ -48,11 +49,10 @@ location支持5种语法，分别为：
 
 [source,bash]
 ----
-location ~ /uri {}
-location ~ /uri/\d{1,}/ {}
+location ~ /uri {}           // <1>
+location ~ /uri/\d{1,}/ {}   // <2>
 ----
-
-这个配置文件，如果遇到 */uri/12345/* 这个请求的时候，最后的匹配结果是uri，而不是后者。
+这个配置文件，如果遇到 */uri/12345/* 这个请求的时候，最后的匹配结果是uri <1>，而不是后者 <2>。
 
 == 参考
 
