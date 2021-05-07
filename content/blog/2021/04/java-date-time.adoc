@@ -1,7 +1,6 @@
 = Java日期与时间的一些理解
 乔治 <matrix3456@gmail.com>
 2021-04-22
-:toc:
 :icons: font
 :jbake-type: post
 :jbake-status: published
@@ -41,7 +40,7 @@ Locale是指所属的地区以及该地区的语言，而Timezone则是时区。
 
 == 时区的理解
 Java 1.8以前和Java 1.8中的日期和时间设计分别参考
-https://docs.oracle.com/javase/tutorial/datetime/overview/index.html[Java日期设计] 与 https://www.journaldev.com/2800/java-8-date-localdate-localdatetime-instant[Java 8日期API]。这里面的时区是采用标准的 http://www.iana.org/time-zones[时区数据库]
+https://docs.oracle.com/javase/tutorial/datetime/overview/index.html[Java日期设计] 与 https://www.journaldev.com/2800/java-8-date-localdate-localdatetime-instant[Java 8日期API]。这里面的时区是采用标准的 http://www.iana.org/time-zones[时区数据库]。
 
 == UTC与GMT
 
@@ -65,7 +64,7 @@ ____
 
 举例来说 *GMT+8* 是时区，但 *UTC+8* 不是时区，虽然他们说的同一个时间。UTF+8是一个offset，一个offset不能自动转为时区。Java 1.8的java.time包中提供了 *ZoneOffset* 可参考。
 
-Java语言中展示时间的时候就用```TimeZone.getTimeZone()``去解析并查找标准时区，这是按照时区去检索的，检索不到的话就是默认为 *GMT* 时区。所以如果你输入UTC+8这个非法时区参数，得到的结果是GMT, 这就和GMT+8差了8个小时了，所有GMT+8不能用UTC+8代替。
+Java语言中展示时间的时候就用 ``TimeZone.getTimeZone()`` 去解析并查找标准时区，这是按照时区去检索的，检索不到的话就是默认为 *GMT* 时区。所以如果你输入UTC+8这个非法时区参数，得到的结果是GMT, 这就和GMT+8差了8个小时了，所有GMT+8不能用UTC+8代替。
 
 == 默认时区
 
