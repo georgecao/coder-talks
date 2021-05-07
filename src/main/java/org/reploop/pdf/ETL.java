@@ -23,7 +23,7 @@ public class ETL {
         PdfReader reader = new PdfReader(path.toUri().toURL());
         int pages = reader.getNumberOfPages();
         for (int i = 1; i <= pages; i++) {
-            PdfDictionary pn =reader.getPageN(i);
+            PdfDictionary pn = reader.getPageN(i);
             String text = PdfTextExtractor.getTextFromPage(reader, i);
             System.out.println(text);
             if (Strings.isNullOrEmpty(text)) {

@@ -17,6 +17,17 @@ import java.util.stream.Collectors;
 public class StyleTest {
 
     @Test
+    public void name() {
+        System.out.println(StyleTest.class.getResource(""));
+        System.out.println(StyleTest.class.getResource("."));
+        System.out.println(StyleTest.class.getResource("/"));
+        System.out.println();
+        System.out.println(ClassLoader.getSystemResource(""));
+        System.out.println(ClassLoader.getSystemResource("."));
+        System.out.println(ClassLoader.getSystemResource("org/reploop/coder/talks/StyleTest.class"));
+    }
+
+    @Test
     public void main() throws Exception {
         URL url = StyleTest.class.getResource("/the-bad-of-thrift.adoc");
         Path path = Paths.get(url.toURI());
