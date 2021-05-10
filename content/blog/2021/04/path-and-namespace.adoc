@@ -1,7 +1,6 @@
 = 编程语言中的文件系统与命名空间的关系
 乔治 <matrix3456@gmail.com>
 2021-04-29
-:toc:
 :icons: font
 :jbake-type: post
 :jbake-status: published
