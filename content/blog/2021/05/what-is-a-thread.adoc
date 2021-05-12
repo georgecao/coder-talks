@@ -6,4 +6,11 @@
 :jbake-tags: 线程
 :idprefix:
 
-什么是线程
+== 什么是线程
+
+线程（thread）是操作系统能夠进行运算调度的最小单位。
+
+== 参考
+
+* faqs.org - http://www.faqs.org/faqs/os-research/part1/section-10.html
+* wikipedia - https://zh.wikipedia.org/wiki/线程
