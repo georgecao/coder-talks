@@ -2,8 +2,8 @@
 乔治 <matrix3456@gmail.com>
 2020-05-04
 :jbake-type: post
-:jbake-status: draft
-:jbake-tags: nginx,配置文件,优先级,优化,location
+:jbake-status: published
+:jbake-tags: Java,GC,网络,优化,多线程,连接池,超时
 :idprefix:
 
 作为一个Java程序员，干Web相关的开发，除去具体的业务，实质上干的就是通讯的工作，通过网络在不同机器之间来回搬字节（byte）。这么一比较，Java Web程序员的工作某些部分其实和大街小巷里面穿梭的快递员有几分相似。
@@ -14,26 +14,49 @@
 
 GC的频率与内存的大小息息相关，如果一个JVM的应用不正常，首要查看的可能就是GC状态。GC，尤其是FGC频繁一定是JVM目前不在正常状态，但是反过来不见的是成立的，这还要取决于你对频繁的理解。
 
+GC调优的过程中会频繁的遇到下面三个数据，并且这些数据都可以通过 gc log分析计算出来：
 
+1. 内存分配速度(allocate rate)
+2. 新老晋升速度(promote rate)
+3. 内存回收速度(reclaim rate)
+
+一般来说调优就是为了减少应用的停顿时间(stop-the-world time), 在一般应用内存也就是最多几个G的的情况下，可以间接的通过降低GC频率来做到。 这时候我们加入时间参数 *t*， 所谓调优就是使得 `allocate rate * t < reclaim rate * t`，只要时间确定的情况下，就可以通过计算来确定新生代和老年代的大小使得他们满足这个不等式就可以粗略的达到以时间 *t* 为间隔发生GC，也就达到了预期的GC频率。
+
+对于老年代来说 promote rate可以粗略的认为是他的allocate rate。 所以一次调优的开始就是问你自己你想让应用多久发生一次GC？
 
 == 线程池的大小
-xref:how-to-size-thread-pool.adoc[线程池]
+
+已经写过xref:how-to-size-thread-pool.adoc[如何设置线程池的大小]，可以移步过去看看。这里面主要考虑的是CPU的计算时间和等待时间这两个因素，就是找到合理的线程数来让你的应用的CPU使用情况能符合计算时间和等待时间这两个因素。
 
 == 对象池的大小
 
+说到对象池，最常见的就是数据库的连接池了。因为他保持了真实的连接资源，那么连接池就不能任意的大，而且要根据请求的峰值来动态的扩容来满足性能指标，根据低谷数量来回收连接来释放资源。而且这两个过程要尽量保持平滑，从而避免给服务端比如数据库造成不好的影响。
+
 == 网络读超时（Read Timeout）时间
 
-从开始读数据到读到第一个字节的最长时间，超过这个时间，客户端就会报一个Read timeout异常。 Specifically, if the server fails to send a byte <timeout> seconds after the last byte, a read timeout error will be raised.
-http://stackoverflow.com/questions/3069382/what-is-the-difference-between-connection-and-read-timeout-for-sockets
+从开始读数据到读到第一个字节的最长时间，超过这个时间，客户端就会报一个Read timeout异常。
+
+[quote,Stephen C,http://stackoverflow.com/questions/3069382/what-is-the-difference-between-connection-and-read-timeout-for-sockets]
+Specifically, if the server fails to send a byte <timeout> seconds after the last byte, a read timeout error will be raised.
+
+这个和应用的处理模式有关系，可以考虑流式的处理，这样就可以尽可能早的开始返回数据。
 
 == 网络连接超时（Connection Timeout）
 
-三级握手完成时间
+这是建立TCP连接的三次握手完成时间。这里面的涉及的一个众所周知的速度，那就是光速。也就是网络传输速度的上限是信号在光纤中传输的速度-光速。根据 `距离=速度*时间`，那么3次握手的网络连接时间至少是 *3距离/速度(c=299792458m/s)*。那么从北京的机房连接到纽约的机房大约1万公里，那么网络连接时间至少是：`3 * 10000km / c = 100ms`。
 
 == 请求超时（Request Timeout）
 
-Connection Timeout + Read Timeout + Data Transforing Time
+上到应用层的请求，那么一次请求所需要的时间至少等于 Connection Timeout + Read Timeout + Data Transferring Time。 这里涉及请求本身的数据传输量，这部分时间也可以根据网速来计算出来。
 
 == 压缩阀值
 
-== 稳定性
+数据该不该压缩也是进场要做的一个决策。这个决策就是压缩所花费的时间小于数据压缩后缩小部分的所需的传输时间，也就是收益大于成本。
+
+== 结论
+
+这些场景工作中多多少少都有机会碰到，只要思路对上了，剩下的就是小学数学中的加减乘除就可以得出结论了。 这里面也提到了非常多的时间，这部分可以参考 https://colin-scott.github.io/personal_website/research/interactive_latency.html[Jeff Dean's latency numbers]。
+
+== 参考
+
+* Jeff Dean's latency numbers plotted over time - https://colin-scott.github.io/personal_website/research/interactive_latency.html
