@@ -42,27 +42,45 @@
 鉴权(Authentication)::
 鉴权是判定正在进行的行为是否被允许的过程。
 
-[graphviz]
+[graphviz,auth,svg]
 ----
-digraph d{
-randir=LR;
-node [style=filled];
-user[label="用户"];
-user_group[label="用户组"];
-object_group[label="资源组"];
-role[label="角色"];
-operation_group[label="操作组"];
-user -> operation;
-user_group->role->operation_group->object_group;
+digraph auth {
+    rankdir = LR;
+    subgraph cluster_0 {
+    object [label = "资源"];
+    operation [label = "操作"];
+    operation -> object;
+    label = "权限";
+    }
+    subgraph cluster_1 {
+    object_group [label = "资源组"];
+    operation_group [label = "操作组"];
+    operation_group -> object_group;
+    label = "权限组";
+    }
 
-object[label="资源"];
-operation[label="操作"];
-role->operation;
-user->role;
-{rank=same;user;user_group;}
-{rank=same;operation;operation_group;}
-{rank=same;object;object_group;}
+    subgraph cluster_2 {
+    rankdir = TD;
+    user [label = "用户"];
+    user_group [label = "用户组"];
+    }
 
+    role [label = "角色"];
+
+    user -> role;
+    user_group -> role;
+
+    role -> operation;
+    role -> operation_group;
+
+    operation -> operation_group;
+    user -> user_group;
+    object -> object_group;
+
+
+    {rank = min; user; user_group;}
+    {rank = same; operation; operation_group;}
+    {rank = same; object; object_group;}
 }
 ----
 
