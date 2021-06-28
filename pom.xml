@@ -11,8 +11,8 @@
     <description>Coder Talks</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <asciidoctor.maven.plugin.version>2.0.0</asciidoctor.maven.plugin.version>
-        <asciidoctorj.version>2.4.0</asciidoctorj.version>
+        <asciidoctor.maven.plugin.version>2.1.0</asciidoctor.maven.plugin.version>
+        <asciidoctorj.version>2.5.1</asciidoctorj.version>
         <asciidoctorj.diagram.version>1.5.7</asciidoctorj.diagram.version>
         <selenium.version>3.141.59</selenium.version>
     </properties>
@@ -57,6 +57,11 @@
             <groupId>org.jbake</groupId>
             <artifactId>jbake-core</artifactId>
             <version>2.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-diagram</artifactId>
+            <version>2.1.2</version>
         </dependency>
         <dependency>
             <groupId>com.machinepublishers</groupId>

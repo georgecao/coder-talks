@@ -47,41 +47,7 @@
 有了上面的解释说明，我们现在就可以理解他们之间的关系了：
 
 .实体关系图
-[graphviz,auth,svg]
-----
-digraph auth {
-    rankdir = LR;
-    subgraph cluster_0 {
-    object [label = "资源"];
-    operation [label = "操作"];
-    operation -> object [dir = both];
-    label = "权限";
-    }
-    subgraph cluster_1 {
-    object_group [label = "资源组"];
-    operation_group [label = "操作组"];
-    operation_group -> object_group [dir = both];
-    label = "权限组";
-    }
-    subgraph cluster_2 {
-    rankdir = TD;
-    user [label = "用户"];
-    user_group [label = "用户组"];
-    }
-    role [label = "角色"];
-
-    user -> role [dir = both];
-    user_group -> role [dir = both];
-    role -> operation [dir = both];
-    role -> operation_group [dir = both];
-    operation -> operation_group [dir = both];
-    user -> user_group [dir = both];
-    object -> object_group [dir = both];
-    {rank = min; user; user_group;}
-    {rank = same; operation; operation_group;}
-    {rank = same; object; object_group;}
-}
-----
+image::images/auth.svg[实体关系图]
 
 有了角色和组的概念之后，就可以实现分阶段的批量授权了：
 
@@ -99,16 +65,8 @@ digraph auth {
 
 权限管理实现的层次不同可以让这种授权也变为可能。假设一个应用的拓扑层次是：
 
-[graphviz,top,svg]
-----
-digraph top {
-gateway[label="网关层"];
-app[label="应用层"];
-db[label="数据库"];
-
-gateway -> app -> db;
-}
-----
+.应用拓扑图
+image::images/top.svg[应用拓扑图]
 
 鉴权的过程我们可以选择在任意一层或者多层来实现，这样就可以通过定义丰富的资源(比如API，URL作为资源)来实现权限管理了。
 
