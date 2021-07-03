@@ -7,9 +7,7 @@
 :jbake-tags: 日期,时间,时区
 :idprefix:
 
-日期和时间是表达周期性运动的一种方式，反过来说所有的周期性运动都可以用来计算时间。 地球人都知道有2种周期性运动，一个是地球绕太阳的公转，一个是地球自身的自转。地球的公转决定了日期，也就是 *年-月-日*。地球的自转决定了时间，也就是 *时-分-秒*。我们所说的一年就是地球公转一圈的时间，一日就是地球自转一圈的时间。所谓的周期性就是这个意思。日期的最小单位 *日* 就是地球自转一圈的时间，也就是24小时。
-中国的农历和节气还和月球绕地球公转有关系。
-而现在最精确的 https://zh.wikipedia.org/wiki/%E5%8E%9F%E5%AD%90%E9%90%98[*原子钟*] 则是以原子共振频率标准来计算时间的。
+日期和时间是表达周期性运动的一种方式，反过来说所有的周期性运动都可以用来计算时间。 地球人都知道有2种周期性运动，一个是地球绕太阳的公转，一个是地球自身的自转。地球的公转决定了日期，也就是 *年-月-日*。地球的自转决定了时间，也就是 *时-分-秒*。我们所说的一年就是地球公转一圈的时间，一日就是地球自转一圈的时间。所谓的周期性就是这个意思。日期的最小单位 *日* 就是地球自转一圈的时间，也就是24小时。 中国的农历和节气还和月球绕地球公转有关系。 而现在最精确的 https://zh.wikipedia.org/wiki/%E5%8E%9F%E5%AD%90%E9%90%98[*原子钟*] 则是以原子共振频率标准来计算时间的。
 
 == 时间的表达
 
@@ -20,34 +18,36 @@ Java中的日期和时间是时间在计算机中的结构化表达，比如 *Da
 milliseconds 是一个和时区没关系的值，也就是同一时刻全世界不同地方同时通过以下代码获取到的毫秒数是一样的：
 
 [source,java]
-```
+----
 System.currentTimeMillis();
-```
+----
+
 其结果都是从 *1970-01-01T00:00Z* 开始到现在的毫秒数。
 
-[quote,,https://stackoverflow.com/questions/46093200/showing-correct-time-from-milliseconds-with-desired-timezone]
+[quote,user7605325,https://stackoverflow.com/questions/46093200/showing-correct-time-from-milliseconds-with-desired-timezone]
 ____
 But the concept is the same - those values are "absolute": they are the same for everyone in the world, no matter where they are.
 If 2 people in different parts of the world (in different timezones) get the current timestamp at the same time, they'll all get the same number.
 ____
 
-
 Date， LocalDate，LocalDateTime 本身都是时间的结构化表达，本身并不带有时区信息。只需要需要给人展示的时候，才会用到时区信息来具体展示时间。
 
-== Locale vs Timezone
+== Locale与Timezone
 
 Locale是指所属的地区以及该地区的语言，而Timezone则是时区。 直觉上我们一直说的是中国的时区是东八区，所以在系统层面就理解地区和时区之间是有关系的，也就是设置了Locale则自动设置了该地区的时区。这也是我曾经的一个误解，其实他们两个之间是相互独立的。Locale作用于系统语言，比如国际化等。 TimeZone作用于日期和时间。 设置Locale不会影响日期与时间，反之亦然。如果非要有点关系的话，就是如果时间的字符串中有特殊语言，则可以使用Locale让系统知道，然后正确展示。
 
 == 时区的理解
+
 Java 1.8以前和Java 1.8中的日期和时间设计分别参考
 https://docs.oracle.com/javase/tutorial/datetime/overview/index.html[Java日期设计] 与 https://www.journaldev.com/2800/java-8-date-localdate-localdatetime-instant[Java 8日期API]。这里面的时区是采用标准的 http://www.iana.org/time-zones[时区数据库]。
 
 == UTC与GMT
 
-[quote,,https://phrase.com/blog/posts/how-to-get-date-time-in-utc-or-gmt-in-java/]
+先来看2段引用：
+
+[quote,Theo,https://phrase.com/blog/posts/how-to-get-date-time-in-utc-or-gmt-in-java]
 ____
 To begin with, GMT (which stands for Greenwich Mean Time) is not the same as UTC (which stands for Coordinated Universal Time):
-
 GMT is a time zone used in some but not all parts of the world (mainly Europe and Africa).
 It uses either a 24-hour format or a 12-hour format for display and its based on astronomical observations.
 UTC is not a time zone.
@@ -55,9 +55,10 @@ It is a standard which we can use to display time zones.
 It is more stable as it takes time from an atomic clock.
 ____
 
-[quote,, https://www.worldtimeserver.com/learn/utc-vs-gmt/]
+[quote,UTC vs GMT,https://www.worldtimeserver.com/learn/utc-vs-gmt/]
 ____
-Did you know that there is a difference between GMT and UTC even though they share the same current time? In short, GMT is an actual time zone, whereas UTC is a time standard that is used to keep time synchronized across the world.
+Did you know that there is a difference between GMT and UTC even though they share the same current time?
+In short, GMT is an actual time zone, whereas UTC is a time standard that is used to keep time synchronized across the world.
 ____
 
 也就是GMT(Greenwich Mean Time)是时区，但UTC(Coordinated Universal Time)不是时区，而是一个用来同步时间的标准。
@@ -72,9 +73,9 @@ Java语言中展示时间的时候就用 ``TimeZone.getTimeZone()`` 去解析并
 
 .启动参数设置系统默认时区：
 [source,shell]
-```
+----
 java -Duser.timezone=Asia/Shanghai Main
-```
+----
 
 其他方案参考这篇 https://www.baeldung.com/java-jvm-time-zone[文章]。
 
