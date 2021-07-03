@@ -16,6 +16,12 @@ body {
     color: #808080;
 }
 
+ul.posts > button.btn {
+    margin: 2px;
+    background-color: #F5F5F5;
+    font-size: 1em;
+}
+
 /** Remove border when inside `a` element in IE 8/9. */
 img {
     border: 0;
