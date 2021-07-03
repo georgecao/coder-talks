@@ -19,17 +19,5 @@
 <p>${content.body}</p>
 
 <hr/>
-<div>
-    <span class="left">
-    <#if (content.previousContent.uri)??>
-        <a href="${config.site_host}/${content.previousContent.uri}" title="${content.title}">上一篇</a>
-    </#if>
-	</span>
-    <span class="right">
-    <#if (content.nextContent.uri)??>
-        <a href="${config.site_host}/${content.nextContent.uri}" title="${content.title}">下一篇</a>
-    </#if>
-	</span>
-</div>
 <#include "disqus.ftl">
 <#include "footer.ftl">
