@@ -1,0 +1,5 @@
+digraph deps {
+    A -> B -> C;
+    B -> D;
+    B -> E;
+}

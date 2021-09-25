@@ -45,3 +45,6 @@ dependency-reduced-pom.xml
 
 #Gradle
 /.gradle
+
+#Asciidoctor
+.asciidoctor/
