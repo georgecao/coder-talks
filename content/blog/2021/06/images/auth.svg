@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg height='98pt' preserveAspectRatio='xMidYMid meet' viewBox='0.00 0.00 404.57 98.00' width='405pt' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+<g class='graph' id='graph0' transform='scale(1 1) rotate(0) translate(4 94)'>
+<title>auth</title>
+<polygon fill='white' points='-4,4 -4,-94 400.57,-94 400.57,4 -4,4' stroke='transparent'/>
+
+<g class='node' id='node1'>
+<title>object</title>
+<ellipse cx='358.23' cy='-72' fill='none' rx='29.5' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='358.23' y='-68.3'>资源</text>
+</g>
+
+<g class='node' id='node3'>
+<title>object_group</title>
+<ellipse cx='358.23' cy='-18' fill='none' rx='38.19' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='358.23' y='-14.3'>资源组</text>
+</g>
+
+<g class='edge' id='edge9'>
+<title>object&#45;&gt;object_group</title>
+<path d='M358.23,-46.81C358.23,-46.65 358.23,-46.5 358.23,-46.34' fill='none' stroke='black'/>
+<polygon fill='black' points='354.73,-43.79 358.23,-53.79 361.73,-43.79 354.73,-43.79' stroke='black'/>
+<polygon fill='black' points='361.73,-46.14 358.23,-36.14 354.73,-46.14 361.73,-46.14' stroke='black'/>
+</g>
+
+<g class='node' id='node2'>
+<title>operation</title>
+<ellipse cx='245.53' cy='-72' fill='none' rx='29.5' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='245.53' y='-68.3'>操作</text>
+</g>
+
+<g class='edge' id='edge1'>
+<title>operation&#45;&gt;object</title>
+<path d='M285.14,-72C296.03,-72 307.87,-72 318.75,-72' fill='none' stroke='black'/>
+<polygon fill='black' points='285.04,-68.5 275.04,-72 285.04,-75.5 285.04,-68.5' stroke='black'/>
+<polygon fill='black' points='318.82,-75.5 328.82,-72 318.82,-68.5 318.82,-75.5' stroke='black'/>
+</g>
+
+<g class='node' id='node4'>
+<title>operation_group</title>
+<ellipse cx='245.53' cy='-18' fill='none' rx='38.19' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='245.53' y='-14.3'>操作组</text>
+</g>
+
+<g class='edge' id='edge7'>
+<title>operation&#45;&gt;operation_group</title>
+<path d='M245.53,-46.81C245.53,-46.65 245.53,-46.5 245.53,-46.34' fill='none' stroke='black'/>
+<polygon fill='black' points='242.03,-43.79 245.53,-53.79 249.03,-43.79 242.03,-43.79' stroke='black'/>
+<polygon fill='black' points='249.03,-46.14 245.53,-36.14 242.03,-46.14 249.03,-46.14' stroke='black'/>
+</g>
+
+<g class='edge' id='edge2'>
+<title>operation_group&#45;&gt;object_group</title>
+<path d='M294.25,-18C299.33,-18 304.49,-18 309.56,-18' fill='none' stroke='black'/>
+<polygon fill='black' points='294.01,-14.5 284.01,-18 294.01,-21.5 294.01,-14.5' stroke='black'/>
+<polygon fill='black' points='309.79,-21.5 319.79,-18 309.79,-14.5 309.79,-21.5' stroke='black'/>
+</g>
+
+<g class='node' id='node5'>
+<title>user</title>
+<ellipse cx='38.35' cy='-72' fill='none' rx='29.5' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='38.35' y='-68.3'>用户</text>
+</g>
+
+<g class='node' id='node6'>
+<title>user_group</title>
+<ellipse cx='38.35' cy='-18' fill='none' rx='38.19' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='38.35' y='-14.3'>用户组</text>
+</g>
+
+<g class='edge' id='edge8'>
+<title>user&#45;&gt;user_group</title>
+<path d='M38.35,-46.81C38.35,-46.65 38.35,-46.5 38.35,-46.34' fill='none' stroke='black'/>
+<polygon fill='black' points='34.85,-43.79 38.35,-53.79 41.85,-43.79 34.85,-43.79' stroke='black'/>
+<polygon fill='black' points='41.85,-46.14 38.35,-36.14 34.85,-46.14 41.85,-46.14' stroke='black'/>
+</g>
+
+<g class='node' id='node7'>
+<title>role</title>
+<ellipse cx='141.94' cy='-45' fill='none' rx='29.5' ry='18' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='141.94' y='-41.3'>角色</text>
+</g>
+
+<g class='edge' id='edge3'>
+<title>user&#45;&gt;role</title>
+<path d='M75.55,-62.38C85.19,-59.82 95.59,-57.05 105.2,-54.5' fill='none' stroke='black'/>
+<polygon fill='black' points='74.28,-59.1 65.51,-65.05 76.07,-65.86 74.28,-59.1' stroke='black'/>
+<polygon fill='black' points='106.1,-57.88 114.87,-51.93 104.3,-51.12 106.1,-57.88' stroke='black'/>
+</g>
+
+<g class='edge' id='edge4'>
+<title>user_group&#45;&gt;role</title>
+<path d='M82.03,-29.34C89.66,-31.37 97.55,-33.47 104.97,-35.44' fill='none' stroke='black'/>
+<polygon fill='black' points='82.61,-25.88 72.05,-26.69 80.82,-32.64 82.61,-25.88' stroke='black'/>
+<polygon fill='black' points='104.17,-38.85 114.73,-38.03 105.96,-32.08 104.17,-38.85' stroke='black'/>
+</g>
+
+<g class='edge' id='edge5'>
+<title>role&#45;&gt;operation</title>
+<path d='M179.15,-54.62C188.78,-57.18 199.18,-59.95 208.8,-62.5' fill='none' stroke='black'/>
+<polygon fill='black' points='179.67,-51.14 169.1,-51.95 177.87,-57.9 179.67,-51.14' stroke='black'/>
+<polygon fill='black' points='207.9,-65.88 218.46,-65.07 209.69,-59.12 207.9,-65.88' stroke='black'/>
+</g>
+
+<g class='edge' id='edge6'>
+<title>role&#45;&gt;operation_group</title>
+<path d='M179.02,-35.41C186.48,-33.43 194.39,-31.33 202.05,-29.29' fill='none' stroke='black'/>
+<polygon fill='black' points='177.87,-32.1 169.1,-38.05 179.67,-38.86 177.87,-32.1' stroke='black'/>
+<polygon fill='black' points='203.15,-32.62 211.91,-26.67 201.35,-25.86 203.15,-32.62' stroke='black'/>
+</g>
+</g>
+</svg>

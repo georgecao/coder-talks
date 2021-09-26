@@ -1,0 +1,7 @@
+digraph top {
+    gateway [label = "网关层"];
+    app [label = "应用层"];
+    db [label = "数据库"];
+
+    gateway -> app -> db;
+}

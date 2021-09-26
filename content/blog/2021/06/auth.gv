@@ -1,0 +1,32 @@
+digraph auth {
+    rankdir = LR;
+    subgraph cluster_0 {
+    object [label = "资源"];
+    operation [label = "操作"];
+    operation -> object [dir = both];
+    label = "权限";
+    }
+    subgraph cluster_1 {
+    object_group [label = "资源组"];
+    operation_group [label = "操作组"];
+    operation_group -> object_group [dir = both];
+    label = "权限组";
+    }
+    subgraph cluster_2 {
+    rankdir = TD;
+    user [label = "用户"];
+    user_group [label = "用户组"];
+    }
+    role [label = "角色"];
+
+    user -> role [dir = both];
+    user_group -> role [dir = both];
+    role -> operation [dir = both];
+    role -> operation_group [dir = both];
+    operation -> operation_group [dir = both];
+    user -> user_group [dir = both];
+    object -> object_group [dir = both];
+    {rank = min; user; user_group;}
+    {rank = same; operation; operation_group;}
+    {rank = same; object; object_group;}
+}

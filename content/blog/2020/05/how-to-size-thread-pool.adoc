@@ -1,0 +1,63 @@
+= 如何设置线程池的大小？
+乔治 <matrix3456@gmail.com>
+2020-05-04
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: 多线程,线程池
+:idprefix:
+
+多核环境下，为了更好的资源利用率，多线程基本上算是一个常规武器了。 我们知道CPU是用来计算的，而计算所需要的外部数据则是交给独立的I/O系统处理的。CPU和I/O的特点就是一个快，一个慢，大约差 https://colin-scott.github.io/personal_website/research/interactive_latency.html[2～3个数量级]。所以为了不浪费快的资源，就把慢的事情交给独立的系统做，等慢的资源准备好了在通知快的资源(也叫 *中断处理*)。所以一旦发生CPU需要等待外部数据的时候，操作系统的调度系统就会暂时保存当前计算的寄存器状态，程序计数器等(也叫 *上下文*) ，让出CPU给其他的可调度的进程。
+这个过程称为 *上下文切换*。一旦发生了 *上下文切换*，以 *线程* 统一进行计算与I/O传输的应用这时就是被 *阻塞* 了。为了提高CPU的利用率，应用层面就是使用多个线程来保证CPU有计算可执行，线程池就是这么产生了。
+以下就是本文的核心问题，如果你要创建一个线程池，该怎么确定线程池的大小呢？可以肯定的是线程数也不是越多越好。
+
+== 线程池的大小
+
+关于线程池的大小，有两本非常有名的书中都有相关的论述。这两本书还都是Java生态里面重量级人物写的。分别看一下：
+
+=== Java Concurrency In Practice
+
+[quote,Brian Göetz,Java Concurrency In Practice: p.107]
+For compute intensive tasks, an _N~cpu~_-processor system usually achieves optimum utilization with a thread pool of _N~cpu~_+1 threads.
+(Even compute intensive threads occasionally take a page fault or pause for some other reason, so an "extra" runnable thread prevents CPU cycles from going unused when this happens.) For tasks that also include I/O or other blocking operations, you want a larger pool, since not all of the threads will be schedulable at all times.
+In order to size the pool properly, you must estimate the ratio of waiting time to compute time for your tasks; this estimate need not be precise and can be obtained through profiling or instrumentation.
+Alternatively, the size of the thread pool can be tuned by running the application using several different pool sizes under a benchmark load and observing the level of CPU utilization.
+
+书中先给出如下一些定义:
+
+_N~cpu~_ = CPU核心数,
+
+_U~cpu~ = 目标CPU的使用率，其中 stem:[0 <=] _U~cpu~_ stem:[<= 1],
+
+stem:[w] = CPU等待时间，
+
+stem:[c] = CPU计算时间，
+
+stem:[w/c] = CPU等待时间和计算时间的比率,
+
+然后就给出了能够使处理器保持在特定使用率的线程数最优公式： _N~threads~_ = _N~cpu~_ * _U~cpu~_ * (stem:[1 + w/c])
+
+=== Programming Concurrency on the JVM
+
+[quote,Venkat Subramaniam,Programming Concurrency on the JVM: p.16]
+If tasks spend 50 percent of the time being blocked, then the number of threads should be twice the number of available cores.
+If they spend less time being blocked—that is, they’re computation intensive—then we should have fewer threads but no less than the number of cores.
+If they spend more time being blocked—that is, they’re IO intensive—then we should have more threads, specifically, several multiples of the number of cores.
+
+这本书里没有直接给出变量定义，而是用文字描述的。为了便于比较，这里也给出一些定义：
+
+_N~threads~_ = 总的线程数，
+
+_N~cpu~_ = 可用的CPU核心数，
+
+_B~c~_ = 阻塞系数，介于0和1之间的。
+
+那么，就可以用如下的方式计算我们需要的线程数了： _N~threads~_ = _N~cpu~_ / (1 - _B~c~_)
+
+== 分析与结论
+
+乍一看，两本书给出了2个不一样的公式，该如何取舍呢？
+
+假设CPU的使用率 _U~cpu~_ 是100%的情况下，也就是如果目标都是尽可能的利用CPU资源，其实这两个公式是一样的。
+只要定义阻塞系数(blocking coefficient) = stem:[w/(w+c)]，也就是阻塞系数为阻塞时间与整个CPU时间的占比。那么他们就是一个意思：定性的描述就是阻塞时间越多，就需要更多线程来保证CPU有活干。上面2个不同的公式则是定量的表达上述思路了。优化线程池的大小是想用最少的线程上下文切换(或代价)来做到最大的(或特定目标)CPU使用率。
+
+第2本书没有把目标CPU使用率放到公式里面，都包含在阻塞系数里面了。

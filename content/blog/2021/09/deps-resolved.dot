@@ -1,0 +1,6 @@
+digraph deps2 {
+    A -> B;
+    A -> C;
+    A -> D;
+    A -> E;
+}

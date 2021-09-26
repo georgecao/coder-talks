@@ -1,0 +1,59 @@
+digraph deps_tree {
+    rankdir = "TB";
+    parent1 [label = "父项目的父项目", fillcolor = "bisque",style = filled];
+    parent1_pom [label = "pom.xml", shape = plain];
+    parent2 [label = "父项目", fillcolor = "bisque",style = filled];
+    parent2_pom [label = "pom.xml", shape = plain];
+    project [label = "当前项目", fillcolor = "yellow",style = filled];
+    project_pom [label = "pom.xml", shape = plain];
+    deps0 [label = "依赖项目0", fillcolor = "cornsilk3",style = filled];
+    deps1 [label = "依赖项目1", fillcolor = "cornsilk3",style = filled];
+    deps2 [label = "依赖项目2", fillcolor = "cornsilk3",style = filled];
+    deps3 [label = "依赖项目3", fillcolor = "cornsilk3",style = filled];
+    deps4 [label = "依赖项目4", fillcolor = "cornsilk3",style = filled];
+
+    parent1 -> parent2 -> project;
+
+    deps0 -> project;
+    deps1 -> project;
+    deps2 -> project;
+    deps3 -> project;
+    deps4 -> deps1;
+
+    pl [style = "invis"];
+    pl2 [style = "invis"];
+
+    {
+    rankdir = "LR";
+    rank = same;
+    parent1 -> parent1_pom [style = "dashed",arrowhead = "onormal"];
+    }
+    {
+    edge [style = "dashed"];
+    rankdir = "LR";
+    rank = same;
+    parent2 -> parent2_pom [style = "dashed",arrowhead = "onormal"];
+    }
+    {
+    rankdir = "LR";
+    rank = same;
+    project -> project_pom [style = "dashed",arrowhead = "onormal"];
+    }
+
+    {
+    edge [style = "invis"];
+    project -> pl -> pl2;
+    }
+    {
+    rank = same;
+    rankdir = "LR";
+    edge [style = "invis"];
+    pl -> deps0 -> deps1 -> deps2 -> deps3;
+    }
+    {
+    rank = same;
+    rankdir = "LR";
+    edge [style = "invis"];
+    pl2 -> deps4;
+    }
+}

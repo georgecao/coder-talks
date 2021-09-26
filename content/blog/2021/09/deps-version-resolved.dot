@@ -1,0 +1,6 @@
+digraph deps0_1 {
+    c_1_0 [label = "C(1.0)"];
+    A -> B;
+    A -> c_1_0;
+    A -> D;
+}

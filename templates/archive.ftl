@@ -1,34 +1,27 @@
 <#include "header.ftl">
-	
+
 	<#include "menu.ftl">
 	
-	<div id="main">
-		<ul class="posts">
-                <header>
-                    <h1>Archive</h1>
-                </header>
-                <#list published_posts as post>
-					<#if (last_month)??>
-						<#if post.date?string("MMMM yyyy") != last_month>
-							</ul>
-							<h4>${post.date?string("MMMM yyyy")}</h4>
-							<ul class="post">
-						</#if>
-					<#else>
-						<h4>${post.date?string("MMMM yyyy")}</h4>
-						<ul class="post">
-					</#if>
-					<li>
-				        <article data-file="${content.rootpath}${post.noExtensionUri!post.uri}" data-target="article">
-				        	<header>
-				            	<p>${post.date?string("dd")} - <a href="${content.rootpath}${post.noExtensionUri!post.uri}"><#escape x as x?xml>${post.title}</#escape></a>  <#if ((config.site_includeReadTime!'true')?boolean == true)> <div class="eta"></div></#if></p>
-				            <header>
-				        </article>
-				    </li>
-					<#assign last_month = post.date?string("MMMM yyyy")>
-				</#list>
-            </ul>
+	<div class="page-header">
+		<h1>归档</h1>
 	</div>
+	
+	<!--<ul>-->
+		<#list published_posts as post>
+		<#if (last_month)??>
+			<#if post.date?string("yyyy年MM月") != last_month>
+				</ul>
+				<h4>${post.date?string("yyyy年MM月")}</h4>
+				<ul>
+			</#if>
+		<#else>
+			<h4>${post.date?string("yyyy年MM月")}</h4>
+			<ul>
+		</#if>
 		
-	<#include "commons/sidebar.ftl">
+		<li>${post.date?string("dd")} - <a href="${content.rootpath}${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></li>
+		<#assign last_month = post.date?string("yyyy年MM月")>
+		</#list>
+	</ul>
+	
 <#include "footer.ftl">
