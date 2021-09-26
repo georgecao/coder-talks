@@ -32,6 +32,8 @@ https://themes.asciidoctor.org/preview/
 
 TBD
 
+https://newbedev.com/how-can-i-control-within-level-node-order-in-graphviz-s-dot[Dot Layout]
+
 == 草稿箱
 
 https://www.vogella.com/tutorials/AsciiDoc/article.html#install-the-asciidoctor-toolchain
