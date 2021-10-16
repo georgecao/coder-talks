@@ -3,7 +3,6 @@ package io.whitepaper.coder.talks;
 import com.steadystate.css.parser.CSSOMParser;
 import com.steadystate.css.parser.SACParserCSS3;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.http.client.utils.URIBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,8 +29,6 @@ public class Copy {
     private static final String STYLE_LINK_KEY = "link[rel=stylesheet]";
 
     public static void main(String... args) throws IOException {
-        URIBuilder u;
-        u.addParameter();
         String file = "/Users/george/open-source/coder-talks/target/generated-docs/the-bad-of-thrift.html";
         Document doc = Jsoup.parse(new File(file), "UTF-8");
         CSSOMParser parser = new CSSOMParser(new SACParserCSS3());

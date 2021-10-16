@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg height='113pt' preserveAspectRatio='xMidYMid meet' viewBox='0.00 0.00 466.00 113.00' width='466pt' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+<g class='graph' id='graph0' transform='scale(1 1) rotate(0) translate(4 109)'>
+<title>sg</title>
+<polygon fill='white' points='-4,4 -4,-109 462,-109 462,4 -4,4' stroke='transparent'/>
+
+<g class='node' id='node1'>
+<title>UNKNOWN</title>
+<polygon fill='none' points='54,-86 0,-86 0,-50 54,-50 54,-86' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='27' y='-64.3'>Cloud</text>
+</g>
+
+<g class='node' id='node2'>
+<title>SERVICE</title>
+<polygon fill='none' points='155,-86 90,-86 90,-50 155,-50 155,-86' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='122.5' y='-64.3'>Service0</text>
+</g>
+
+<g class='edge' id='edge1'>
+<title>UNKNOWN&#45;&gt;SERVICE</title>
+<path d='M54.04,-68C62.05,-68 71.06,-68 79.83,-68' fill='none' stroke='black'/>
+<polygon fill='black' points='79.95,-71.5 89.94,-68 79.94,-64.5 79.95,-71.5' stroke='black'/>
+</g>
+
+<g class='node' id='node3'>
+<title>SERVICE1</title>
+<polygon fill='none' points='458,-105 393,-105 393,-69 458,-69 458,-105' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='425.5' y='-83.3'>Service1</text>
+</g>
+
+<g class='edge' id='edge8'>
+<title>SERVICE&#45;&gt;SERVICE1</title>
+<path d='M155.14,-77.91C166.35,-81.03 179.14,-84.15 191,-86 257.47,-96.39 335.88,-93.73 382.82,-90.57' fill='none' stroke='black'/>
+<polygon fill='black' points='383.19,-94.05 392.91,-89.85 382.69,-87.07 383.19,-94.05' stroke='black'/>
+</g>
+
+<g class='node' id='node4'>
+<title>SERVICE2</title>
+<polygon fill='none' points='357,-82 292,-82 292,-46 357,-46 357,-82' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='324.5' y='-60.3'>Service2</text>
+</g>
+
+<g class='edge' id='edge2'>
+<title>SERVICE&#45;&gt;SERVICE2</title>
+<path d='M155.11,-70.54C181.97,-72.31 221.54,-74.04 256,-72 264.38,-71.51 273.3,-70.67 281.83,-69.72' fill='none' stroke='black'/>
+<polygon fill='black' points='282.46,-73.17 291.98,-68.52 281.63,-66.22 282.46,-73.17' stroke='black'/>
+</g>
+
+<g class='node' id='node6'>
+<title>SERVICE4</title>
+<polygon fill='none' points='256,-63 191,-63 191,-27 256,-27 256,-63' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='223.5' y='-41.3'>Service4</text>
+</g>
+
+<g class='edge' id='edge5'>
+<title>SERVICE&#45;&gt;SERVICE4</title>
+<path d='M155.1,-60.66C163.31,-58.75 172.29,-56.67 180.93,-54.66' fill='none' stroke='black'/>
+<polygon fill='black' points='181.92,-58.02 190.86,-52.35 180.33,-51.2 181.92,-58.02' stroke='black'/>
+</g>
+
+<g class='edge' id='edge7'>
+<title>SERVICE2&#45;&gt;SERVICE1</title>
+<path d='M357.1,-71.34C365.31,-73.25 374.29,-75.33 382.93,-77.34' fill='none' stroke='black'/>
+<polygon fill='black' points='382.33,-80.8 392.86,-79.65 383.92,-73.98 382.33,-80.8' stroke='black'/>
+</g>
+
+<g class='node' id='node5'>
+<title>SERVICE3</title>
+<polygon fill='none' points='458,-36 393,-36 393,0 458,0 458,-36' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='425.5' y='-14.3'>Service3</text>
+</g>
+
+<g class='edge' id='edge3'>
+<title>SERVICE2&#45;&gt;SERVICE3</title>
+<path d='M357.1,-49.32C365.58,-45.38 374.87,-41.06 383.78,-36.92' fill='none' stroke='black'/>
+<polygon fill='black' points='385.27,-40.09 392.86,-32.7 382.32,-33.74 385.27,-40.09' stroke='black'/>
+</g>
+
+<g class='edge' id='edge4'>
+<title>SERVICE3&#45;&gt;SERVICE</title>
+<path d='M392.92,-11.89C347.1,-4.37 260.1,4.81 191,-18 175.47,-23.12 160.6,-33.35 148.78,-43.23' fill='none' stroke='black'/>
+<polygon fill='black' points='146.33,-40.72 141.12,-49.94 150.95,-45.98 146.33,-40.72' stroke='black'/>
+</g>
+
+<g class='edge' id='edge6'>
+<title>SERVICE4&#45;&gt;SERVICE2</title>
+<path d='M256.1,-51.06C264.31,-52.64 273.29,-54.36 281.93,-56.02' fill='none' stroke='black'/>
+<polygon fill='black' points='281.38,-59.48 291.86,-57.93 282.7,-52.61 281.38,-59.48' stroke='black'/>
+</g>
+</g>
+</svg>

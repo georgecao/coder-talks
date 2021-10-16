@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg height='305pt' preserveAspectRatio='xMidYMid meet' viewBox='0.00 0.00 178.00 305.00' width='178pt' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+<g class='graph' id='graph0' transform='scale(1 1) rotate(0) translate(4 301)'>
+<title>g</title>
+<polygon fill='white' points='-4,4 -4,-301 174,-301 174,4 -4,4' stroke='transparent'/>
+
+<g class='node' id='node1'>
+<title>IP</title>
+<polygon fill='none' points='154,-297 100,-297 100,-261 154,-261 154,-297' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='127' y='-275.3'>IP</text>
+</g>
+
+<g class='node' id='node2'>
+<title>SERVER</title>
+<polygon fill='none' points='170,-210 116,-210 116,-174 170,-174 170,-210' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='143' y='-188.3'>Server</text>
+</g>
+
+<g class='edge' id='edge1'>
+<title>IP&#45;&gt;SERVER</title>
+<path d='M117.98,-260.63C114.13,-250.89 111.28,-238.61 115,-228 116.17,-224.67 117.8,-221.42 119.7,-218.32' fill='none' stroke='black'/>
+<polygon fill='black' points='122.62,-220.26 125.58,-210.09 116.92,-216.19 122.62,-220.26' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='124' y='-231.8'>1:1</text>
+</g>
+
+<g class='edge' id='edge2'>
+<title>SERVER&#45;&gt;IP</title>
+<path d='M139.77,-210.18C137.58,-221.81 134.64,-237.42 132.13,-250.73' fill='none' stroke='black'/>
+<polygon fill='black' points='128.65,-250.32 130.24,-260.8 135.53,-251.62 128.65,-250.32' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='144' y='-231.8'>1:n</text>
+</g>
+
+<g class='node' id='node3'>
+<title>PORT</title>
+<polygon fill='none' points='67,-297 13,-297 13,-261 67,-261 67,-297' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='40' y='-275.3'>Port</text>
+</g>
+
+<g class='node' id='node4'>
+<title>SERVER_PORT</title>
+<polygon fill='none' points='80,-210 0,-210 0,-174 80,-174 80,-210' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='40' y='-188.3'>Server Port</text>
+</g>
+
+<g class='edge' id='edge3'>
+<title>SERVER_PORT&#45;&gt;SERVER</title>
+<path d='M80.12,-192C88.54,-192 97.38,-192 105.7,-192' fill='none' stroke='black'/>
+<polygon fill='black' points='105.87,-195.5 115.87,-192 105.87,-188.5 105.87,-195.5' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='98' y='-198.8'>1:1</text>
+</g>
+
+<g class='edge' id='edge8'>
+<title>SERVER_PORT&#45;&gt;PORT</title>
+<path d='M40,-210.18C40,-221.81 40,-237.42 40,-250.73' fill='none' stroke='black'/>
+<polygon fill='black' points='36.5,-250.8 40,-260.8 43.5,-250.8 36.5,-250.8' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='49' y='-231.8'>1:1</text>
+</g>
+
+<g class='node' id='node5'>
+<title>PROCESS</title>
+<polygon fill='none' points='69.5,-123 10.5,-123 10.5,-87 69.5,-87 69.5,-123' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='40' y='-101.3'>Process</text>
+</g>
+
+<g class='edge' id='edge4'>
+<title>SERVER_PORT&#45;&gt;PROCESS</title>
+<path d='M28.53,-173.9C25.46,-168.42 22.57,-162.17 21,-156 19.01,-148.15 20.58,-139.85 23.51,-132.31' fill='none' stroke='black'/>
+<polygon fill='black' points='26.68,-133.81 27.79,-123.27 20.35,-130.81 26.68,-133.81' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='30' y='-144.8'>1:1</text>
+</g>
+
+<g class='edge' id='edge5'>
+<title>PROCESS&#45;&gt;SERVER_PORT</title>
+<path d='M40,-123.18C40,-134.81 40,-150.42 40,-163.73' fill='none' stroke='black'/>
+<polygon fill='black' points='36.5,-163.8 40,-173.8 43.5,-163.8 36.5,-163.8' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='49' y='-144.8'>1:n</text>
+</g>
+
+<g class='node' id='node6'>
+<title>SERVICE</title>
+<polygon fill='none' points='69,-36 11,-36 11,0 69,0 69,-36' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='40' y='-14.3'>Service</text>
+</g>
+
+<g class='edge' id='edge6'>
+<title>PROCESS&#45;&gt;SERVICE</title>
+<path d='M28.53,-86.9C25.46,-81.42 22.57,-75.17 21,-69 19.01,-61.15 20.58,-52.85 23.51,-45.31' fill='none' stroke='black'/>
+<polygon fill='black' points='26.68,-46.81 27.79,-36.27 20.35,-43.81 26.68,-46.81' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='30' y='-57.8'>1:1</text>
+</g>
+
+<g class='edge' id='edge7'>
+<title>SERVICE&#45;&gt;PROCESS</title>
+<path d='M40,-36.18C40,-47.81 40,-63.42 40,-76.73' fill='none' stroke='black'/>
+<polygon fill='black' points='36.5,-76.8 40,-86.8 43.5,-76.8 36.5,-76.8' stroke='black'/>
+<text font-family='Times,serif' font-size='14.00' text-anchor='middle' x='49' y='-57.8'>1:n</text>
+</g>
+</g>
+</svg>

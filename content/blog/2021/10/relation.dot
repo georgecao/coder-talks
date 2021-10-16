@@ -1,0 +1,21 @@
+digraph g {
+    node [shape = box];
+    IP [label = "IP"];
+    SERVER [label = "Server"];
+    PORT [label = "Port"];
+    SERVER_PORT [label = "Server Port"];
+    PROCESS [label = "Process"];
+    SERVICE [label = "Service"];
+
+    IP -> SERVER [label = "1:1"];
+    SERVER -> IP [label = "1:n"];
+    SERVER_PORT -> SERVER [label = "1:1"];
+    SERVER_PORT -> PROCESS [label = "1:1"];
+    PROCESS -> SERVER_PORT [label = "1:n"];
+    PROCESS -> SERVICE [label = "1:1"];
+    SERVICE -> PROCESS [label = "1:n"];
+    SERVER_PORT -> PORT [label = "1:1"];
+
+    {rank = min; IP; PORT;}
+    {rank = same; SERVER; SERVER_PORT;}
+}

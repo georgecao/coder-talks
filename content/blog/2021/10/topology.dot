@@ -1,0 +1,13 @@
+digraph sg {
+    node [shape = box];
+    rankdir = LR;
+    UNKNOWN [label = "Cloud"];
+    SERVICE [label = "Service0"];
+    SERVICE1 [label = "Service1"];
+    SERVICE2 [label = "Service2"];
+    SERVICE3 [label = "Service3"];
+    SERVICE4 [label = "Service4"];
+    UNKNOWN -> SERVICE -> SERVICE2 -> SERVICE3 -> SERVICE -> SERVICE4 -> SERVICE2;
+    SERVICE2 -> SERVICE1;
+    SERVICE -> SERVICE1;
+}
