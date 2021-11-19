@@ -1,6 +1,7 @@
 = 这些年学过/用过的编程语言
 乔治 <matrix3456@gmail.com>
 2021-11-19
+:icons: font
 :jbake-type: post
 :jbake-status: published
 :jbake-tags: Java,Ruby,Lua,Swift,Clojure,Scala,Golang,Javascript,Shell,Kotlin,C,Python,编程语言
