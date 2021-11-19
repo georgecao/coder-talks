@@ -1,9 +1,0 @@
-= 这些年学过/用过的编程语言
-乔治 <matrix3456@gmail.com>
-2020-04-24
-:jbake-type: post
-:jbake-status: draft
-:jbake-tags: Java,Ruby,Lua,Swift,Clojure,Scala,编程语言
-:idprefix:
-
-这些年学习过使用过的编程语言
