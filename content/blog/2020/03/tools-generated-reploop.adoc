@@ -24,6 +24,8 @@ LAMP vs SSM
 https://github.com/asciidoctor/asciidoctor/issues/1420
 https://emacs-china.org/t/markup-language/9308
 
+绕过的办法就是直接用嵌套的方式。 例如：`这是**加粗**文字`。
+
 == Theme
 
 https://themes.asciidoctor.org/preview/

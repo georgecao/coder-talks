@@ -1,0 +1,14 @@
+= Finding Clarity in What I Think, What I Write, and What I Say
+乔治 <matrix3456@gmail.com>
+2022-01-05
+:icons: font
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: Java,Ruby,Lua,Swift,Clojure,Scala,Golang,Javascript,Shell,Kotlin,C,Python,编程语言
+:idprefix:
+
+image:images/think-write-say.webp
+
+== 参考
+
+* Linda LeBoutillier, https://mettahu.wordpress.com/2013/05/26/finding-clarity-in-what-i-think-what-i-write-and-what-i-say/[Finding Clarity in What I Think, What I Write, and What I Say]

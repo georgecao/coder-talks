@@ -1,0 +1,31 @@
+= 2021年度过的书单
+乔治 <matrix3456@gmail.com>
+2022-01-03
+:icons: font
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: 会计,记账,复式记账,beancount
+:idprefix:
+:stem: latexmath
+
+
+== 书单
+
+1. 产品经历面试宝典
+2. 不再害羞
+3. 正义的成本
+4. 余罪
+5. 麦肯锡入职培训第一课
+6. 零售的哲学
+7. 周一早晨的领导课
+8. 死人经
+9. 沙丘6部曲
+10. The Phoenix Project
+11. A Philosophy of Software Design
+12. High-Performance Java persistence
+13. eBay Commerce Cookbook
+14. 成为自己的勇气
+15. 那个被叫做"皇帝"的男人：勒布朗.詹姆斯传
+16. 囚徒健身
+17. 合伙人制度：有效激励儿不失控制权是怎样实现的
+18. 创投42章经：互联网商业逻辑与投资进阶指南
