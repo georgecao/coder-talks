@@ -4,7 +4,7 @@
 :icons: font
 :jbake-type: post
 :jbake-status: published
-:jbake-tags: JSON,antlr,ast,抽象语法树,代码生成,Thrift,Protobuf,编程语言
+:jbake-tags: JSON,antlr,AST,抽象语法树,代码生成,Thrift,Protobuf,编程语言
 :idprefix:
 
 现如今，基于HTTP/HTTPS的RESTful API的广泛应用，而JSON则是其传输数据的默认格式。 一些公司针对内部团队的API也都用HTTP/HTTPS协议，作为API的调用方，就需要大量的处理JSON解析的工作。除了Javascript之外的语言，都或多或少的要做这个工作。[.underline]##https://github.com/reploop/reploop-parser[reploop-parser]##项目一来想实践一下编译原理中从词法，语法，解析器到中间代码生成等等的东西，另外也能自动化处理JSON到对象的映射，减少手动敲机械键盘写代码带来的噪音。

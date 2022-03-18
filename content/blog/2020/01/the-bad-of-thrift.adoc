@@ -3,7 +3,7 @@ George Cao <matrix3456@gmail.com>
 2017-06-03
 :jbake-type: post
 :jbake-status: published
-:jbake-tags: thrift,protobuf,RPC
+:jbake-tags: Thrift,Protobuf,RPC
 :idprefix:
 
 [abstract]
