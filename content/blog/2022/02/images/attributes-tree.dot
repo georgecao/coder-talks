@@ -1,0 +1,31 @@
+digraph tree {
+    root [label = "$:object"];
+    name [label = "name:string",style = "filled"];
+    views [label = "views:int",style = "filled"];
+    friends [label = "friends:array",style = "filled"];
+    links [label = "links:object",style = "filled"];
+    links_name [label = "name:string",style = "filled",fillcolor = "ivory"];
+    links_views [label = "views:int",style = "filled",fillcolor = "ivory"];
+    links_friends [label = "friends:array",style = "filled",fillcolor = "ivory"];
+    links_links [label = "links:object",style = "filled",fillcolor = "ivory"];
+    friends_0 [label = "[0]:object", shape = box,style = "filled",fillcolor = "lavender"];
+    friends_1 [label = "[1]:object", shape = box,style = "filled",fillcolor = "lavender"];
+    f0_id [label = "id:int"];
+    f0_gender [label = "gender:string"];
+    f1_id [label = "id:int"];
+    f1_gender [label = "gender:string"];
+    root -> name
+    root -> views
+    root -> friends
+    root -> links
+    friends -> friends_0
+    friends -> friends_1
+    friends_0 -> f0_id
+    friends_0 -> f0_gender
+    friends_1 -> f1_id
+    friends_1 -> f1_gender
+    links -> links_name
+    links -> links_views
+    links -> links_friends
+    links -> links_links
+}

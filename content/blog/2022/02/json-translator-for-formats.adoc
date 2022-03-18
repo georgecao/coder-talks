@@ -1,0 +1,186 @@
+= JSON解析与对象生成
+乔治 <matrix3456@gmail.com>
+2022-02-10
+:icons: font
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: JSON,antlr,ast,抽象语法树,代码生成,Thrift,Protobuf,编程语言
+:idprefix:
+
+现如今，基于HTTP/HTTPS的RESTful API的广泛应用，而JSON则是其传输数据的默认格式。 一些公司针对内部团队的API也都用HTTP/HTTPS协议，作为API的调用方，就需要大量的处理JSON解析的工作。除了Javascript之外的语言，都或多或少的要做这个工作。[.underline]##https://github.com/reploop/reploop-parser[reploop-parser]##项目一来想实践一下编译原理中从词法，语法，解析器到中间代码生成等等的东西，另外也能自动化处理JSON到对象的映射，减少手动敲机械键盘写代码带来的噪音。
+
+== JSON解析
+
+JSON解析是基于antlr 4.8做的。关于词法，语法，解析器等方面另外写一篇介绍吧。这篇主要介绍JSON转为Bean的部分。
+
+== JSON的特点
+
+JSON本身表达的就是一个树形结构，和Java的对象层次结构一样的。
+
+JSON是一个数据，也就是值(Value)，弱类型的。它的基本数据类型是数据本身描述的，并不是通过语言提供的类型系统来申明的。而强类型语言如Java在声明变量的时候必须知道他的数据类型，所以从JSON数据解析为POJO的过程就涉及一个类型推导。
+
+== 类型推导
+
+JSON是一个数据，从 https://www.json.org/json-en.html[JSON.org] 能知道它只有以下数据：
+
+* 数组
+* 对象(Key-Value)
+* 数字
+* 字符串
+* 常量("true","false","null")
+
+用Java的术语来描述一下，其中的**数组**和**对象**可以称之为复杂数据类型(Wrapper Type)，是由真正的基本数据类型(Primitive Type)包括**数字**、**字符串**和**常量**组成的。除了基本数据类型，数组和对象都可以深层次的嵌套所有的数据的，包括其自己，展开来就形成了一个树形结构。
+
+基于这个数据构成，以及JSON的特点，可以按照如下规则做类型推导：
+
+. JSON是一个树形层次结构
+* 根结点名字定义为$。树中的每个节点都是一个属性及其类型，也就是的（name，type）。对于数组，可以用元素的下标作为属性名称，参见图1<<attributes-tree>>。其实这样就把整个JSON统一为对象(key-value)结构的树了。
+* 叶子节点是最基本的数据，也就是简单基本类型数据：数字，字符串和常量
+* 除叶子节点之外，树的中间某个节点的所有子节点都是相同的类型
+. 同构容器
+* 静态类型语言的特性，这点和动态类型或者弱类型语言很大不同
+* 数组(或者列表)的元素是相同类型的（按照规范是可以不相同的）
+* 对象类型的所有的key是相同类型的（规范中只允许字符串），所有的value也是相同类型的（按照规范是可以不相同的）
+. 递归深度, 依赖于antlr 4.8
+* 解析JSON树是一个递归的过程。
+* 受Stack空间的限制，递归不能够层次太深。
+* 尾递归优化可以不受这个限制。antlr 4.8没有这个优化。
+. JSON中的对象(Key-Value)可以映射为Java中的Map或者Object，他们是等价的，从易用性角度酌情使用不同的类型
+* key是数字或者以数字打头的都对应到Map类型
+* key符合Java语言命名规范的都对应到Object类型
+. 空值
+* 一些不规范的JSON有些时候**空字符串**其实意味着空值``null``
+* 对象为空``{}``，元素类型不确定，都推断为Object
+* 数组为空``[]``，元素类型不确定，推断为Object
+. 常量``null``值，
+* 单独看常量``null``没有任何类型线索
+* 如果以上步骤不能确定类型，则对应到Object类型
+
+下面这段JSON：
+
+[source,json]
+----
+{
+  "name": "reploop.org",
+  "views": 1000,
+  "friends": [
+    {"id":23,"gender":"male"},
+    {"id":24,"gender":"unknown"}
+  ],
+  "links": {
+    "name": "reploop.net",
+    "views": 2000,
+    "friends": [],
+    "links": {}
+  }
+}
+----
+
+对应的树是这样的：
+
+.属性树
+image::images/attributes-tree.svg[属性树]
+
+=== 继承结构
+
+由于
+
+. 相同的Object可以在不同的子树中使用（相同的深度）
+. 相同的Object可以在不同的层次中使用（不同的深度）
+
+我们应该尽量避免重复定义对象，尽可能的少定义对象。这就涉及2方面的事情：
+
+. 相同对象的识别
+* 2个对象的属性(对应JSON中的key)的名称，数目以及每个属性的类型都相同的话，我们认为这两个对象相同。
+. 继承关系的识别
+* 继承关系，可以理解为包含关系，也就是子类包含了父类的属性。这个过程可以看作是寻找公共属性的过程，用树的语言来讲，自顶向下的看就是寻找**最大公共子树**。
+
+寻找**最大公共子树**看着非常匹配，也有高效的算法实现，但是他处理不了**对象属性缺失**，**数组元素数不等**以及**空值**等不规范的情况。最后还是用**包含关系**的理解，把属性和属性所属的对象组织为**属性x对象**的二维表，属性包含在对象里面记为1，否则记为0。最后问题转化为求二维表中连续为1的元素组成的面积。
+
+=== 自包含
+
+一个类的属性的类型是类本身，体现在JSON数据就是数据可以递归嵌套。
+
+[code,java]
+----
+class Code {
+    private Code child;
+    private Integer id;
+}
+----
+
+=== 命名规范
+
+API返回的JSON基本上都是API开发者定义好的，给啥就是啥。 所以如果用JSON里面的key的名字原封不动的生成对象的属性，即使能编译通过，IDE也会报各种警告，这可能会让代码强迫症患者抓狂。
+
+常见的命名规范有驼峰，下划线或者中划线分割名字，除此之外还涉及大小写不规范，不分大小写和单词连接在一起（如__helloworld__）等问题。这些都可能在一个JSON文档里面混合着出现。。。
+
+所以我们也针对key的名称做了一些统一处理。 方法就是先按照分隔符或者驼峰的大小写变化分词，然后把分词之后的每个词对照着字典在分为有意义的多个英文单词，这时就会有多种分法，比如__another__可以是1个单词，也可以拆分成两个单词__an__和__other__。把所有的得到的单词都组成一个状态机，问题转化为寻找给定字符串的最长前缀同时也是最多单词匹配的。
+
+之后按照想要的命名规范比如驼峰的形式生成属性名，然后用``annotation``的方式记录原始名字，保证对象的序列化和反序列化能正常工作。
+
+== JsonPath的支持
+
+使用JsonPath是想用JsonPath的方式指定一些属性，然后针对这些属性做特殊的配置，来影响生成的对象。目前的实现里面还不是很规范。完善后补充。
+
+== 可配置点
+
+* [ ] 数值类型是否使用 `byte` 或者 `short`， 可以仅仅使用 `Integer`，`Long` 或者 `Float`，`Double`。
+* [*] Raw JSON解析。也就是String的值其实是一个JSON字符串，可以进一步的解析对象
+* [*] 支持Jackson注解
+* [ ] 生成Jackson反序列化代码
+* [ ] Lombok支持，builder模式
+* [*] 驼峰变量名重写
+* [ ] 代码路径版本化，不会覆盖上次生成的代码
+* [ ] 字符串与boolean值的转换，比如``"true|yes|1"=>true``或者``"false|no|0" => false``
+* [ ] 整数与boolean值的转换，比如``1=>true``或者``0=>false``
+
+== 实现方案
+
+具体到实现的时候，采用先将JSON解析为Protobuf的方式，然后再将Protobuf转为Java。这样就是选择Protobuf为一种中间表达(IR)，就像Java的bytecode一样，这样方便利用Protobuf的多语言支持，将JSON转化为更多目标语言。
+
+== 使用方式
+
+打算通过3种方式来使用，分别是：
+
+=== 命令行
+
+参见项目``json2bean-standalone``，用Maven打包生成一个可执行的jar包，然后通过命令行传输参数执行。
+
+直接运行：
+
+[source,bash]
+----
+java -jar json2bean-standalone-0.17-SNAPSHOT.jar
+----
+
+输出帮助信息：
+
+[source,bash]
+----
+usage: json2 <command> [ <args> ]                   //<1>
+
+Commands are:
+    bean    Convert JSON to POJO.                   //<2>
+    help    Display help information                //<3>
+    proto   Translate JSON to Protobuf Schema. TBD. //<4>
+
+See 'json2 help <command>' for more information on a specific command.
+----
+
+<1> json2 可以在命令行设置一个``alias json2="java -jar json2bean-standalone-0.17-SNAPSHOT.jar"``。 这里面的Java环境和Jar包的路径需要根据自身情况修改一下。
+<2> bean命令，生成POJO。
+<3> help命令，默认打印帮助信息。
+<4> proto命令，生成Protobuf Schema。筹划中。。。
+
+=== Maven插件
+
+筹划中。。。
+
+=== Intellij IDEA插件
+
+筹划中。。。
+
+== 参考
+
+* https://github.com/m-zajac/json2go.git
