@@ -10,7 +10,7 @@ George Cao <matrix3456@gmail.com>
 
 LAMP vs SSM
 
-云时代对小不点的企业或者个人来说啥都可以找到云解决方案，比如给网站加个评论那就用 https://disqus.com/[DISQUS]，想有个统计那就用 https://analytics.google.com/analytics/web/[Google Analytics]，想上个CDN加速那就用 https://www.cloudflare.com/[Cloudflare]，域名也可以不用操心，就用Github Pages的，有自己域名的也可以用。HTTPS证书也有免费的 https://letsencrypt.org/[Let's Encrypt]。只要搭好架子，剩下的就是使用熟悉的格式如 https://www.markdownguide.org/[Markdown]或者 https://asciidoctor.org/[Asciidoctor]等开始写就可以了。写完了也直接提交代码库 https://github.com/gitlab[Github]，存储都在云端了。搭建好之后简单到大约只有有个浏览器，连了网络就可以写了。
+云时代对小不点的企业或者个人来说啥都可以找到云解决方案，比如给网站加个评论那就用[.underline]##https://disqus.com/[DISQUS]##，想有个统计那就用[.underline]##https://analytics.google.com/analytics/web/[Google Analytics]##，想上个CDN加速那就用[.underline]##https://www.cloudflare.com/[Cloudflare]##，域名也可以不用操心，就用Github Pages的，有自己域名的也可以用。HTTPS证书也有免费的[.underline]##https://letsencrypt.org/[Let's Encrypt]##。只要搭好架子，剩下的就是使用熟悉的格式如[.underline]##https://www.markdownguide.org/[Markdown]##或者[.underline]##https://asciidoctor.org/[Asciidoctor]##等开始写就可以了。写完了也直接提交代码库[.underline]##https://github.com/gitlab[Github]##，存储都在云端了。搭建好之后简单到大约只有有个浏览器，连了网络就可以写了。
 
 == Github Pages
 
@@ -18,8 +18,8 @@ LAMP vs SSM
 
 == Asciidoctor
 
-英文句子中的每个单词前后都有空格，但是中文句子却不是。然后一些加粗必须和前面的字有一个空格Asciidoc才能解析。 比如 `This is *bold* .`很正常，
-但是 `这是*加粗*文字` 这个不能正确解析，需要加入空格才可以，像这样：`这是 *加粗* 文字`。不过这样的话出来的文字就有空格了。
+英文句子中的每个单词前后都有空格，但是中文句子却不是。然后一些加粗必须和前面的字有一个空格Asciidoc才能解析。 比如``This is**bold**.``很正常，
+但是``这是*加粗*文字``这个不能正确解析，需要加入空格才可以，像这样：`这是**加粗**文字`。不过这样的话出来的文字就有空格了。
 
 https://github.com/asciidoctor/asciidoctor/issues/1420
 https://emacs-china.org/t/markup-language/9308
@@ -51,7 +51,7 @@ https://www.vogella.com/tutorials/AsciiDoc/article.html#install-the-asciidoctor-
 jbake -b -s
 ----
 
-但是发布的时候不要 `-s` 选项， 否则生成的feed.xml文件中的链接地址就会变成 `http://localhost:8820/`。
+但是发布的时候不要``-s``选项， 否则生成的feed.xml文件中的链接地址就会变成``http://localhost:8820/``。
 
 == pandoc
 

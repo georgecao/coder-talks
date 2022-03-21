@@ -7,7 +7,7 @@ George Cao <matrix3456@gmail.com>
 :jbake-lastModifiedDate: 2020-03-28
 :idprefix:
 
-如今的HTTPS基本上已经占据了大部分流量,根据 https://transparencyreport.google.com/https/overview?hl=en[Google Chrome的统计]，截止2020年3月21日，有 *96%* 的请求是走HTTPS的。以Chrome浏览器的市场占有率，应该很能说明问题了。嗯，HTTPS在大部分场景下基本上是标配了。那弄懂HTTPS的工作机制就很有必要了。
+如今的HTTPS基本上已经占据了大部分流量,根据[.underline]##https://transparencyreport.google.com/https/overview?hl=en[Google Chrome的统计]##，截止2020年3月21日，有**96%**的请求是走HTTPS的。以Chrome浏览器的市场占有率，应该很能说明问题了。嗯，HTTPS在大部分场景下基本上是标配了。那弄懂HTTPS的工作机制就很有必要了。
 
 image::images/https-by-chrome.png[HTTPS Encryption by Chrome platform]
 
@@ -31,7 +31,7 @@ image::images/https-by-chrome.png[HTTPS Encryption by Chrome platform]
 
 === 证书和证书颁发机构
 
-还有一个问题是互联网上的某个网站不能对每个访问者验证其公钥的有效性，因为现今互联网的规模大到这么做是不经济的。想象一下Facebook https://www.statista.com/statistics/490424/number-of-worldwide-facebook-users/[16.9亿]用户，每个用户至少得发起一次请求，鉴于HTTP的无状态特性，每次请求都要验证一下这个公钥的有效性，这个规模是非常大的。为了解决这个问题，我们使用证书机构或者简称CA。
+还有一个问题是互联网上的某个网站不能对每个访问者验证其公钥的有效性，因为现今互联网的规模大到这么做是不经济的。想象一下Facebook[.underline]##https://www.statista.com/statistics/490424/number-of-worldwide-facebook-users/[16.9亿]##用户，每个用户至少得发起一次请求，鉴于HTTP的无状态特性，每次请求都要验证一下这个公钥的有效性，这个规模是非常大的。为了解决这个问题，我们使用证书机构或者简称CA。
 
 证书机构(CA)能正确工作的前提是我们首先得信任他。这听起来有很多顾虑，但是实践中却工作的很好。CA是依靠信任的，所以当CA做了一些可疑的事情，浏览器马上就不再信任这些CA，这些CA也就该倒闭了。即使是CA方面的简单错误也足以永久破坏其声誉。
 
@@ -51,7 +51,7 @@ image::images/https-by-chrome.png[HTTPS Encryption by Chrome platform]
 
 == 保护交换数据的隐私与完整性
 
-使用非对称加密完成了网站服务器的身份认证，接下来的保护交换数据的隐私与完整性则最终使用了对称加密手段。过程非常复杂，HTTPS的握手环节还进了用户与服务器之间一系列的加密算法，对称加密密码等等协商之后就可以进行安全的访问了。HTTPS完整的握手环节可以通过 https://tls13.ulfheim.net/[这里]查看，详细到每个字节，同时也解释了协议并且图形化描述了整个过程。
+使用非对称加密完成了网站服务器的身份认证，接下来的保护交换数据的隐私与完整性则最终使用了对称加密手段。过程非常复杂，HTTPS的握手环节还进了用户与服务器之间一系列的加密算法，对称加密密码等等协商之后就可以进行安全的访问了。HTTPS完整的握手环节可以通过[.underline]##https://tls13.ulfheim.net/[这里]##查看，详细到每个字节，同时也解释了协议并且图形化描述了整个过程。
 
 == 参考
 

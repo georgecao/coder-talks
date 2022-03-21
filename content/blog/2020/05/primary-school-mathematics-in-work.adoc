@@ -20,7 +20,7 @@ GC调优的过程中会频繁的遇到下面三个数据，并且这些数据都
 2. 新老晋升速度(promote rate)
 3. 内存回收速度(reclaim rate)
 
-一般来说调优就是为了减少应用的停顿时间(stop-the-world time), 在一般应用内存也就是最多几个G的的情况下，可以间接的通过降低GC频率来做到。 这时候我们加入时间参数 *t*， 所谓调优就是使得 `allocate rate * t < reclaim rate * t`，只要时间确定的情况下，就可以通过计算来确定新生代和老年代的大小使得他们满足这个不等式就可以粗略的达到以时间 *t* 为间隔发生GC，也就达到了预期的GC频率。
+一般来说调优就是为了减少应用的停顿时间(stop-the-world time), 在一般应用内存也就是最多几个G的的情况下，可以间接的通过降低GC频率来做到。 这时候我们加入时间参数**t**， 所谓调优就是使得``allocate rate * t < reclaim rate * t``，只要时间确定的情况下，就可以通过计算来确定新生代和老年代的大小使得他们满足这个不等式就可以粗略的达到以时间**t**为间隔发生GC，也就达到了预期的GC频率。
 
 对于老年代来说 promote rate可以粗略的认为是他的allocate rate。 所以一次调优的开始就是问你自己你想让应用多久发生一次GC？
 
@@ -43,7 +43,7 @@ Specifically, if the server fails to send a byte <timeout> seconds after the las
 
 == 网络连接超时（Connection Timeout）
 
-这是建立TCP连接的三次握手完成时间。这里面的涉及的一个众所周知的速度，那就是光速。也就是网络传输速度的上限是信号在光纤中传输的速度-光速。根据 `距离=速度*时间`，那么3次握手的网络连接时间至少是 *3距离/速度(c=299792458m/s)*。那么从北京的机房连接到纽约的机房大约1万公里，那么网络连接时间至少是：`3 * 10000km / c = 100ms`。
+这是建立TCP连接的三次握手完成时间。这里面的涉及的一个众所周知的速度，那就是光速。也就是网络传输速度的上限是信号在光纤中传输的速度-光速。根据``距离=速度*时间``，那么3次握手的网络连接时间至少是**3*距离/速度(c=299792458m/s)**。那么从北京的机房连接到纽约的机房大约1万公里，那么网络连接时间至少是：`3 * 10000km / c = 100ms`。
 
 == 请求超时（Request Timeout）
 
@@ -55,7 +55,7 @@ Specifically, if the server fails to send a byte <timeout> seconds after the las
 
 == 结论
 
-这些场景工作中多多少少都有机会碰到，只要思路对上了，剩下的就是小学数学中的加减乘除就可以得出结论了。 这里面也提到了非常多的时间，这部分可以参考 https://colin-scott.github.io/personal_website/research/interactive_latency.html[Jeff Dean's latency numbers]。
+这些场景工作中多多少少都有机会碰到，只要思路对上了，剩下的就是小学数学中的加减乘除就可以得出结论了。 这里面也提到了非常多的时间，这部分可以参考[.underline]##https://colin-scott.github.io/personal_website/research/interactive_latency.html[Jeff Dean's latency numbers]##。
 
 == 参考
 

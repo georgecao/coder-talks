@@ -36,28 +36,28 @@ image::images/account8.png[账户与交易]
 
 [source,text]
 ----
-Assets - Liabilities = Equity                       //<1>
+Assets - Liabilities = Equity //<1>
 ----
 
 权益可以经一步细分为：初始资本（Capital）、收入（Income）和支出（Expenses）三部分。关系如下：
 
 [source,text]
 ----
-Equity = Capital + Income − Expenses                //<2>
+Equity = Capital + Income − Expenses //<2>
 ----
 
 整合一下上面两个公式，我们得到了：
 
 [source,text]
 ----
-Assets - Liabilities = Capital + Income - Expenses  //<3>
+Assets - Liabilities = Capital + Income - Expenses //<3>
 ----
 
 在这个公式里面，我们还是用Equity来表示初始资本（Capital），则公式最终为：
 
 [source#eq4,text]
 ----
-Assets - Liabilities = Equity + Income - Expenses   //<4>
+Assets - Liabilities = Equity + Income - Expenses //<4>
 ----
 
 到这一步的时候，上面4个公式都很直观，符合会计知识的，也比较符合现实情况。从记账的角度，公式4可以包含企业（包括）的所有的重要信息。所以这也是会计中账户的5个类型，不多也不少，交易账户必然属于其一。
@@ -105,7 +105,7 @@ Assets - Liabilities = Equity + Income - Expenses   //<4>
 
 [source#eq5,text]
 ----
-Assets + （-Liabilities） + （-Equity） + （-Income） + Expenses = 0  //<5>
+Assets + （-Liabilities） + （-Equity） + （-Income） + Expenses = 0 //<5>
 ----
 
 令：
@@ -121,7 +121,7 @@ Income = -Income
 
 [source#eq6,text]
 ----
-Assets + Liabilities + Equity + Income + Expenses = 0          //<6>
+Assets + Liabilities + Equity + Income + Expenses = 0 //<6>
 ----
 
 这个和前面<<复式记账>>中用有向图的方式得出的结论是一样的：所有账户余额之和为0。对应到有向图中，就是负债（Liabilities），权益（Equity），收入（Income）这3种类型的账户余额是**负数**，而资产（Asserts）和支出（Expenses）这2种类型的账户余额是**正数**。这样就能统一为流出（来源）就从出账户的余额减去交易额，流入（目的）就将入账户的余额增加交易额。不用使用『借记』和『贷记』，非常好记账。这也是beancount再用的记账方式。后面再介绍beancount的使用。
@@ -140,8 +140,8 @@ Assets + Liabilities + Equity + Income + Expenses = 0          //<6>
 
 |===
 |B/D|正数|负数|报表
-|更关注 *余额*|资产（Assets）|负债（Liabilities）|资产负债表
-|更关注 *差额*|支出（Expenses）|收入（Income）|损益表
+|更关注**余额**|资产（Assets）|负债（Liabilities）|资产负债表
+|更关注**差额**|支出（Expenses）|收入（Income）|损益表
 |===
 
 === 位置与目的

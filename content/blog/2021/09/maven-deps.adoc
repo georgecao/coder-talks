@@ -8,7 +8,7 @@
 :idprefix:
 :graphvizdot: /usr/local/bin/dot
 
-根据 https://www.jrebel.com/resources/java-developer-productivity-report-2021[JRebel 2021 Java Developer Productivity Report] ，Java项目构建工具中第一名的Maven占了67%，第二名的Gradle是20%。所以理解和掌握Maven是非常必要的。
+根据[.underline]##https://www.jrebel.com/resources/java-developer-productivity-report-2021[JRebel 2021 Java Developer Productivity Report]## ，Java项目构建工具中第一名的Maven占了67%，第二名的Gradle是20%。所以理解和掌握Maven是非常必要的。
 
 现在稍微大一点的Java项目都会涉及到bom和module，然后经过在pom.xml中的parent和dependency节点的组合之后，很方便的管理了。 不过也很容易造成模块或者依赖类库版本的冲突。而且这种问题一般编译期间不容易发现，到了运行期间就会出这种依赖的问题。遇到依赖的类库不符合预期的时候，我们一般就会问2个问题：
 

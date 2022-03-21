@@ -21,7 +21,7 @@ JSON是一个数据，也就是值(Value)，弱类型的。它的基本数据类
 
 == 类型推导
 
-JSON是一个数据，从 https://www.json.org/json-en.html[JSON.org] 能知道它只有以下数据：
+JSON是一个数据，从[.underline]##https://www.json.org/json-en.html[JSON.org]## 能知道它只有以下数据：
 
 * 数组
 * 对象(Key-Value)
@@ -126,7 +126,7 @@ API返回的JSON基本上都是API开发者定义好的，给啥就是啥。 所
 
 == 可配置点
 
-* [ ] 数值类型是否使用 `byte` 或者 `short`， 可以仅仅使用 `Integer`，`Long` 或者 `Float`，`Double`。
+* [ ] 数值类型是否使用``byte``或者``short``， 可以仅仅使用``Integer``，`Long` 或者``Float``，`Double`。
 * [*] Raw JSON解析。也就是String的值其实是一个JSON字符串，可以进一步的解析对象
 * [*] 支持Jackson注解
 * [ ] 生成Jackson反序列化代码
@@ -159,11 +159,11 @@ java -jar json2bean-standalone-0.17-SNAPSHOT.jar
 
 [source,bash]
 ----
-usage: json2 <command> [ <args> ]                   //<1>
+usage: json2 <command> [ <args> ] //<1>
 
 Commands are:
-    bean    Convert JSON to POJO.                   //<2>
-    help    Display help information                //<3>
+    bean    Convert JSON to POJO. //<2>
+    help    Display help information //<3>
     proto   Translate JSON to Protobuf Schema. TBD. //<4>
 
 See 'json2 help <command>' for more information on a specific command.
