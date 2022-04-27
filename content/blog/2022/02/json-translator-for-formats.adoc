@@ -159,20 +159,28 @@ java -jar json2bean-standalone-0.17-SNAPSHOT.jar
 
 [source,bash]
 ----
-usage: json2 <command> [ <args> ] //<1>
+usage: json2 <command> [ <args> ] #<1>
 
 Commands are:
-    bean    Convert JSON to POJO. //<2>
-    help    Display help information //<3>
-    proto   Translate JSON to Protobuf Schema. TBD. //<4>
+    all      Convert JSON to all supported targets in one run. #<2>
+    avro     Translate JSON to Apache Avro schema. #<3>
+    bean     Convert JSON to Java POJO. #<4>
+    go       Translate JSON to golang struct. #<5>
+    help     Display help information #<6>
+    proto    Translate JSON to Protobuf Schema. #<7>
+    thrift   Translate JSON to Thrift IDL. #<8>
 
 See 'json2 help <command>' for more information on a specific command.
 ----
 
 <1> json2 可以在命令行设置一个``alias json2="java -jar json2bean-standalone-0.17-SNAPSHOT.jar"``。 这里面的Java环境和Jar包的路径需要根据自身情况修改一下。
-<2> bean命令，生成POJO。
-<3> help命令，默认打印帮助信息。
-<4> proto命令，生成Protobuf Schema。筹划中。。。
+<2> all命令，一次性生成所有支持的格式，效果相当于分别执行不同的命令。
+<3> avro命令，生成Apache Avro Schema。
+<4> bean命令，生成POJO。
+<5> go命令，生成Golang struct。
+<6> help命令，默认打印帮助信息。
+<7> proto命令，生成Protobuf Schema。
+<8> thrift命令，生成Thrift IDL。
 
 === Maven插件
 
