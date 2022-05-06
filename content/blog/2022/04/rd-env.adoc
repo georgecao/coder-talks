@@ -3,7 +3,7 @@
 2022-04-24
 :icons: font
 :jbake-type: post
-:jbake-status: published
+:jbake-status: draft
 :jbake-tags: 研发环境,协作,云原生,虚拟化,容器化,资源隔离
 :idprefix:
 
