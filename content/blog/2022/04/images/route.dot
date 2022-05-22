@@ -1,0 +1,46 @@
+digraph Route {
+    rankdir = "LR";
+    node [shape = box];
+    sa [label = "服务A"];
+    sb [label = "服务B"];
+    sc [label = "服务C"];
+
+    qa [label = "测试"];
+    dev [label = "开发"];
+    dev2 [label = "开发"];
+    dev3 [label = "开发"];
+
+    f0 [label = "功能0"];
+    f1 [label = "功能1"];
+    f2 [label = "功能2"];
+    f3 [label = "功能3"];
+
+    {
+    edge [color = red];
+    qa -> f0 -> sa -> sb -> sc;
+    }
+    {
+    edge [color = gray];
+    dev -> f1 -> sa -> sb_v1 -> sc;
+    }
+    {
+    edge [color = green];
+    dev2 -> f2 -> sa_v1 -> sb -> sc_v1;
+    }
+    {
+    edge [color = blue];
+    dev3 -> f3 -> sa_v2 -> sb -> sc_v1;
+    }
+
+    subgraph roles {
+    rank = "source"
+    qa -> dev -> dev2 -> dev3
+    }
+    subgraph features {
+    rank = "same";
+    f0 -> f1 -> f2 -> f3;
+    }
+    {rank = "same"; sa -> sa_v1 -> sa_v2 -> sa_v3}
+    {rank = "same"; sb -> sb_v1 -> sb_v2 -> sb_v3}
+    {rank = "same"; sc -> sc_v1 -> sc_v2 -> sc_v3}
+}
