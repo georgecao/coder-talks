@@ -64,6 +64,8 @@ pom.xml中声明parent节点之后，就是当前项目pom会继承指定的pare
 mvn help:effective-pom
 ----
 
+事实上，Maven还允许精细化控制这个拷贝合并的继承机制，更多细节参见Maven**https://maven.apache.org/pom.html#Plugins[POM Reference]**
+
 == 传递依赖(Transitive Dependencies)
 
 传递依赖是说当前项目能够自动的把它依赖的类库的依赖引入过来。这样就省去了当前项目重复的逐个申明依赖的类库。
@@ -133,7 +135,6 @@ image::images/deps-version-tree.svg[项目A的依赖树]
 
 按照这个优先级，如果你发现有依赖的版本不符合预期，则可以通过这个优先级顺序在合适的地方直接申明想要的依赖就可以了。常见的我们就会直接在当前项目的pom.xml中直接申明一下需要使用的版本就可以了。
 
-
 这个优先级以及顺序，也是构建依赖树的优先级和顺序。
 
 == 常用排查命令
@@ -159,7 +160,6 @@ mvn dependency:analyze
 == 结论
 
 整个Maven依赖管理以当前项目为中心分为2部分，当前项目以上部分适用继承合并pom.xml，当前项目以下的依赖部分适用传递依赖与最短申明距离的依赖协调机制。
-
 
 .Maven项目树
 image::images/deps-tree.svg[项目树]
