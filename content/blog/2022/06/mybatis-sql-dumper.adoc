@@ -80,7 +80,7 @@ select * from ${tableName} where deleted = 0 <1>
 
 MyBatis集成了Ognl表达式的解析，解析完之后同样也是一个表达式语法树(AST)，而且是带有操作符的语法树。Ognl表达式中的操作大部分情况下最多是2个操作数，所以这个语法树也可以是一颗二叉树。
 
-image::images/exp-tree.png[表达式树]
+image::images/exp-tree.svg[表达式树]
 
 === 表达式求值
 
@@ -101,4 +101,3 @@ image::images/exp-tree.png[表达式树]
 == 参考
 
 * JSqlParser, https://github.com/JSQLParser/JSqlParser[JSqlParser]
-* Stackoverflow, Lasse V. Karlsen, https://stackoverflow.com/a/423905/521996

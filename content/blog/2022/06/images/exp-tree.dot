@@ -1,0 +1,27 @@
+digraph ExpTree {
+    divide [label = "/"];
+    add [label = "+"];
+    subtract [label = "-"];
+    subtract2 [label = "-"];
+    multiply [label = "*"];
+    multiply2 [label = "*"];
+    exp [label = "^"];
+    exp2 [label = "^"];
+    op1 [label = "${count}" shape = "rect"];
+    op2 [label = "${num}" shape = "rect"];
+    op3 [label = "${price}" shape = "rect"];
+    op4 [label = "${weight}" shape = "rect"];
+    n2 [label = "2"  shape = "rect"];
+    n3 [label = "3"  shape = "rect"];
+    n4 [label = "4"  shape = "rect"];
+    n5 [label = "5"  shape = "rect"];
+    n7 [label = "7"  shape = "rect"];
+    divide -> {add subtract};
+    add -> {subtract2 exp};
+    subtract2 -> {exp2 multiply}
+    exp2 -> {op1 n2}
+    multiply -> {multiply2 op2}
+    multiply2 -> {n4 op3}
+    subtract -> {n3 n5}
+    exp -> {op4 n7};
+}
