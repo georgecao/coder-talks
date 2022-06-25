@@ -1,0 +1,10 @@
+= 如何发布类库到OSS仓库
+乔治 <matrix3456@gmail.com>
+2022-07-18
+:icons: font
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: github,开源,仓库,Maven,OSS
+:idprefix:
+:toc:
+
