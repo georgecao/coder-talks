@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh_CN">
-  <head>
+<head>
     <meta charset="utf-8"/>
     <title><#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>REPLoop</#if></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="${content.author!config.site_author}">
-    <meta name="keywords" content="<#if (content.tags)??>${content.tags?join(',')}<#else >${config.site_keywords?join(',')}</#if>">
+    <meta name="keywords"
+          content="<#if (content.tags)??>${content.tags?join(',')}<#else >${config.site_keywords?join(',')}</#if>">
     <meta name="generator" content="JBake ${version}">
     <meta property=og:locale content=zh_CN>
     <#if tag??>
         <meta name="robots" content="noindex">
     </#if>
+    <meta property="og:title"
+          content="<#if (content.title)??><#escape x as x?xml>${content.title}</#escape><#else>REPLoop</#if>"/>
+    <#if (content.uri)??>
+    <meta property="og:url" content="${config.site_host}/${content.uri}"/>
+    </#if>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="<#if (content.rootpath)??>${content.rootpath}<#else></#if>img/favicon.svg"/>
     <!-- Le styles -->
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/bootstrap.min.css" rel="stylesheet">
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.css" rel="stylesheet">
@@ -19,7 +27,7 @@
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/html5shiv.min.js"></script>
+    <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -29,9 +37,10 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>img/favicon.svg">
     <#if (content.uri)??>
-      <link rel="canonical" href="${config.site_host}/${content.uri}" />
+        <link rel="canonical" href="${config.site_host}/${content.uri}"/>
     </#if>
-    <script data-ad-client="ca-pub-2350040335860411" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  </head>
-  <body onload="prettyPrint()">
+    <script data-ad-client="ca-pub-2350040335860411" async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+<body onload="prettyPrint()">
     <div id="wrap">
