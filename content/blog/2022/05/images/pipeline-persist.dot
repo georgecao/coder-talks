@@ -1,0 +1,37 @@
+digraph Pipeline {
+    coding [label = "编码"];
+    configuring [label = "配置"];
+    packaging [label = "打包"];
+    imaging [label = "构建"];
+    deploying [label = "部署"];
+
+    env [label = "环境" shape = "rect"];
+    code_repo [label = "代码仓库" shape = "rect"];
+    config [label = "配置中心" shape = "rect"];
+    maven_repo [label = "Maven仓库" shape = "rect"];
+    image_registry [label = "镜像注册中心" shape = "rect"];
+    server [label = "运行环境" shape = "rect"];
+    coding -> code_repo;
+    configuring -> config;
+    packaging -> maven_repo;
+    imaging -> image_registry;
+    deploying -> server;
+    {rank = same; env}
+    env -> packaging [style = "dashed"];
+    env -> imaging [style = "dashed"];
+    env -> configuring [style = "dashed"];
+    env -> deploying [style = "dashed"];
+
+    {rank = same; coding; configuring; packaging; imaging; deploying}
+    {rank = same; code_repo; config; maven_repo; image_registry; server}
+    coding -> packaging [style = "dashed"];
+    configuring -> packaging [style = "dashed"];
+    packaging -> imaging [style = "dashed"];
+    imaging -> deploying [style = "dashed"];
+
+
+    code_repo -> packaging;
+    maven_repo -> imaging;
+    image_registry -> deploying;
+    config -> server;
+}
