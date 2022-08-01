@@ -1,0 +1,27 @@
+digraph Pipeline {
+
+    // Role
+
+    code [label = "代码"];
+    repo [label = "仓库"];
+    repo_spec [label = "仓库"];
+    repo_image [label = "仓库"];
+    env_local [label = "本地环境"];
+    env_dev [label = "开发环境"];
+    env_test [label = "测试环境"];
+    env_beta [label = "预发环境"];
+    env_prod [label = "生产环境"];
+    config [label = "配置"];
+
+    // Action
+    coding [label = "编码"];
+    configuring [label = "配置"];
+    packaging [label = "打包"];
+    imaging [label = "构建"];
+    deploying [label = "部署"];
+    serving [label = "服务"];
+
+
+    coding -> packaging -> imaging -> deploying -> serving;
+    configuring -> serving;
+}
