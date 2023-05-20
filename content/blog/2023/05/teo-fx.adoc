@@ -1,0 +1,77 @@
+= 股票外汇术语歪解
+乔治 <matrix3456@gmail.com>
+2022-06-24
+:icons: font
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: 合约,点差,手数,交易
+:idprefix:
+
+股票外汇市场基本操作就是买卖，通过价差来赚取利润。这倒是有点像朴素的生意，你以一定的价格买入一定数量的商品，然后以高于买入价卖出相同数量的商品，你就有盈余；如果以低于买入价卖出同样数量的商品，你就有亏损。价格(Price)和数量(Quantity)是比较关键的两个参数。
+
+== 基本公式
+
+买入：
+
+[source#eq1,text]
+----
+Expense = Product * Buy Price * Quantity //<1>
+----
+
+卖出：
+
+[source#eq2,text]
+----
+Income = Product * Sell Price * Quantity //<2>
+----
+
+利润(盈余或者亏损)：
+
+[source#eq3,text]
+----
+Profit = Income - Expense = Product * Quantity * (Sell Price - Buy Price) //<3>
+----
+
+当商品单价特别低的时候，低到比如$0.00001的时候， 你$1可以买10,000个商品，你用$100可以买1,000,000个商品，也就是1百万。假如这个商品是矿泉水，你会到楼下的小卖部丢100块说老板给我来1百万瓶矿泉水吗？你大概率会说来一箱等。
+
+然后这里面隐含了一个习惯：特别小的数和特别大的数都不适用于日常使用，所以碰到此类数字，基本上都是创造适当的纲量将**小的数往大了说，大的数往小了说**。
+
+== 数量
+
+先说数量，当价格便宜的时候，往往就不会论个来购买了，而经常是批量购买，比如一斤，一项，一袋等，这个就把相对比较大的数量变小了。对于股票外汇，典型的就是一手。
+
+手数(lots)，常见的一手代码100；如一手IQ的股票就是100股IQ。
+
+[source,text]
+----
+Quantity = Lots * 100
+Lots = Quantity / 100
+----
+
+这时候的公式可以转化为：
+
+[source#eq4,text]
+----
+Profit = Income - Expense = Product * Lots * 100 * (Sell Price - Buy Price) //<4>
+----
+
+== 价格
+
+再说价格，如果最常用的货币是1块钱，然后假如某种商品的单价是几分几钱几厘的时候，你会怎么报价？0.001元？假如还便宜呢，没有货币单位来直接表述了，比如十分之一厘，0.0001元？ 比好说，不好算，那我们就想办法把相对较小的数量变大。对于外汇，典型的就是Contract Size。
+
+合约(Contract Size)，价格放大的倍数，比如外汇市场上常见的Contract Size就是10000。假设我们先把放大之后的价格叫做Virtual Price，则：
+
+[source,text]
+----
+Virtual Price = Price * Contract Size
+Price = Virtual Price / Contract Size
+----
+
+这时候的公式可以转化为：
+
+[source#eq5,text]
+----
+Profit = Income - Expense = Product * Lots * 100 * (Sell Virtual Price - Buy Virtual Price) / Contract Size //<5>
+----
+
+=== 价差
