@@ -73,5 +73,5 @@ Price = Virtual Price / Contract Size
 ----
 Profit = Income - Expense = Product * Lots * 100 * (Sell Virtual Price - Buy Virtual Price) / Contract Size //<5>
 ----
-
+Virtual Price
 === 价差
