@@ -40,6 +40,8 @@ Profit = Income - Expense = Product * Quantity * (Sell Price - Buy Price) //<3>
 
 先说数量，当价格便宜的时候，往往就不会论个来购买了，而经常是批量购买，比如一斤，一项，一袋等，这个就把相对比较大的数量变小了。对于股票外汇，典型的就是一手。
 
+=== 手数(lots)
+
 手数(lots)，常见的一手代码100；如一手IQ的股票就是100股IQ。
 
 [source,text]
@@ -53,6 +55,18 @@ Lots = Quantity / 100
 [source#eq4,text]
 ----
 Profit = Income - Expense = Product * Lots * 100 * (Sell Price - Buy Price) //<4>
+----
+
+=== Volume
+
+Volume in forex is the number of lots traded in a currency pair within a certain time period.
+In other words, the amount of currency bought and sold.
+Volume on its own means very little, but in the context of price action and momentum, it can tell us whether trends are likely to continue or not.
+
+[source,text]
+----
+Volume = n * Lots
+Quantity = Volume * 100
 ----
 
 == 价格
@@ -73,5 +87,8 @@ Price = Virtual Price / Contract Size
 ----
 Profit = Income - Expense = Product * Lots * 100 * (Sell Virtual Price - Buy Virtual Price) / Contract Size //<5>
 ----
-Virtual Price
+
 === 价差
+
+1. 23
+2. 3i
