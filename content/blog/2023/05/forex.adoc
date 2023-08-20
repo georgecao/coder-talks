@@ -1,0 +1,135 @@
+= 股票外汇术语歪解
+乔治 <matrix3456@gmail.com>
+2022-06-24
+:icons: font
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: 合约,点差,手数,交易
+:idprefix:
+
+股票外汇市场基本操作就是买卖，通过价差来赚取利润。从这里看道是有点像朴素的生意，你以一定的价格买入一定数量的商品，然后以高于买入价卖出相同数量的商品，你就有盈余；如果以低于买入价卖出同样数量的商品，你就有亏损。这里面有三个关键的参数：商品(Product)、价格(Price)和数量(Quantity)。
+
+先从好理解的朴素的商品买卖开始，先摆出基本公式。
+
+== 基本公式
+
+买入：
+
+[source#eq1,text]
+----
+Expense = Product * Buy Price * Quantity //<1>
+----
+
+卖出：
+
+[source#eq2,text]
+----
+Income = Product * Sell Price * Quantity //<2>
+----
+
+利润(盈余或者亏损)：
+
+[source#eq3,text]
+----
+Profit = Income - Expense = Product * Quantity * (Sell Price - Buy Price) //<3>
+----
+
+== 商品
+
+买花、饮料、买车以及买房等我们都能买得到实实在在的商品，买个电影票、雇个保洁、请个家教等随说没食物商品，但是也实实在在享受了服务；买个股票实际上也是有一个凭证的，代表了一份权利；那么外汇交易的商品或者标的物是什么呢？
+
+是货币，比如美元(USD),人民币(RMB)。只不过这个一般都是通过一种货币去买另外一个货币，实际上就是兑换，所以总是以货币对的形式出现。背后的实际意义是卖出一种货币，买入另一种货币。怎么变成生意呢？
+
+当商品单价特别低的时候，低到比如$0.00001的时候， 你$1可以买10,000个商品，你用$100可以买1,000,000个商品，也就是1百万。假如这个商品是矿泉水，你会到楼下的小卖部丢100块说老板给我来1百万瓶矿泉水吗？你大概率会说来一箱等。
+
+然后这里面隐含了一个习惯：特别小的数和特别大的数都不适用于日常使用，所以碰到此类数字，基本上都是创造适当的纲量将**小的数往大了说，大的数往小了说**。
+
+== 数量
+
+先说数量，当价格便宜的时候，往往就不会论个来购买了，而经常是批量购买，比如一斤，一项，一袋等，这个就把相对比较大的数量变小了。对于股票外汇，典型的就是一手。
+
+=== 手数(lots)
+
+手数(lots)，常见的一手代码100；如一手IQ的股票就是100股IQ。
+
+[source,text]
+----
+Quantity = Lots * 100
+Lots = Quantity / 100
+----
+
+这时候的公式可以转化为：
+
+[source#eq4,text]
+----
+Profit = Income - Expense = Product * Lots * 100 * (Sell Price - Buy Price) //<4>
+----
+
+=== Volume
+
+Volume in forex is the number of lots traded in a currency pair within a certain time period.
+In other words, the amount of currency bought and sold.
+Volume on its own means very little, but in the context of price action and momentum, it can tell us whether trends are likely to continue or not.
+
+[source,text]
+----
+Volume = n * Lots
+Quantity = Volume * 100
+----
+
+== 价格
+
+=== 绝对价格
+
+=== 相对价格
+
+再说价格，如果最常用的货币是1块钱，然后假如某种商品的单价是几分几钱几厘的时候，你会怎么报价？0.001元？假如还便宜呢，没有货币单位来直接表述了，比如十分之一厘，0.0001元？ 比好说，不好算，那我们就想办法把相对较小的数量变大。对于外汇，典型的就是Contract Size。
+
+合约(Contract Size)，价格放大的倍数，比如外汇市场上常见的Contract Size就是10000。假设我们先把放大之后的价格叫做Virtual Price，则：
+
+[source,text]
+----
+Virtual Price = Price * Contract Size
+Price = Virtual Price / Contract Size
+----
+
+这时候的公式可以转化为：
+
+[source#eq5,text]
+----
+Profit = Income - Expense = Product * Lots * 100 * (Sell Virtual Price - Buy Virtual Price) / Contract Size //<5>
+----
+
+=== 价差
+
+1. 23
+2. 3i
+
+相对的一个无单位的比值最后转化为一个有货币单位的绝对值，比如本金，盈利和亏损等。
+
+Rate：汇率，货币兑换的比值，Rate = C1/C2; C1 = C2 * Rate，这是一个比值，是个纯数，无单位；
+
+Point: 点，用来描绘汇率的变化的差值，比如汇率USD/CNY=7.17030变为7.17040，变化为：0.0001。这里面没有时间的纬度，所有变化也就是一个差值，是个纯数，无单位。0.0001是一个绝对值，为了把它转化为point，还需要借助另一个概念point size。
+
+Point Size： 描述的单位Point所代表的大小。也就是1个point代表多大的差值。外汇行业绝大部分的point size是0.00001， 所以上面的差值0.0001可以转化为0.0001/0.00001=10， 也就是10 points。
+
+pip: percentage in point,
+
+Pip size: 1233232;
+
+bid: 买家买入最高价格（汇率） ask: 卖家卖出最低价格（汇率）
+
+这里分了买家和卖家不同的人的视角的价格。涉及到了2方，就是一个人买，另一人卖；或者一个人卖，另一个人买。
+
+spread：点差，spread=aks-bid。上面说了point是用来描述差值的，而spread直接定义就是ask-bid这个差值，所以可以转化为point为单位来描述spread。这里行业内一般1个spread=10 points，可以看出spread也不是ask-bid的绝对值直接表示，是通过point间接的表示的。
+
+Contract Size: 合约大小
+
+以外汇交易举例，1标准手的欧元/美元，也就是100000欧元的合约，1迷你手的英镑/美元就是10,000英镑的合约。
+
+== 参考
+
+1. https://www.babypips.com/learn/forex/what-is-a-spread-in-forex-trading
+2. What Is a Direct Quote?
+Definition in Currency and Formula, https://www.investopedia.com/terms/d/directquote.asp
+3. 合约大小如何理解?, https://www.zfx.com/zh-hans/academy/contract-sizes/
