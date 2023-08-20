@@ -1,0 +1,9 @@
+= 服务开发的几个原则
+乔治 <matrix3456@gmail.com>
+2022-05-17
+:icons: font
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: 微服务,持续集成,持续部署,构建,研发环境,分布式配置中心
+:idprefix:
+
