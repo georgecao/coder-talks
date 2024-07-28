@@ -1,0 +1,11 @@
+digraph sso {
+    node [shape = rect]
+    site_sso [label = "SSO Site"]
+    site_a [label = "Site A"]
+    site_b [label = "Site B"]
+    user [label = "User", shape = circle]
+
+    user -> site_a -> site_sso -> site_a
+    user -> site_b -> site_sso -> site_b
+
+}
