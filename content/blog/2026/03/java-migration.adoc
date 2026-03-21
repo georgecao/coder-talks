@@ -1,0 +1,28 @@
+= Java Migration using OpenRewrite
+
+== Refactoring with declarative YAML recipes
+
+YAML是一个大小写敏感，而且空格敏感的格式。比如在OpenRewrite这里的recipe的yaml文件中list前置空格是2个，然后recipe的配置项，也就是list内嵌的mapping的前置空格得是4个，要不然插件解析不出来这个recipe。
+
+[source,text]
+----
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.reploop.ChangeDependencies
+description: Change Dependencies.
+recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.springframework
+      oldArtifactId: spring-support
+      newArtifactId: spring-context-support
+----
+
+rewrite-maven-plugin
+
+将yaml放到单独的资源包中作为插件的依赖，这样插件才能够发现这个recipe，其他方式都不太灵光。
+
+== 参考
+
+* Refactoring with declarative YAML recipes, https://docs.openrewrite.org/running-recipes/popular-recipe-guides/authoring-declarative-yaml-recipes
+
+
