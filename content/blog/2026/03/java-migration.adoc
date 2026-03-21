@@ -1,4 +1,5 @@
 = Java Migration using OpenRewrite
+记得之前的spring boot 2升级的时候，是采用人工手动升级做的。自从知道了OpenRewrite这个项目之后，突然发现很多工作都可以自动化了。另一个就是2026年了，可能AI也值得去探索一下升级这块的作用。
 
 == Refactoring with declarative YAML recipes
 
@@ -20,6 +21,9 @@ recipeList:
 rewrite-maven-plugin
 
 将yaml放到单独的资源包中作为插件的依赖，这样插件才能够发现这个recipe，其他方式都不太灵光。
+
+== 循序渐进
+从spring-boot 2.x升级到4.x的化，建议是循序渐进的升级。先从spring boot 2.x升级到3.0，再到3.5，再到4.0。这样就可以选择不同的recipe，然后每个recipe的计算量都是可控的，能够快速的进行问题修复。
 
 == 参考
 
