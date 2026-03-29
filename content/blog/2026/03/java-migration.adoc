@@ -3,7 +3,7 @@
 
 == Refactoring with declarative YAML recipes
 
-YAML是一个大小写敏感，而且空格敏感的格式。比如在OpenRewrite这里的recipe的yaml文件中list前置空格是2个，然后recipe的配置项，也就是list内嵌的mapping的前置空格得是4个，要不然插件解析不出来这个recipe。
+YAML是一个大小写敏感，而且空格敏感的格式。每个节点必须比其父节点多一点缩进，所有兄弟节点必须使用完全相同的缩进级别。比如在OpenRewrite这里的recipe的yaml文件中list前置空格是2个，然后recipe的配置项，也就是list内嵌的mapping的前置空格得是4个，要不然插件解析不出来这个recipe。
 
 [source,text]
 ----
@@ -20,13 +20,60 @@ recipeList:
 
 rewrite-maven-plugin
 
+[souce,xml]
+----
+            <plugin>
+                <groupId>org.openrewrite.maven</groupId>
+                <artifactId>rewrite-maven-plugin</artifactId>
+                <version>6.34.0</version>
+                <configuration>
+                    <activeRecipes>
+                        <recipe>org.openrewrite.java.spring.boot4.UpgradeSpringBoot_4_0</recipe>
+                        <recipe>org.reploop.ChangeDependencies</recipe>
+                    </activeRecipes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-spring</artifactId>
+                        <version>6.27.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.reploop</groupId>
+                        <artifactId>change-dependency-recipe</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+----
+
 将yaml放到单独的资源包中作为插件的依赖，这样插件才能够发现这个recipe，其他方式都不太灵光。
 
 == 循序渐进
+
 从spring-boot 2.x升级到4.x的化，建议是循序渐进的升级。先从spring boot 2.x升级到3.0，再到3.5，再到4.0。这样就可以选择不同的recipe，然后每个recipe的计算量都是可控的，能够快速的进行问题修复。
+
+== 代码变更
+
+1. Removal of OkHttp clients b/c it's kotlin
+2. MultipartFile does not support commons fileupload
+3. Spring OpenFeign
+
+[source,java]
+----
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
+
+@FunctionalInterface
+public interface SecurityFilterChainCustomizer {
+    void customize(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry);
+}
+
+----
 
 == 参考
 
 * Refactoring with declarative YAML recipes, https://docs.openrewrite.org/running-recipes/popular-recipe-guides/authoring-declarative-yaml-recipes
+* YAML Spec Indentation Spaces, https://yaml.org/spec/1.2.2/#indentation-spaces
 
 
