@@ -1,7 +1,7 @@
 package io.whitepaper.coder.talks;
 
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.Options;
 
 /**
  * Created by george on 21/06/2017.
@@ -9,7 +9,7 @@ import org.asciidoctor.AttributesBuilder;
 public class PdfConverter {
     public static void main(String... args) {
         Asciidoctor doc = Asciidoctor.Factory.create();
-        AttributesBuilder attributes = AttributesBuilder.attributes().backend("pdf");
-        doc.convert("/Users/george/reports/promotion.adoc", attributes.asMap());
+        Options options = Options.builder().build();
+        doc.convert("/Users/george/reports/promotion.adoc", options);
     }
 }

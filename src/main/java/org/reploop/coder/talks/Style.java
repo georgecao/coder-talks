@@ -1,7 +1,7 @@
 package org.reploop.coder.talks;
 
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.OptionsBuilder;
+import org.asciidoctor.Options;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class Style {
         }
 
 
-        String output = asciidoc.convert(sw.toString(), OptionsBuilder.options());
+        String output = asciidoc.convert(sw.toString(), Options.builder().build());
         System.out.println(output);
     }
 }
