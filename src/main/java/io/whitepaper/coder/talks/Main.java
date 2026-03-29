@@ -5,11 +5,8 @@ import com.machinepublishers.jbrowserdriver.Settings;
 import com.machinepublishers.jbrowserdriver.Timezone;
 import com.machinepublishers.jbrowserdriver.UserAgent;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 public class Main {
