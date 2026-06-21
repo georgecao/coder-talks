@@ -55,9 +55,12 @@ rewrite-maven-plugin
 
 == 代码变更
 
+Read https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes
+
 1. Removal of OkHttp clients b/c it's kotlin
 2. MultipartFile does not support commons fileupload
 3. Spring OpenFeign
+4. ```redis.clients.jedis.JedisShardInfo``` should be removed. https://github.com/redis/jedis/discussions/3878
 
 [source,java]
 ----
