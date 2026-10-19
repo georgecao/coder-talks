@@ -1,4 +1,5 @@
 = Java Migration using OpenRewrite
+
 记得之前的spring boot 2升级的时候，是采用人工手动升级做的。自从知道了OpenRewrite这个项目之后，突然发现很多工作都可以自动化了。另一个就是2026年了，可能AI也值得去探索一下升级这块的作用。
 
 == Refactoring with declarative YAML recipes
